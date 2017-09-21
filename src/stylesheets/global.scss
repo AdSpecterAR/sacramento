@@ -3,69 +3,69 @@
 //========
 
 
-// Twitter brand color
-$tw-color-blue-primary: #1DA1F2;
+// brand color
+$color-blue-primary: #1DA1F2;
 
-// Twitter text color
-$tw-color-text-black: #14171A;
-$tw-color-text-link: #2b7bb9; // not updated
+// text color
+$color-text-black: #14171A;
+$color-text-link: #2b7bb9; // not updated
 
-// Twitter gray variants
-$tw-color-gray-dark: #14171A;
-$tw-color-gray-deep: #657786;
-$tw-color-gray-medium: #AAB8C2;
-$tw-color-gray-light: #CCD6DD;
-$tw-color-gray-faded: #E6ECF0;
-$tw-color-gray-faint: #F5F8FA;
+// gray variants
+$color-gray-dark: #14171A;
+$color-gray-deep: #657786;
+$color-gray-medium: #AAB8C2;
+$color-gray-light: #CCD6DD;
+$color-gray-faded: #E6ECF0;
+$color-gray-faint: #F5F8FA;
 
-// Twitter orange variants
-$tw-color-orange-deep: #D82E18;
-$tw-color-orange-medium: #F45D22;
-$tw-color-orange-light: #FF8D57;
-$tw-color-orange-faded: #FFBE78;
+// orange variants
+$color-orange-deep: #D82E18;
+$color-orange-medium: #F45D22;
+$color-orange-light: #FF8D57;
+$color-orange-faded: #FFBE78;
 
-// Twitter yellow variants
-$tw-color-yellow-deep: #F98E00;
-$tw-color-yellow-medium: #FFAD1F;
-$tw-color-yellow-light: #FFD03F;
-$tw-color-yellow-faded: #FFE76E;
+// yellow variants
+$color-yellow-deep: #F98E00;
+$color-yellow-medium: #FFAD1F;
+$color-yellow-light: #FFD03F;
+$color-yellow-faded: #FFE76E;
 
-// Twitter green variants
-$tw-color-green-deep: #008951;
-$tw-color-green-medium: #17BF63;
-$tw-color-green-light: #68E090;
-$tw-color-green-faded: #A5F2AA;
+// green variants
+$color-green-deep: #008951;
+$color-green-medium: #17BF63;
+$color-green-light: #68E090;
+$color-green-faded: #A5F2AA;
 
-// Twitter blue variants
-$tw-color-blue-deep: #005FD1;
-$tw-color-blue-dark: #1B95E0;
-$tw-color-blue-medium: #50a5e6;
-$tw-color-blue-light: #71C9F8;
-$tw-color-blue-faded: #97E3FF;
-$tw-color-blue-faint: #EAF5FD;
+// blue variants
+$color-blue-deep: #005FD1;
+$color-blue-dark: #1B95E0;
+$color-blue-medium: #50a5e6;
+$color-blue-light: #71C9F8;
+$color-blue-faded: #97E3FF;
+$color-blue-faint: #EAF5FD;
 
-// Twitter purple variants
-$tw-color-purple-deep: #4F0299;
-$tw-color-purple-medium: #794BC4;
-$tw-color-purple-light: #A37CED;
-$tw-color-purple-faded: #C7B4FA;
+// purple variants
+$color-purple-deep: #4F0299;
+$color-purple-medium: #794BC4;
+$color-purple-light: #A37CED;
+$color-purple-faded: #C7B4FA;
 
-// Twitter red variants
-$tw-color-red-deep: #A01744;
-$tw-color-red-medium: #E0245E;
-$tw-color-red-light: #F6809A;
-$tw-color-red-faded: #FFB8C2;
+// red variants
+$color-red-deep: #A01744;
+$color-red-medium: #E0245E;
+$color-red-light: #F6809A;
+$color-red-faded: #FFB8C2;
 
 // Primary brand colors
-$brand-danger: $tw-color-red-medium;
-$brand-success: $tw-color-green-medium;
-$brand-warning: $tw-color-yellow-medium;
-$brand-info: $tw-color-blue-dark;
-$brand-primary: $tw-color-blue-deep;
+$brand-danger: $color-red-medium;
+$brand-success: $color-green-medium;
+$brand-warning: $color-yellow-medium;
+$brand-info: $color-blue-dark;
+$brand-primary: $color-blue-deep;
 
 // Text colors (Overrides for Bootstrap 3)
-$text-color: $tw-color-text-black;
-$link-color: $tw-color-text-link;
+$text-color: $color-text-black;
+$link-color: $color-text-link;
 $link-hover-color: darken($link-color, 10);
 
 // Peer
@@ -321,13 +321,13 @@ $body-max-width: 1440px;
 
 
 .autosave-text {
-  color: $tw-color-gray-medium;
+  color: $color-gray-medium;
   display: inline-block;
 }
 
 // override flacto styling
 .inbox-item-text.light {
-  color: $tw-color-gray-medium;
+  color: $color-gray-medium;
   text-overflow: ellipsis;
 }
 
@@ -400,11 +400,11 @@ $body-max-width: 1440px;
 }
 
 .border-top {
-  border-top: 2px solid $tw-color-gray-faded;
+  border-top: 2px solid $color-gray-faded;
 }
 
 .border-bottom {
-  border-bottom: 2px solid $tw-color-gray-faded;
+  border-bottom: 2px solid $color-gray-faded;
 }
 
 .cursor-pointer {
