@@ -1,6 +1,5 @@
 import React, { Component }     from 'react';
 import Dropzone                 from 'react-dropzone'
-import _                        from 'underscore';
 
 
 export default class AdvertiserUploadForm extends Component {
@@ -21,10 +20,21 @@ export default class AdvertiserUploadForm extends Component {
         <div className="row">
           <div className="col-sm-12">
             <div className="btn-group pull-right m-t-5 m-b-20">
-              <button type="button" className="btn btn-info dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Settings <span className="m-l-5"><i className="fa fa-cog"></i></span></button>
+              <button
+                type="button"
+                className="btn btn-info dropdown-toggle waves-effect waves-light"
+              >
+                Settings
+
+                <span className="m-l-5">
+                  <i className="fa fa-cog"></i>
+                </span>
+              </button>
             </div>
 
-            <h2 className="page-title">Upload the images for this campaign</h2>
+            <h2 className="page-title">
+              Upload the images for this campaign
+            </h2>
           </div>
         </div>
 
@@ -32,8 +42,15 @@ export default class AdvertiserUploadForm extends Component {
           <div className="dropzone">
             <Dropzone
               className="text-align-center"
-              style={{border: '2px dashed white', borderRadius: '5px', height: '300px', textAlign: 'center', display: 'flex', justifyContent: 'center'}}
               onDrop={this.onFileDrop}
+              style={{
+                border: '2px dashed white',
+                borderRadius: '5px',
+                height: '300px',
+                textAlign: 'center',
+                display: 'flex',
+                justifyContent: 'center'
+              }}
             >
               <div style={{alignSelf: 'center'}}>
                 <i className="fa fa-cloud-upload"></i>
@@ -46,13 +63,20 @@ export default class AdvertiserUploadForm extends Component {
                   or
                 </div>
 
-                <button type="button" className="btn btn-custom waves-effect waves-light w-md m-b-5">Browse files</button>
+                <button
+                  type="button"
+                  className="btn btn-custom waves-effect waves-light w-md m-b-5"
+                >
+                  Browse files
+                </button>
               </div>
             </Dropzone>
           </div>
 
           <aside className="m-t-25">
-            <h3>Uploaded files</h3>
+            <h3>
+              Uploaded files
+            </h3>
 
             <ul>
               {this.renderUploadedFiles()}
@@ -62,6 +86,11 @@ export default class AdvertiserUploadForm extends Component {
       </div>
     );
   }
+
+
+  //================
+  // RENDER METHODS
+  //================
 
 
   renderUploadedFiles() {
@@ -82,17 +111,15 @@ export default class AdvertiserUploadForm extends Component {
     });
   }
 
+
+  //================
+  // EVENT HANDLERS
+  //================
+
+
   onFileDrop(files) {
     this.setState({
       files
-    });
-  }
-
-  onCreateNewCampaign() {
-    // some API call
-
-    this.setState({
-      files: []
     });
   }
 

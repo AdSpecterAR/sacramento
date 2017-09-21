@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
+    "classnames": "^2.2.5",
     "node-sass-chokidar": "0.0.3",
     "react": "^15.6.1",
     "react-dropzone": "^4.1.3",
