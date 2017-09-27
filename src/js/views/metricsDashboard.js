@@ -53,7 +53,7 @@ export default class MetricsDashboard extends Component {
                   </h1>
 
                   <h5>
-                    Seconds per impression
+                    Secs per impression
                   </h5>
                 </div>
               </div>
