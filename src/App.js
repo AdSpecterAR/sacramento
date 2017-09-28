@@ -6,8 +6,9 @@ import {
 }                                 from 'react-router-dom';
 import Layout                     from './js/views/layout';
 import MetricsDashboard           from './js/views/metricsDashboard';
-import AdvertiserUploadForm       from './js/components/advertiserUploadForm';
-import CampaignsList              from './js/components/campaignsList';
+import AppOnboarding              from './js/components/developer/appOnboarding';
+import AdvertiserUploadForm       from './js/components/advertiser/advertiserUploadForm';
+import CampaignsList              from './js/components/advertiser/campaignsList';
 import './App.css';
 
 
@@ -17,11 +18,13 @@ class App extends Component {
       <Router>
         <Layout>
           <Route exact path="/" component={MetricsDashboard} />
-          <Route path="/campaigns" component={CampaignsList} />
-          <Route path="/campaign/upload" component={AdvertiserUploadForm} />
+          <Route path="/campaigns" component={AdvertiserUploadForm} />
+
+          <Route path="/monetize" component={AppOnboarding} />
+          <Route path="/analyze" component={MetricsDashboard} />
         </Layout>
       </Router>
-  );
+    );
   }
 }
 

@@ -5,35 +5,12 @@ import Classnames               from 'classnames';
 
 export default class SideNavBar extends Component {
 
-  constructor(props) {
-    super(props);
-
-    let navItemsData = [
-      {
-        name: 'Overview',
-        href: '/',
-        iconClassName: 'zmdi zmdi-view-dashboard'
-      },
-      {
-        name: 'Campaigns',
-        href: '/campaigns',
-        iconClassName: 'fa fa-dollar'
-      },
-      {
-        name: 'Upload',
-        href: '/campaign/upload',
-        iconClassName: 'fa fa-plus'
-      }
-    ];
-
-    this.state = {
-      navItemsData
-    };
-  }
-
   render() {
     return (
-      <div className="left side-menu">
+      <div
+        className="left side-menu"
+        style={{position: 'fixed'}}
+      >
         <div
           className="slimScrollDiv"
           style={{
@@ -54,42 +31,10 @@ export default class SideNavBar extends Component {
             <div id="sidebar-menu">
               <ul>
                 <li className="text-muted menu-title">
-                  Your Dashboards
+                  Your dashboards
                 </li>
 
                 {this.renderNavItems()}
-
-                <li className="text-muted menu-title">
-                  More
-                </li>
-
-                <li className="has_sub">
-                  <Link
-                    to="/"
-                    className="waves-effect"
-                  >
-                    <i className="zmdi zmdi-collection-item" />
-
-                    <span className="label label-info pull-right">
-                      8
-                    </span>
-
-                    <span> Pages </span>
-                  </Link>
-                </li>
-
-                <li className="has_sub">
-                  <Link
-                    to="/"
-                    className="waves-effect"
-                  >
-                    <i className="ti-share" />
-
-                    <span> Multi Level </span>
-
-                    <span className="menu-arrow" />
-                  </Link>
-                </li>
               </ul>
 
               <div className="clearfix"></div>
@@ -139,7 +84,7 @@ export default class SideNavBar extends Component {
 
 
   renderNavItems() {
-    return this.state.navItemsData.map((navItem, index) => {
+    return this.props.navItems.map((navItem, index) => {
       return (
         <li
           key={`navItem${index}`}

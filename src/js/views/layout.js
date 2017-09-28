@@ -1,6 +1,8 @@
 import React, { Component }     from 'react';
-import TopNavBar                   from '../components/topNavBar';
+import TopNavBar                from '../components/topNavBar';
 import SideNavBar               from '../components/sideNavBar';
+import DeveloperSideNavBar      from '../components/developer/developerSideNavBar';
+//import AdvertiserSideNavBar               from '../components/advertiser/advertiserSideNavBar';
 
 
 export default class Layout extends Component {
@@ -18,7 +20,7 @@ export default class Layout extends Component {
       <div>
         <TopNavBar />
 
-        <SideNavBar />
+        <DeveloperSideNavBar />
 
         <div className="content-page">
           <div className="content">
