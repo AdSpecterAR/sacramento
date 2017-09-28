@@ -7,7 +7,10 @@ export default class SideNavBar extends Component {
 
   render() {
     return (
-      <div className="left side-menu">
+      <div
+        className="left side-menu"
+        style={{position: 'fixed'}}
+      >
         <div
           className="slimScrollDiv"
           style={{
@@ -28,7 +31,7 @@ export default class SideNavBar extends Component {
             <div id="sidebar-menu">
               <ul>
                 <li className="text-muted menu-title">
-                  Menu
+                  Your dashboards
                 </li>
 
                 {this.renderNavItems()}

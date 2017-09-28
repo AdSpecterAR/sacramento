@@ -1,5 +1,7 @@
 import React, { Component }     from 'react';
-import Dropzone                 from 'react-dropzone'
+import Dropzone                 from 'react-dropzone';
+import Modal                    from '../../services/modal';
+import Toast                    from '../../../icons/toast';
 
 
 export default class AdvertiserUploadForm extends Component {
@@ -8,10 +10,13 @@ export default class AdvertiserUploadForm extends Component {
     super(props);
 
     this.state = {
-      files: []
+      files: [],
+      shouldShowToast: false
     };
 
     this.onFileDrop = this.onFileDrop.bind(this);
+    this.onSubmitFiles = this.onSubmitFiles.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
   }
 
   render() {
@@ -27,7 +32,7 @@ export default class AdvertiserUploadForm extends Component {
                 Settings
 
                 <span className="m-l-5">
-                  <i className="fa fa-cog"></i>
+                  <i className="fa fa-cog" />
                 </span>
               </button>
             </div>
@@ -53,7 +58,7 @@ export default class AdvertiserUploadForm extends Component {
               }}
             >
               <div style={{alignSelf: 'center'}}>
-                <i className="fa fa-cloud-upload"></i>
+                <i className="fa fa-cloud-upload" />
 
                 <p className="m-t-15">
                   Try dropping some files here, or click to select files to upload.
@@ -82,7 +87,28 @@ export default class AdvertiserUploadForm extends Component {
               {this.renderUploadedFiles()}
             </ul>
           </aside>
+
+          <button
+            onClick={this.onSubmitFiles}
+            type="button"
+            className="btn btn-custom waves-effect waves-light w-md m-b-5"
+          >
+            Submit files
+          </button>
         </section>
+
+        <Modal
+          showModal={this.state.shouldShowToast}
+          showCloseButton={true}
+          onCloseCallback={this.onCloseModal}
+        >
+          <div
+            className="card-box white"
+            style={{minHeight: '400px'}}
+          >
+            <Toast onClickToastButton={this.onCloseModal} />
+          </div>
+        </Modal>
       </div>
     );
   }
@@ -95,10 +121,17 @@ export default class AdvertiserUploadForm extends Component {
 
   renderUploadedFiles() {
     return this.state.files.map((file) => {
-      if (file.type === 'image/jpeg') {
+      if (file.type === 'image/png') {
         return (
-          <li key={file.name} className="adjacent m-r-20 m-b-20">
-            <img src={file.preview} style={{maxWidth: '250px'}} alt=""/>
+          <li
+            key={file.name}
+            className="adjacent m-r-20 m-b-20"
+          >
+            <img
+              src={file.preview}
+              style={{maxWidth: '250px'}}
+              alt=""
+            />
           </li>
         );
       } else {
@@ -123,4 +156,15 @@ export default class AdvertiserUploadForm extends Component {
     });
   }
 
+  onSubmitFiles() {
+    this.setState({
+      shouldShowToast: true
+    });
+  }
+
+  onCloseModal() {
+    this.setState({
+      shouldShowToast: false
+    });
+  }
 }

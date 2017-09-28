@@ -9,6 +9,11 @@ export default class DeveloperSideNavBar extends Component {
 
     let navItems = [
       {
+        name: 'Home',
+        href: '/',
+        iconClassName: 'fa fa-home'
+      },
+      {
         name: 'Monetize',
         href: '/monetize',
         iconClassName: 'fa fa-dollar'
@@ -16,12 +21,17 @@ export default class DeveloperSideNavBar extends Component {
       {
         name: 'Campaigns',
         href: '/campaigns',
-        iconClassName: 'fa fa-dollar'
+        iconClassName: 'fa fa-globe'
       },
       {
-        name: 'Upload',
-        href: '/campaign/upload',
-        iconClassName: 'fa fa-plus'
+        name: 'Analyze',
+        href: '/analyze',
+        iconClassName: 'fa fa-line-chart'
+      },
+      {
+        name: 'Settings',
+        href: '/settings',
+        iconClassName: 'fa fa-cog'
       }
     ];
 

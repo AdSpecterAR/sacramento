@@ -9,17 +9,27 @@ export default class AdvertiserSideNavBar extends Component {
 
     let navItems = [
       {
-        name: 'Overview',
+        name: 'Home',
         href: '/',
         iconClassName: 'zmdi zmdi-view-dashboard'
       },
       {
-        name: 'Campaigns',
-        href: '/campaigns',
+        name: 'Monetize',
+        href: '/monetize',
         iconClassName: 'fa fa-dollar'
       },
       {
-        name: 'Upload',
+        name: 'Campaigns',
+        href: '/campaign/upload',
+        iconClassName: 'fa fa-plus'
+      },
+      {
+        name: 'Campaigns',
+        href: '/campaign/upload',
+        iconClassName: 'fa fa-plus'
+      },
+      {
+        name: 'Campaigns',
         href: '/campaign/upload',
         iconClassName: 'fa fa-plus'
       }

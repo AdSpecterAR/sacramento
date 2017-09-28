@@ -18,10 +18,10 @@ export default class MetricsDashboard extends Component {
 
   render() {
     return (
-      <div className="row">
+      <div>
         <h2>Campaign performance this week</h2>
 
-        <div style={{marginTop: '40px'}}>
+        <div className="row" style={{marginTop: '40px'}}>
           <div style={{display: 'inline-block', width: '23%'}} className="col-lg-3 col-md-6">
             <div className="card-box widget-user bg-info border-info">
               <div className="flexbox align-items-center justify-space-between">

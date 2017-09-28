@@ -18,10 +18,10 @@ class App extends Component {
       <Router>
         <Layout>
           <Route exact path="/" component={MetricsDashboard} />
-          <Route path="/campaigns" component={CampaignsList} />
-          <Route path="/campaign/upload" component={AdvertiserUploadForm} />
+          <Route path="/campaigns" component={AdvertiserUploadForm} />
 
           <Route path="/monetize" component={AppOnboarding} />
+          <Route path="/analyze" component={MetricsDashboard} />
         </Layout>
       </Router>
     );

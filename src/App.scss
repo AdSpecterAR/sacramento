@@ -1,9 +1,12 @@
-@import "stylesheets/global.scss";
 @import "stylesheets/bootstrap.min.css";
+@import "stylesheets/modal.scss";
+@import "stylesheets/global.scss";
 @import "stylesheets/flacto/components.css";
 @import "stylesheets/flacto/core.css";
 @import "stylesheets/flacto/icons.css";
 @import "stylesheets/flacto/menu.css";
 @import "stylesheets/flacto/pages.css";
 @import "stylesheets/flacto/responsive.css";
+@import "stylesheets/flacto/sweet-alert.scss";
 @import "stylesheets/flacto/variables.css";
+@import "stylesheets/override.scss";
