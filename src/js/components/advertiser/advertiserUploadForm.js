@@ -22,80 +22,148 @@ export default class AdvertiserUploadForm extends Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="col-sm-12">
-            <div className="btn-group pull-right m-t-5 m-b-20">
-              <button
-                type="button"
-                className="btn btn-info dropdown-toggle waves-effect waves-light"
-              >
-                Settings
+        <h2>
+          Start a new campaign
+        </h2>
 
-                <span className="m-l-5">
-                  <i className="fa fa-cog" />
-                </span>
-              </button>
-            </div>
+        <div className="row m-t-25">
+          <div className="col-sm-8 card-box">
+            <form
+              className="form-horizontal m-t-20"
+              role="form"
+            >
+              <div className="form-group">
+                <label className="col-md-3 control-label">
+                  Campaign Name
+                </label>
 
-            <h2 className="page-title">
-              Upload the images for this campaign
-            </h2>
+                <div className="col-md-9">
+                  <input
+                    id="campaignName"
+                    name="campaignName"
+                    className="form-control"
+                    placeholder="e.g. My Campaign Name"
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="col-md-3 control-label">
+                  Campaign Text
+                </label>
+
+                <div className="col-md-9">
+                  <input
+                    id="campaignText"
+                    name="campaignText"
+                    className="form-control"
+                    placeholder="Max 50 characters"
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="col-md-3 control-label">
+                  Link
+                </label>
+
+                <div className="col-md-9">
+                  <input
+                    id="campaignLink"
+                    name="campaignLink"
+                    className="form-control"
+                    placeholder="e.g. www.adspecter.com"
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="col-md-3 control-label">
+                  Campaign Duration
+                </label>
+
+                <div className="col-md-2">
+                  <input
+                    id="campaignDuration"
+                    name="campaignDuration"
+                    className="form-control"
+                    placeholder="e.g. 7"
+                  />
+                </div>
+
+                <div style={{display: 'inline-block', marginTop: '8px'}}>
+                  days
+                </div>
+              </div>
+            </form>
           </div>
         </div>
 
-        <section className="m-t-25">
-          <div className="dropzone">
-            <Dropzone
-              className="text-align-center"
-              onDrop={this.onFileDrop}
-              style={{
-                border: '2px dashed white',
-                borderRadius: '5px',
-                height: '300px',
-                textAlign: 'center',
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-            >
-              <div style={{alignSelf: 'center'}}>
-                <i className="fa fa-cloud-upload" />
+        <div className="row m-t-25">
+          <div className="col-sm-8">
+            <h2 className="page-title">
+              Upload the images for this campaign
+            </h2>
 
-                <p className="m-t-15">
-                  Try dropping some files here, or click to select files to upload.
-                </p>
-
-                <div className="m-t-25 m-b-25">
-                  or
-                </div>
-
-                <button
-                  type="button"
-                  className="btn btn-custom waves-effect waves-light w-md m-b-5"
+            <section className="m-t-25">
+              <div className="dropzone">
+                <Dropzone
+                  className="text-align-center"
+                  onDrop={this.onFileDrop}
+                  style={{
+                  border: '2px dashed white',
+                  borderRadius: '5px',
+                  width: '100%',
+                  height: '300px',
+                  textAlign: 'center',
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}
                 >
-                  Browse files
-                </button>
+                  <div style={{alignSelf: 'center'}}>
+                    <i className="fa fa-cloud-upload" />
+
+                    <p className="m-t-15">
+                      Try dropping some files here, or click to select files to upload.
+                    </p>
+
+                    <div className="m-t-25 m-b-25">
+                      or
+                    </div>
+
+                    <button
+                      type="button"
+                      className="btn btn-custom waves-effect waves-light w-md m-b-5"
+                    >
+                      Browse files
+                    </button>
+                  </div>
+                </Dropzone>
               </div>
-            </Dropzone>
+
+              <aside className="m-t-25">
+                {this.state.files.length > 0 ? (
+                  <h5>
+                    Uploaded files
+                  </h5>
+                ) : null}
+
+                <ul>
+                  {this.renderUploadedFiles()}
+                </ul>
+              </aside>
+
+              <button
+                onClick={this.onSubmitFiles}
+                type="button"
+                style={{margin: '100px 0'}}
+                className="btn btn-custom waves-effect waves-light w-md"
+              >
+                Create campaign
+              </button>
+            </section>
           </div>
-
-          <aside className="m-t-25">
-            <h3>
-              Uploaded files
-            </h3>
-
-            <ul>
-              {this.renderUploadedFiles()}
-            </ul>
-          </aside>
-
-          <button
-            onClick={this.onSubmitFiles}
-            type="button"
-            className="btn btn-custom waves-effect waves-light w-md m-b-5"
-          >
-            Submit files
-          </button>
-        </section>
+        </div>
 
         <Modal
           showModal={this.state.shouldShowToast}

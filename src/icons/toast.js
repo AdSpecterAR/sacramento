@@ -32,7 +32,7 @@ class Toast extends Component {
 
         <div>
           <h3 style={{color: '#4E516A'}}>
-            {this.props.toastMessage || 'Thank you for getting that done!'}
+            {this.props.toastMessage || 'Your campaign has been kicked off!'}
           </h3>
 
           <button
