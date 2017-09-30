@@ -182,7 +182,7 @@ export default class AppOnboarding extends Component {
     return (
       <div className="m-t-25 m-l-15">
         <h5>
-          My App Name
+          Missile Launch
         </h5>
 
         <p>

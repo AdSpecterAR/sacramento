@@ -33,7 +33,7 @@ export default class TopBar extends Component {
                   </Link>
 
                   <span className="m-l-5">
-                    (developer)
+                    (advertiser)
                   </span>
                 </div>
               </div>
