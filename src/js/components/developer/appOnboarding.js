@@ -1,4 +1,5 @@
 import React, { Component }     from 'react';
+import API                      from '../../services/api';
 
 
 const styles = {
@@ -46,6 +47,11 @@ export default class AppOnboarding extends Component {
     this.handleRegisterApp = this.handleRegisterApp.bind(this);
     this.handleSaveAppFormat = this.handleSaveAppFormat.bind(this);
     this.handleSetAnalytics = this.handleSetAnalytics.bind(this);
+  }
+
+  componentDidMount() {
+    API.userSignUp({user: {first_name: 'john', last_name: 'li', email: 'john@adspecter.com'}})
+      .then(({user}) => console.log('user', user))
   }
 
   render() {
@@ -113,11 +119,8 @@ export default class AppOnboarding extends Component {
                   app monetization and user engagement
                 </p>
 
-                <form
-                  className="form-horizontal m-t-20"
-                  role="form"
-                >
-                  <div class="form-group m-l-10">
+                <form className="form-horizontal m-t-20">
+                  <div className="form-group m-l-10">
                     {this.state.shouldShowEditAnalytics
                       ? this.renderEditAnalytics()
                       : this.renderAnalyticsSelection()
@@ -202,10 +205,7 @@ export default class AppOnboarding extends Component {
     return (
       <div>
         <div className="card-box">
-          <form
-            className="form-horizontal m-t-20"
-            role="form"
-          >
+          <form className="form-horizontal m-t-20">
             <div className="form-group">
               <label className="col-md-3 control-label">
                 App name
@@ -225,7 +225,7 @@ export default class AppOnboarding extends Component {
             <div className="form-group">
               <label
                 className="col-md-3 control-label"
-                for="platform"
+                htmlFor="platform"
               >
                 Platform
               </label>
@@ -265,36 +265,33 @@ export default class AppOnboarding extends Component {
     return (
       <div>
         <div className="card-box">
-          <form
-            className="form-horizontal m-t-20"
-            role="form"
-          >
-            <div class="form-group m-l-10">
+          <form className="form-horizontal m-t-20">
+            <div className="form-group m-l-10">
               <label className="col-md-3 control-label">
                 Ad type
               </label>
 
               <div className="col-md-9" style={{marginTop: '7px'}}>
-                <div class="checkbox checkbox-primary">
+                <div className="checkbox checkbox-primary">
                   <input
                     id="checkbox0"
                     type="checkbox"
                     className="m-r-10"
                   />
 
-                  <label for="checkbox0">
+                  <label htmlFor="checkbox0">
                     Text
                   </label>
                 </div>
 
-                <div class="checkbox checkbox-primary">
+                <div className="checkbox checkbox-primary">
                   <input
                     id="checkbox1"
                     type="checkbox"
                     className="m-r-10"
                   />
 
-                  <label for="checkbox1">
+                  <label htmlFor="checkbox1">
                     Image
                   </label>
                 </div>
@@ -304,7 +301,7 @@ export default class AppOnboarding extends Component {
             <div className="form-group">
               <label
                 className="col-md-3 control-label"
-                for="adUnitName"
+                htmlFor="adUnitName"
               >
                 Ad unit name
               </label>
@@ -351,14 +348,14 @@ export default class AppOnboarding extends Component {
   renderEditAnalytics() {
     return (
       <div>
-        <div class="checkbox checkbox-primary">
+        <div className="checkbox checkbox-primary">
           <input
             id="checkbox1"
             type="checkbox"
             className="m-r-10"
           />
 
-          <label for="checkbox1">
+          <label htmlFor="checkbox1">
             Enable analytics
           </label>
         </div>

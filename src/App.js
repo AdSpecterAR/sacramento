@@ -1,14 +1,12 @@
 import React, { Component }       from 'react';
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 }                                 from 'react-router-dom';
 import Layout                     from './js/views/layout';
 import MetricsDashboard           from './js/views/metricsDashboard';
 import AppOnboarding              from './js/components/developer/appOnboarding';
 import AdvertiserUploadForm       from './js/components/advertiser/advertiserUploadForm';
-import CampaignsList              from './js/components/advertiser/campaignsList';
 import './App.css';
 
 
