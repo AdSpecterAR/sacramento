@@ -28,10 +28,7 @@ export default class AdvertiserUploadForm extends Component {
 
         <div className="row m-t-25">
           <div className="col-sm-8 card-box">
-            <form
-              className="form-horizontal m-t-20"
-              role="form"
-            >
+            <form className="form-horizontal m-t-20">
               <div className="form-group">
                 <label className="col-md-3 control-label">
                   Campaign Name
@@ -111,14 +108,14 @@ export default class AdvertiserUploadForm extends Component {
                   className="text-align-center"
                   onDrop={this.onFileDrop}
                   style={{
-                  border: '2px dashed white',
-                  borderRadius: '5px',
-                  width: '100%',
-                  height: '300px',
-                  textAlign: 'center',
-                  display: 'flex',
-                  justifyContent: 'center'
-                }}
+                    border: '2px dashed white',
+                    borderRadius: '5px',
+                    width: '100%',
+                    height: '300px',
+                    textAlign: 'center',
+                    display: 'flex',
+                    justifyContent: 'center'
+                  }}
                 >
                   <div style={{alignSelf: 'center'}}>
                     <i className="fa fa-cloud-upload" />

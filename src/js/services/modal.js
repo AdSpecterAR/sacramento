@@ -1,4 +1,3 @@
-import _                          from 'underscore';
 import React                      from 'react';
 import {TransitionMotion, spring} from 'react-motion';
 import CloseIcon                  from '../../icons/closeIcon';
@@ -55,6 +54,8 @@ class Modal extends React.Component {
         return {
           opacity: 0
         };
+      default:
+        return {};
     }
   }
 
@@ -75,6 +76,8 @@ class Modal extends React.Component {
             damping: 20
           })
         };
+      default:
+        return {};
     }
   }
 
