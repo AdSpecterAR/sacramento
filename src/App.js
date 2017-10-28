@@ -21,17 +21,11 @@ const handleAuthentication = (nextState, replace) => {
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-
-    // auth.login();
-  }
-
   render() {
     return (
       <Router>
         <Layout auth={auth}>
-          <Route exact path="/" />
+          <Route exact path="/" component={MetricsDashboard} />
           <Route path="/auth_callback" render={(props) => {
             handleAuthentication(props);
             return <AuthCallback {...props} />

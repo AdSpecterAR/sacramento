@@ -49,11 +49,6 @@ export default class DeveloperAppRegistration extends Component {
     this.handleSetAnalytics = this.handleSetAnalytics.bind(this);
   }
 
-  componentDidMount() {
-    // API.userSignUp({user: {first_name: 'john', last_name: 'li', email: 'john@adspecter.com'}})
-    //   .then(({user}) => console.log('user', user))
-  }
-
   render() {
     return (
       <div>
