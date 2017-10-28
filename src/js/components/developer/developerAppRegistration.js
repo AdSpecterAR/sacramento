@@ -20,7 +20,7 @@ const styles = {
   }
 };
 
-export default class AppOnboarding extends Component {
+export default class DeveloperAppRegistration extends Component {
 
   constructor(props) {
     super(props);
@@ -50,8 +50,8 @@ export default class AppOnboarding extends Component {
   }
 
   componentDidMount() {
-    API.userSignUp({user: {first_name: 'john', last_name: 'li', email: 'john@adspecter.com'}})
-      .then(({user}) => console.log('user', user))
+    // API.userSignUp({user: {first_name: 'john', last_name: 'li', email: 'john@adspecter.com'}})
+    //   .then(({user}) => console.log('user', user))
   }
 
   render() {

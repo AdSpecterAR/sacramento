@@ -2,7 +2,7 @@ import React, { Component }     from 'react';
 import TopNavBar                from '../components/topNavBar';
 import SideNavBar               from '../components/sideNavBar';
 import DeveloperSideNavBar      from '../components/developer/developerSideNavBar';
-//import AdvertiserSideNavBar               from '../components/advertiser/advertiserSideNavBar';
+import AdvertiserSideNavBar     from '../components/advertiser/advertiserSideNavBar';
 
 
 export default class Layout extends Component {
@@ -18,7 +18,7 @@ export default class Layout extends Component {
   render() {
     return (
       <div>
-        <TopNavBar />
+        <TopNavBar auth={this.props.auth} />
 
         <DeveloperSideNavBar />
 
