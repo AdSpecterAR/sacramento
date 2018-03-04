@@ -56,16 +56,13 @@ export default (() => {
         if (Session.isSessionExpired()) {
           Session.setStartTime();
 
-          // add backend endpoint
-          // return Promise.all([this.startSession(), promise])
-          //   .then();
+          // add backend endpoint to start session
         }
 
         return promise;
       },
 
       createCustomHeaders({authTokenRequired}) {
-        // const headers = this.peerWebClientVersion();
         let headers = {};
 
         if (authTokenRequired) {
@@ -81,8 +78,6 @@ export default (() => {
             console.log('UNAUTHORIZED REQUEST!!!');
             // window.location.href = '/sign-out'
           }
-
-          // ThrowError(request);
         };
       },
 

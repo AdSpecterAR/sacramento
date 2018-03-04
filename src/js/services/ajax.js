@@ -3,9 +3,6 @@ export default (() => {
     request(options) {
       return new Promise(this.createRequest(options))
         .then(JSON.parse)
-        // .catch((error) => {
-        //   console.log('error', error);
-        // });
     },
 
     createRequest(options) {

@@ -5,24 +5,7 @@ import SignoutButton            from './signoutButton';
 
 export default class TopNavBar extends Component {
 
-  constructor(props) {
-    super(props);
-
-    // this.login = this.login.bind(this);
-    // this.logout = this.logout.bind(this);
-  }
-  //
-  // login() {
-  //   this.props.auth.login();
-  // }
-  //
-  // logout() {
-  //   this.props.auth.logout();
-  // }
-
   render() {
-    // const { isAuthenticated } = this.props.auth;
-
     return (
       <div className="topbar">
         <div

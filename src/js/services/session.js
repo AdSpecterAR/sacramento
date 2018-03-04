@@ -7,11 +7,6 @@ export default (() => {
   const ADSPECTER_AUTH_TOKEN_KEY = `adspecter_auth_token`;
   const ADSPECTER_CURRENT_USER_KEY = `adspecter_current_user`;
   const ADSPECTER_START_TIME_KEY = `adspecter_session_start_time`;
-  // const PEER_SESSION_CONFIG_KEY = `${window.PEER_API_APP_HOST}_peer_app_config`;
-  // const PEER_SESSION_FEED_NOTIFICATION_COUNT_KEY = `${window.PEER_API_APP_HOST}_peer_app_session_feed_notification_count`;
-  // const PEER_SESSION_CHECKINS_NOTIFICATION_COUNT_KEY = `${window.PEER_API_APP_HOST}_peer_app_session_checkins_notification_count`;
-
-  // let notificationCountUpdateHandler;
 
   return {
     getAuthToken() {
@@ -49,24 +44,6 @@ export default (() => {
 
       return startTime ? Moment(startTime).add(100, 'minutes').isBefore(Moment().format()) : true;
     },
-    //
-    // setConfig(config) {
-    //   localStorage.setItem(PEER_SESSION_CONFIG_KEY, JSON.stringify(config));
-    // },
-    //
-    // getConfig() {
-    //   return JSON.parse(localStorage.getItem(PEER_SESSION_CONFIG_KEY));
-    // },
-    //
-    // setCheckInsNotificationCount(count) {
-    //   localStorage.setItem(PEER_SESSION_CHECKINS_NOTIFICATION_COUNT_KEY, count);
-    //
-    //   Broadcast.publish('Layout.updateCheckInsCount', count);
-    // },
-    //
-    // getCheckInsNotificationCount() {
-    //   return localStorage.getItem(PEER_SESSION_CHECKINS_NOTIFICATION_COUNT_KEY);
-    // },
 
 
     // PRIVATE METHODS
