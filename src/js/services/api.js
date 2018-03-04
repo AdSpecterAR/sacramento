@@ -1,5 +1,7 @@
-import Ajax from './ajax';
-import _    from 'underscore';
+import Ajax         from './ajax';
+import Session      from './session';
+import _            from 'underscore';
+
 
 export default (() => {
   const API_ENDPOINTS = [
@@ -9,19 +11,31 @@ export default (() => {
     {
       name: 'getCurrentUser',
       type: 'GET',
-      url: '/users/get_current_user/'
-    }, {
-      name: 'userSignUp',
+      url: '/users/get_current_user/',
+      authTokenRequired: true,
+      checkSessionStart: true
+    },
+    {
+      name: 'login',
       type: 'POST',
-      url: '/users/'
+      url: '/users/sign_in'
     }
   ];
 
   // TODO: finish API service
   return API_ENDPOINTS.reduce((API, endpoint) => {
-      API[endpoint.name] = function(...args) {
-        return Ajax.request(this.createRequestOptions(endpoint, ...args));
-      };
+      if (endpoint.checkSessionStart) {
+        API[endpoint.name] = function (...args) {
+          return this.checkSessionStart(Ajax.request(this.createRequestOptions(endpoint, ...args)))
+            .catch(this.handleUnauthorizedRequest(API));
+        };
+
+      } else {
+        API[endpoint.name] = function (...args) {
+          return Ajax.request(this.createRequestOptions(endpoint, ...args))
+            .catch(this.handleUnauthorizedRequest(API));
+        };
+      }
 
       return API;
     },
@@ -31,6 +45,47 @@ export default (() => {
 
 
     {
+
+      authorization() {
+        return {
+          Authorization: `Bearer ${Session.getAuthToken()}`
+        };
+      },
+
+      checkSessionStart(promise) {
+        if (Session.isSessionExpired()) {
+          Session.setStartTime();
+
+          // add backend endpoint
+          // return Promise.all([this.startSession(), promise])
+          //   .then();
+        }
+
+        return promise;
+      },
+
+      createCustomHeaders({authTokenRequired}) {
+        // const headers = this.peerWebClientVersion();
+        let headers = {};
+
+        if (authTokenRequired) {
+          _.extend(headers, this.authorization());
+        }
+
+        return {headers};
+      },
+
+      handleUnauthorizedRequest() {
+        return (request) => {
+          if (request.status === 401) {
+            console.log('UNAUTHORIZED REQUEST!!!');
+            // window.location.href = '/sign-out'
+          }
+
+          // ThrowError(request);
+        };
+      },
+
       createRequestOptions(endpoint, ...args) {
         let baseOptions = _.pick(endpoint, 'type', 'isLoop', 'isAuthUrl');
 

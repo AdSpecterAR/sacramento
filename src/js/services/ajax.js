@@ -3,9 +3,9 @@ export default (() => {
     request(options) {
       return new Promise(this.createRequest(options))
         .then(JSON.parse)
-        .catch((error) => {
-          console.log('error', error)
-        });
+        // .catch((error) => {
+        //   console.log('error', error);
+        // });
     },
 
     createRequest(options) {
@@ -18,7 +18,7 @@ export default (() => {
         request.open(options.type, url);
 
         request.onload = this.createOnLoadCallback(request, resolve, reject);
-        request.withCredentials = true;
+        // request.withCredentials = true;
 
         request.setRequestHeader('Content-Type', 'application/json');
         request.setRequestHeader('Accept', 'application/json');
