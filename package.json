@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "auth0-js": "^8.10.1",
     "bootstrap": "^4.0.0-beta",
     "classnames": "^2.2.5",
     "history": "^4.7.2",
+    "moment": "^2.21.0",
     "node-sass-chokidar": "0.0.3",
     "react": "^16.0.0",
     "react-countup": "^2.2.0",
