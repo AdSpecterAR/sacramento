@@ -9,6 +9,7 @@ export default (() => {
       return (resolve, reject) => {
         let request = new XMLHttpRequest();
         let baseURL = 'http://localhost:3000'; // TODO: CHANGE TO BE DYNAMIC BY ENV
+        // let baseURL = 'https://sanchez-staging.herokuapp.com'; // TODO: CHANGE TO BE DYNAMIC BY ENV
 
         let url = baseURL + options.url;
 
