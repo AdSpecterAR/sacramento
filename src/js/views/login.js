@@ -86,9 +86,12 @@ class Login extends Component {
     API.login(this.constructLoginCredentials())
       .then(({user}) => {
         Session.create(user, user.authentication_token);
-        this.props.history.push(this.props.location.state.from);
+        // this.props.history.push(this.props.location.state.from || '/');
+        this.props.history.push("/");
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log('error', error);
+
         this.setState({
           shouldShowErrorMessages: true
         });
