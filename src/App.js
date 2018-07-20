@@ -9,8 +9,10 @@ import Layout                     from './js/views/layout';
 import MetricsDashboard           from './js/views/metricsDashboard';
 import Login                      from './js/views/login';
 import Logout                     from './js/views/logout';
+import Stream                     from './js/views/stream';
 import DeveloperAppRegistration   from './js/components/developer/developerAppRegistration';
 import AdvertiserUploadForm       from './js/components/advertiser/advertiserUploadForm';
+import CoursesListContainer       from './js/components/coursesListContainer';
 import './App.css';
 
 
@@ -29,6 +31,8 @@ class App extends Component {
             <AuthorizedRoute path="/campaigns" component={AdvertiserUploadForm} />
             <AuthorizedRoute path="/monetize" component={DeveloperAppRegistration} />
             <AuthorizedRoute path="/analyze" component={MetricsDashboard} />
+            <AuthorizedRoute path="/courses" component={CoursesListContainer} />
+            <AuthorizedRoute path="/stream" component={Stream} />
           </Layout>
         </Switch>
       </Router>

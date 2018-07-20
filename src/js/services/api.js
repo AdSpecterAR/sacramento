@@ -19,7 +19,12 @@ export default (() => {
       name: 'login',
       type: 'POST',
       url: '/users/sign_in'
-    }
+    },
+    {
+      name: 'getCourses',
+      type: 'GET',
+      url: '/upcoming_courses'
+    },
   ];
 
   // TODO: finish API service

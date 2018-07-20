@@ -29,8 +29,13 @@ export default class DeveloperSideNavBar extends Component {
         iconClassName: 'fa fa-line-chart'
       },
       {
-        name: 'Settings',
-        href: '/settings',
+        name: 'Courses List',
+        href: '/courses',
+        iconClassName: 'fa fa-cog'
+      },
+      {
+        name: 'Stream',
+        href: '/stream',
         iconClassName: 'fa fa-cog'
       }
     ];

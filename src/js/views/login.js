@@ -5,7 +5,15 @@ import {
 }                               from 'react-router-dom';
 import API                      from '../services/api';
 import Session                  from '../services/session';
+import FacebookLogin from 'react-facebook-login';
 
+const responseFacebook = (response) => {
+  console.log('response', response);
+};
+
+const componentClicked = (response) => {
+  console.log('click callback', response);
+};
 
 class Login extends Component {
 
@@ -60,6 +68,14 @@ class Login extends Component {
         </div>
 
         {this.state.shouldShowErrorMessages && this.renderErrorMessage()}
+
+        <FacebookLogin
+          appId="1088597931155576"
+          autoLoad={true}
+          fields="name,email,picture"
+          onClick={componentClicked}
+          callback={responseFacebook}
+        />
 
         <div>
           <button
