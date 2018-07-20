@@ -23,7 +23,7 @@ export default (() => {
     {
       name: 'getCourses',
       type: 'GET',
-      url: '/courses'
+      url: '/upcoming_courses'
     },
   ];
 

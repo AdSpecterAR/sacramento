@@ -53,11 +53,11 @@ export default class CoursesList extends Component {
             </h3>
 
             <div>
-              {course.instructor_name}
+              {course.instructor_full_name}
             </div>
 
             <div style={{width: '200px'}}>
-              {Moment(course.start_date).format('dddd, MMMM Do, h:mm a')}
+              {Moment(course.start_time).format('dddd, MMMM Do, h:mm a')}
             </div>
 
             <div>
