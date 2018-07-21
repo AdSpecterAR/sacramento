@@ -25,8 +25,8 @@ export default (() => {
       this.setCurrentUser(user);
       this.setAuthToken(token);
 
-      console.log('auth token', this.getAuthToken());
-      console.log('current user', this.getCurrentUser());
+      // console.log('auth token', this.getAuthToken());
+      // console.log('current user', this.getCurrentUser());
     },
 
     destroy() {

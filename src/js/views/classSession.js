@@ -1,8 +1,8 @@
 import React, { Component }     from 'react';
 import FeedbackModule           from '../components/feedbackModule';
 
-
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
+
 
 export default class ClassSession extends Component {
 

@@ -1,18 +1,9 @@
 import React, { Component }     from 'react';
 import Moment                   from 'moment';
 import { Link }                 from 'react-router-dom';
-import Session                  from '../services/session';
 
 
 export default class CoursesList extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
 
   render() {
     return (

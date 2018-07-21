@@ -31,6 +31,12 @@ export default class ClassSessionContainer extends Component {
     );
   }
 
+
+  //================
+  // EVENT HANDLERS
+  //================
+
+
   fetchClassSession() {
     let params = {
       query: {
@@ -46,7 +52,6 @@ export default class ClassSessionContainer extends Component {
   }
 
   setUserCourseSession(userCourseSession) {
-    console.log('herro');
     this.setState({
       class_session: userCourseSession,
       loading: false

@@ -25,7 +25,6 @@ export default class FeedbackModule extends Component {
   }
 
   render() {
-    console.log('this.props.classSession.id', this.props.classSession.id);
     return (
       <div className="row">
         <div className="card-box col-sm-4">
@@ -84,6 +83,12 @@ export default class FeedbackModule extends Component {
     );
   }
 
+
+  //================
+  // EVENT HANDLERS
+  //================
+
+
   selectRating(rating) {
     this.setState({rating});
   }
@@ -100,6 +105,12 @@ export default class FeedbackModule extends Component {
       feedbackComment: e.target.value
     });
   }
+
+
+  //=================
+  // PRIVATE METHODS
+  //=================
+
 
   constructFeedbackPostData() {
     return {
@@ -118,5 +129,4 @@ export default class FeedbackModule extends Component {
       rating === COURSE_RATING_THUMBS_UP ||
       (comment !== '' || comment !== null);
   }
-
 }
