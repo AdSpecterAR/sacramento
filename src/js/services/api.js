@@ -25,6 +25,18 @@ export default (() => {
       type: 'GET',
       url: '/upcoming_courses'
     },
+    {
+      name: 'getUserCourseSession',
+      type: 'GET',
+      id: 'query',
+      url: (query) => `/users/${query.userId}/course_sessions/${query.courseSessionId}`
+    },
+    {
+      name: 'submitCourseFeedback',
+      type: 'POST',
+      id: 'user_course_session_id',
+      url: id => `/user_course_sessions/${id}/feedback`
+    },
   ];
 
   // TODO: finish API service

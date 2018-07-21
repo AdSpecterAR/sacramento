@@ -34,7 +34,7 @@ export default class DeveloperSideNavBar extends Component {
         iconClassName: 'fa fa-cog'
       },
       {
-        name: 'Stream',
+        name: 'ClassSession',
         href: '/stream',
         iconClassName: 'fa fa-cog'
       }
