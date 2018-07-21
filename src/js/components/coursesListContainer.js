@@ -26,6 +26,12 @@ export default class CoursesListContainer extends Component {
     );
   }
 
+
+  //================
+  // EVENT HANDLERS
+  //================
+
+
   fetchCourses() {
     API.getCourses()
       .then(({courses}) => {

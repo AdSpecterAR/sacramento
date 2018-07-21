@@ -5,7 +5,7 @@ import {
 }                               from 'react-router-dom';
 import API                      from '../services/api';
 import Session                  from '../services/session';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin            from 'react-facebook-login';
 
 const responseFacebook = (response) => {
   console.log('response', response);

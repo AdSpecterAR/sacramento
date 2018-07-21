@@ -9,7 +9,7 @@ import Layout                     from './js/views/layout';
 import MetricsDashboard           from './js/views/metricsDashboard';
 import Login                      from './js/views/login';
 import Logout                     from './js/views/logout';
-import Stream                     from './js/views/stream';
+import ClassSessionContainer      from './js/views/classSessionContainer';
 import DeveloperAppRegistration   from './js/components/developer/developerAppRegistration';
 import AdvertiserUploadForm       from './js/components/advertiser/advertiserUploadForm';
 import CoursesListContainer       from './js/components/coursesListContainer';
@@ -32,7 +32,7 @@ class App extends Component {
             <AuthorizedRoute path="/monetize" component={DeveloperAppRegistration} />
             <AuthorizedRoute path="/analyze" component={MetricsDashboard} />
             <AuthorizedRoute path="/courses" component={CoursesListContainer} />
-            <AuthorizedRoute path="/stream" component={Stream} />
+            <AuthorizedRoute path="/class/:classId" component={ClassSessionContainer} />
           </Layout>
         </Switch>
       </Router>
