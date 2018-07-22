@@ -21,6 +21,12 @@ export default class CoursesList extends Component {
     );
   }
 
+
+  //================
+  // RENDER METHODS
+  //================
+
+
   renderCourses() {
     return this.props.upcoming_courses.map((course, index) => {
       return (
