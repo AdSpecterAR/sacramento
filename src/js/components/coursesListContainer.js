@@ -1,9 +1,10 @@
 import React, { Component }     from 'react';
+import { withRouter }           from 'react-router-dom';
 import CoursesList              from "./coursesList";
 import API                      from '../services/api';
 
 
-export default class CoursesListContainer extends Component {
+class CoursesListContainer extends Component {
 
   constructor(props) {
     super(props);
@@ -45,3 +46,5 @@ export default class CoursesListContainer extends Component {
   }
 
 }
+
+export default withRouter(CoursesListContainer);
