@@ -27,6 +27,8 @@ export default class FacebookAuth extends Component {
           >
             Facebook login
           </button>
+
+          {/*{this.renderFBButton()}*/}
         </div>
 
         <div>
@@ -48,22 +50,28 @@ export default class FacebookAuth extends Component {
   //================
 
 
-  // renderFBButton() {
-  //   return (
-  //     <div
-  //       className="fb-login-button"
-  //       data-max-rows="1"
-  //       data-size="large"
-  //       data-button-type="continue_with"
-  //       data-show-faces="true"
-  //       data-auto-logout-link="false"
-  //       data-use-continue-as="true"
-  //       data-onlogin={}
-  //       data-scope="email,public_profile"
-  //     >
-  //     </div>
-  //   );
-  // }
+  renderFBButton() {
+    return (
+      <div
+        className="fb-login-button"
+        data-max-rows="1"
+        data-size="large"
+        data-button-type="continue_with"
+        data-show-faces="true"
+        data-auto-logout-link="false"
+        data-use-continue-as="true"
+        data-onlogin={this.checkLoginState}
+        data-scope="email,public_profile"
+      >
+      </div>
+    );
+  }
+
+
+  //================
+  // EVENT HANDLERS
+  //================
+
 
   loadFbLoginApi() {
     window.fbAsyncInit = function() {
@@ -87,12 +95,6 @@ export default class FacebookAuth extends Component {
     }(document, 'script', 'facebook-jssdk'));
   }
 
-
-  //================
-  // EVENT HANDLERS
-  //================
-
-
   testAPI(userID, authToken) {
     console.log('Welcome!  Fetching your information.... ');
     window.FB.api(`/${userID}?fields=email,first_name,last_name,name`, function(response) {
@@ -105,7 +107,24 @@ export default class FacebookAuth extends Component {
       // document.getElementById('status').innerHTML =
       //   'Thanks for logging in, ' + response.name + '!';
 
-      API.facebookAuth(this.constructFBAuthData(response, authToken))
+      let {
+        email,
+        first_name,
+        last_name,
+        id
+      } = response;
+
+      let userPostData = {
+        user: {
+          first_name,
+          last_name,
+          email,
+          fb_user_id: userID,
+          fb_authentication_token: authToken.toString()
+        }
+      };
+
+      API.facebookAuth(userPostData)
         .then(({user}) => {
           Session.create(user, user.fb_auth_token);
 
@@ -153,7 +172,7 @@ export default class FacebookAuth extends Component {
     console.log('statusChangeCallback');
     console.log('RESPONSE YO!', response);
     if (response.status === 'connected') {
-      this.testAPI(response.authResponse.userID, response.authResponse.authToken);
+      this.testAPI(response.authResponse.userID, response.authResponse.accessToken);
     } else if (response.status === 'not_authorized') {
       console.log("Please log into this app.");
     } else {

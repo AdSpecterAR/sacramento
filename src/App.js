@@ -27,11 +27,10 @@ class App extends Component {
 
           {/* Protected Routes */}
           <Layout>
-            <AuthorizedRoute exact path="/" component={MetricsDashboard} />
+            <AuthorizedRoute exact path="/" component={CoursesListContainer} />
             <AuthorizedRoute path="/campaigns" component={AdvertiserUploadForm} />
             <AuthorizedRoute path="/monetize" component={DeveloperAppRegistration} />
             <AuthorizedRoute path="/analyze" component={MetricsDashboard} />
-            <AuthorizedRoute path="/courses" component={CoursesListContainer} />
             <AuthorizedRoute path="/class/:classId" component={ClassSessionContainer} />
           </Layout>
         </Switch>
