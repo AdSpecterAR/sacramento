@@ -7,10 +7,6 @@ const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 export default class ClassSession extends Component {
 
   render() {
-    console.log(this.props.class_session);
-    let courseSession = this.props.class_session.course_session;
-    let videoUrl = courseSession.video_url;
-
     return (
       <div>
         {videoUrl ? (
@@ -30,10 +26,6 @@ export default class ClassSession extends Component {
             please send an email to john@cloudworkout.com.
           </div>
         )}
-
-        <h2>
-          {this.props.class_session.name}
-        </h2>
 
         <FeedbackModule
           classSession={this.props.class_session}

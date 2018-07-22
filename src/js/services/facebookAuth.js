@@ -130,7 +130,6 @@ export default class FacebookAuth extends Component {
         .then(({user}) => {
           Session.create(user, user.fb_auth_token);
 
-          // return (<Redirect push to="/"/>);
           history.push("/");
           window.location.reload();
         });
