@@ -34,6 +34,12 @@ export default class FeedbackModule extends Component {
     );
   }
 
+
+  //================
+  // RENDER METHODS
+  //================
+
+
   renderFeedbackModule() {
     return (
       <div>
