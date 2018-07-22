@@ -21,6 +21,16 @@ export default (() => {
       url: '/users/sign_in'
     },
     {
+      name: 'registerNewUser',
+      type: 'POST',
+      url: '/register_new_user'
+    },
+    {
+      name: 'facebookAuth',
+      type: 'POST',
+      url: '/fb_auth'
+    },
+    {
       name: 'getCourses',
       type: 'GET',
       url: '/upcoming_courses'

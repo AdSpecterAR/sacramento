@@ -18,7 +18,7 @@ export default (() => {
     },
 
     isLoggedIn() {
-      return !!this.getCurrentUser();
+      return !!this.getCurrentUser() || !!this.getAuthToken();
     },
 
     create(user, token) {
