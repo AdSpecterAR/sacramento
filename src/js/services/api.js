@@ -28,7 +28,7 @@ export default (() => {
     {
       name: 'facebookAuth',
       type: 'POST',
-      url: '/fb_auth'
+      url: '/facebook_authentication'
     },
     {
       name: 'getCourses',

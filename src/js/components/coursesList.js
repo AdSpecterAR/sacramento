@@ -30,44 +30,44 @@ export default class CoursesList extends Component {
   renderCourses() {
     return this.props.upcoming_courses.map((course, index) => {
       return (
-        <Link to={`/class/${course.id}`}>
           <div
             className="row card-box"
             key={`upcomingCourse${index}`}
             style={{width: '600px', maxHeight: '200px', cursor: 'pointer'}}
           >
-            <div
-              className="col-sm-8"
-              style={{marginTop: '-22px', marginLeft: '-32px'}}
-            >
-              <img
-                style={{maxHeight: '199px'}}
-                src={course.thumbnail_image_url}
-                alt=""
-              />
-            </div>
-
-            <div className="col-sm-4">
-              <h3>
-                {course.name}
-              </h3>
-
-              <div>
-                {course.instructor_full_name}
+            <Link to={`/class/${course.id}`}>
+              <div
+                className="col-sm-8"
+                style={{marginTop: '-22px', marginLeft: '-32px'}}
+              >
+                <img
+                  style={{maxHeight: '199px'}}
+                  src={course.thumbnail_image_url}
+                  alt=""
+                />
               </div>
 
-              <div style={{width: '200px'}}>
-                {Moment(course.start_time).format('dddd, MMMM Do, h:mm a')}
-              </div>
+              <div className="col-sm-4">
+                <h3>
+                  {course.name}
+                </h3>
 
-              <div>
-                <i>
-                  {course.duration} minutes
-                </i>
+                <div>
+                  {course.instructor_full_name}
+                </div>
+
+                <div style={{width: '200px'}}>
+                  {Moment(course.start_time).format('dddd, MMMM Do, h:mm a')}
+                </div>
+
+                <div>
+                  <i>
+                    {course.duration} minutes
+                  </i>
+                </div>
               </div>
-            </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
       );
     });
   }
