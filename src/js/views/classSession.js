@@ -7,8 +7,6 @@ const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 export default class ClassSession extends Component {
 
   render() {
-    let videoUrl = this.props.class_session.course_session.video_url;
-
     return (
       <div>
         {videoUrl ? (

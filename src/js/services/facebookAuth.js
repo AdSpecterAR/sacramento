@@ -1,6 +1,8 @@
 import React, { Component }     from 'react';
-import API from "./api";
-import Session from "./session";
+import { Redirect }             from 'react-router-dom';
+import API                      from './api';
+import Session                  from './session';
+import history                  from '../services/history';
 
 
 export default class FacebookAuth extends Component {
@@ -128,7 +130,8 @@ export default class FacebookAuth extends Component {
         .then(({user}) => {
           Session.create(user, user.fb_auth_token);
 
-          this.props.history.push("/");
+          history.push("/");
+          window.location.reload();
         });
     });
   }

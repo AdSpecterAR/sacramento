@@ -3,6 +3,7 @@ import {
   withRouter,
   Redirect
 }                               from 'react-router-dom';
+import history                  from '../services/history';
 import API                      from '../services/api';
 import Session                  from '../services/session';
 import FacebookAuth             from '../services/facebookAuth';
@@ -186,7 +187,7 @@ class Login extends Component {
       .then(({user}) => {
         Session.create(user, user.authentication_token);
 
-        this.props.history.push("/");
+        history.push("/");
       })
       .catch((error) => {
         console.log('error', error);
