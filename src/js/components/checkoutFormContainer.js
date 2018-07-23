@@ -12,7 +12,8 @@ export default class CheckoutFormContainer extends Component {
     this.state = {
       description: '',
       amount: null,
-      shouldShowModal: false
+      shouldShowModal: false,
+      isSubscription: false
     };
 
     this.handleCloseChargeModal = this.handleCloseChargeModal.bind(this);
@@ -22,11 +23,19 @@ export default class CheckoutFormContainer extends Component {
     return (
       <div>
         <button
-          onClick={() => this.openChargeModalWithProps('One class purchase', 500)}
+          onClick={() => this.openChargeModalWithProps('One class purchase', 500, false)}
           type="button"
           className="btn btn-primary waves-effect w-md waves-light m-b-5 m-t-20"
         >
           Purchase 1 class
+        </button>
+
+        <button
+          onClick={() => this.openChargeModalWithProps('Monthly subscription with 14 day trial', 3000, true)}
+          type="button"
+          className="m-l-15 btn btn-primary waves-effect w-md waves-light m-b-5 m-t-20"
+        >
+          Monthly subscription 14 day trial
         </button>
 
         {this.renderCheckoutForm()}
@@ -47,6 +56,7 @@ export default class CheckoutFormContainer extends Component {
               handleCloseChargeModal={this.handleCloseChargeModal}
               description={this.state.description}
               amount={this.state.amount}
+              isSubscription={this.state.isSubscription}
             />
           </Elements>
         </div>
@@ -54,10 +64,11 @@ export default class CheckoutFormContainer extends Component {
     );
   }
 
-  openChargeModalWithProps(description, amount) {
+  openChargeModalWithProps(description, amount, isSubscription) {
     this.setState({
       description,
       amount,
+      isSubscription,
       shouldShowModal: true
     });
   }
@@ -66,7 +77,8 @@ export default class CheckoutFormContainer extends Component {
     this.setState({
       description: '',
       amount: null,
-      shouldShowModal: false
+      shouldShowModal: false,
+      isSubscription: false
     });
   }
 }

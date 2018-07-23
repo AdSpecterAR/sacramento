@@ -22,16 +22,40 @@ class CheckoutForm extends Component {
   submit(ev) {
     Promise.resolve(this.props.stripe.createToken())
       .then(({token}) => {
-        API.postCharges(this.constructChargeData(token))
+        this.postPayment(token)
           .then((response) => {
             // TODO: USE RESPONSE STATUS INSTEAD OF RESPONSE MESSAGE
-            if (response.message === 'Successful charge!') this.props.handleCloseChargeModal();
+            this.props.handleCloseChargeModal();
+          })
+          .catch((response) => {
+            console.log('stripe charge error', response);
           });
       })
       .catch(({response}) => {
         console.log('Stripe error response', response);
         this.setState({shouldShowInvalidCardError: true});
       });
+  }
+
+  postPayment(token) {
+    if (this.props.isSubscription) {
+      return API.postSubscription(this.constructSubscriptionData(token));
+    } else {
+      return API.postCharge(this.constructChargeData(token));
+    }
+  }
+
+  constructSubscriptionData(token) {
+    return {
+      subscription: {
+        user_id: Session.getCurrentUser().id,
+        stripeToken: token.id,
+        trial_subscription_days: 14,
+        amount: this.props.amount,
+        currency: 'usd',
+        plan_id: 'gold-special' // TODO: REMOVE HARDCODED VALUE
+      }
+    }
   }
 
   constructChargeData(token) {
@@ -45,6 +69,7 @@ class CheckoutForm extends Component {
       }
     }
   }
+
 
   render() {
     let style = {
