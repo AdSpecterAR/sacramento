@@ -4,6 +4,7 @@ import {
   injectStripe
 }                               from 'react-stripe-elements';
 import API                      from '../services/api';
+import Session                  from '../services/session';
 
 
 class CheckoutForm extends Component {
@@ -11,7 +12,10 @@ class CheckoutForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { complete: false };
+    this.state = {
+      shouldShowInvalidCardError: false
+    };
+
     this.submit = this.submit.bind(this);
   }
 
@@ -21,25 +25,28 @@ class CheckoutForm extends Component {
         API.postCharges(this.constructChargeData(token))
           .then((response) => {
             // TODO: USE RESPONSE STATUS INSTEAD OF RESPONSE MESSAGE
-            if (response.message === 'Successful charge!') this.setState({complete: true});
+            if (response.message === 'Successful charge!') this.props.handleCloseChargeModal();
           });
+      })
+      .catch(({response}) => {
+        console.log('Stripe error response', response);
+        this.setState({shouldShowInvalidCardError: true});
       });
   }
 
   constructChargeData(token) {
     return {
       charge: {
+        user_id: Session.getCurrentUser().id,
         stripeToken: token.id,
-        description: 'hi',
-        amount: 500,
+        description: this.props.description,
+        amount: this.props.amount,
         currency: 'usd'
       }
     }
   }
 
   render() {
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
-
     let style = {
       base: {
         color: '#32325d',
@@ -59,11 +66,22 @@ class CheckoutForm extends Component {
 
     return (
       <div className="checkout" style={{background: 'white'}}>
-        <p>Would you like to complete the purchase?</p>
+        <p className="m-t-25">
+          Would you like to complete the purchase?
+        </p>
 
-        <CardElement style={style} />
+        <CardElement className="m-t-25" style={style} />
 
-        <button onClick={this.submit}>Send</button>
+        <p className="m-t-10" style={{color: '#fa755a', height: '20px'}}>
+          {this.state.shouldShowInvalidCardError && 'Invalid card information'}
+        </p>
+
+        <button
+          onClick={this.submit}
+          className="pull-right btn btn-info waves-effect w-md waves-light m-b-5"
+        >
+          Submit
+        </button>
       </div>
     );
   }

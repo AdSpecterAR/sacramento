@@ -1,12 +1,6 @@
 import React, { Component }     from 'react';
 import TopNavBar                from '../components/topNavBar';
-import SideNavBar               from '../components/sideNavBar';
-import DeveloperSideNavBar      from '../components/developer/developerSideNavBar';
-import AdvertiserSideNavBar     from '../components/advertiser/advertiserSideNavBar';
 
-const responseFacebook = (response) => {
-  console.log(response);
-}
 
 export default class Layout extends Component {
 
