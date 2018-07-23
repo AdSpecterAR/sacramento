@@ -5,16 +5,7 @@ import CheckoutForm             from './checkoutForm';
 
 export default class CheckoutFormContainer extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
-
   render() {
-
     return (
       <Elements>
         <CheckoutForm />

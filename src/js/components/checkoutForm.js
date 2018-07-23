@@ -3,6 +3,7 @@ import {
   CardElement,
   injectStripe
 }                               from 'react-stripe-elements';
+import API                      from '../services/api';
 
 
 class CheckoutForm extends Component {
@@ -10,23 +11,42 @@ class CheckoutForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {complete: false};
+    this.state = { complete: false };
     this.submit = this.submit.bind(this);
   }
 
-  async submit(ev) {
-    let {token} = await this.props.stripe.createToken({name: "Name"});
-    let response = await fetch("/charge", {
-      method: "POST",
-      headers: {"Content-Type": "text/plain"},
-      body: {charge: {stripeToken: token, description: 'hi',  amount: 500, currency: 'usd'}}
-    });
+  submit(ev) {
+    Promise.resolve(this.props.stripe.createToken())
+      .then(({token}) => {
+        API.postCharges(this.constructChargeData(token))
+          .then((response) => {
+            if (response.message === 'Successful charge!') this.setState({complete: true});
+          });
+      });
+    //
+    // let response = await fetch("http://localhost:3000/charges", {
+    //   method: "POST",
+    //   headers: {"Content-Type": "application/JSON"},
+    //   body: this.constructChargeData(token)
+    // });
+    //
+    // if (response.ok) this.setState({complete: true});
+  }
 
-    if (response.ok) console.log("Purchase Complete!")
-    if (response.ok) this.setState({complete: true});
+  constructChargeData(token) {
+    return {
+      charge: {
+        stripeToken: token.id,
+        description: 'hi',
+        amount: 500,
+        currency: 'usd'
+      }
+    }
   }
 
   render() {
+    if (this.state.complete) return <h1>Purchase Complete</h1>;
+
     let style = {
       base: {
         color: '#32325d',
@@ -44,8 +64,6 @@ class CheckoutForm extends Component {
       }
     };
 
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
-    
     return (
       <div className="checkout" style={{background: 'white'}}>
         <p>Would you like to complete the purchase?</p>

@@ -31,6 +31,11 @@ export default (() => {
       url: '/facebook_authentication'
     },
     {
+      name: 'postCharges',
+      type: 'POST',
+      url: '/charges'
+    },
+    {
       name: 'getCourses',
       type: 'GET',
       url: '/upcoming_courses'
