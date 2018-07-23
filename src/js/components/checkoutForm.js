@@ -20,17 +20,10 @@ class CheckoutForm extends Component {
       .then(({token}) => {
         API.postCharges(this.constructChargeData(token))
           .then((response) => {
+            // TODO: USE RESPONSE STATUS INSTEAD OF RESPONSE MESSAGE
             if (response.message === 'Successful charge!') this.setState({complete: true});
           });
       });
-    //
-    // let response = await fetch("http://localhost:3000/charges", {
-    //   method: "POST",
-    //   headers: {"Content-Type": "application/JSON"},
-    //   body: this.constructChargeData(token)
-    // });
-    //
-    // if (response.ok) this.setState({complete: true});
   }
 
   constructChargeData(token) {
