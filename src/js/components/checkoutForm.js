@@ -50,7 +50,7 @@ class CheckoutForm extends Component {
       subscription: {
         user_id: Session.getCurrentUser().id,
         stripeToken: token.id,
-        trial_subscription_days: 14,
+        trial_period_days: 14,
         amount: this.props.amount,
         currency: 'usd',
         plan_id: 'gold-special' // TODO: REMOVE HARDCODED VALUE

@@ -15,22 +15,22 @@ export default class TopNavBar extends Component {
           <div className="container">
             <div>
               <div className="pull-left">
-                <button className="button-menu-mobile open-left waves-effect waves-light">
-                  <i className="zmdi zmdi-menu" />
-                </button>
+                {/*<button className="button-menu-mobile open-left waves-effect waves-light">*/}
+                  {/*<i className="zmdi zmdi-menu" />*/}
+                {/*</button>*/}
 
                 <span className="clearfix" />
               </div>
 
               <div style={{position: 'absolute', left: '50%', marginLeft: '-100px', width: '200px'}}>
-                <Link
-                  to="/"
-                  className="logo m-l-15"
-                >
-                  <span>
-                    AdSpecter
-                  </span>
-                </Link>
+                {/*<Link*/}
+                  {/*to="/"*/}
+                  {/*className="logo m-l-15"*/}
+                {/*>*/}
+                  {/*<span>*/}
+                    {/*AdSpecter*/}
+                  {/*</span>*/}
+                {/*</Link>*/}
               </div>
 
               <SignoutButton/>

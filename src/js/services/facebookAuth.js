@@ -24,8 +24,9 @@ export default class FacebookAuth extends Component {
         <div>
           <button
             onClick={this.handleFBLogin}
+            style={this.props.buttonStyle}
             type="button"
-            className="btn btn-primary waves-effect w-md waves-light m-b-5 m-t-20"
+            className="btn btn-primary waves-effect w-md waves-light m-b-5"
           >
             Facebook login
           </button>
@@ -36,6 +37,7 @@ export default class FacebookAuth extends Component {
         <div>
           <button
             onClick={() => window.FB.logout()}
+            style={this.props.buttonStyle}
             type="button"
             className="btn btn-primary waves-effect w-md waves-light m-b-5 m-t-20"
           >
