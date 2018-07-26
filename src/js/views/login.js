@@ -30,6 +30,11 @@ class Login extends Component {
   }
 
   render() {
+    let styles = {
+      button: {
+        width: '100%'
+      }
+    };
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     const { redirectToReferrer } = this.state;
 
@@ -42,9 +47,9 @@ class Login extends Component {
         className="card-box"
         style={{width: '400px', margin: '0 auto', marginTop: '200px'}}
       >
-        <h5>
-          {this.state.shouldShowRegistration ? 'Register' : 'Login'}
-        </h5>
+        <h3 className="m-b-25 text-align-center">
+          {this.state.shouldShowRegistration ? 'Register' : 'Log in'}
+        </h3>
 
         {this.state.shouldShowRegistration && (
           <div className="m-t-15">
@@ -94,9 +99,13 @@ class Login extends Component {
 
         {this.renderToggleAuthenticationMode()}
 
-        {this.renderSubmitButton()}
+        {this.renderSubmitButton(styles)}
 
-        <FacebookAuth />
+        <p className="text-align-center m-t-15 m-b-15">
+          - OR -
+        </p>
+
+        <FacebookAuth buttonStyle={styles.button} />
       </div>
     );
   }
@@ -110,11 +119,11 @@ class Login extends Component {
   renderToggleAuthenticationMode() {
     let text = this.state.shouldShowRegistration ?
       'Already a member? Sign in here.' :
-      'New to Cloud Workout? Join us here!';
+      'New to Cloud Workout? Sign up here!';
 
     return (
       <p
-        className="text-link cursor-pointer"
+        className="text-link cursor-pointer m-t-5 text-align-center"
         onClick={this.toggleAuthenticationMode}
       >
         {text}
@@ -122,12 +131,13 @@ class Login extends Component {
     );
   }
 
-  renderSubmitButton() {
+  renderSubmitButton(styles) {
     // new user registering with email and password
     if (this.state.shouldShowRegistration) {
       return (
         <button
           onClick={this.register}
+          style={styles.button}
           type="button"
           className="btn btn-primary waves-effect w-md waves-light m-b-5 m-t-20"
         >
@@ -141,6 +151,7 @@ class Login extends Component {
       return (
         <button
           onClick={this.login}
+          style={styles.button}
           type="button"
           className="btn btn-primary waves-effect w-md waves-light m-b-5 m-t-20"
         >
