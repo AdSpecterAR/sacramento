@@ -28,4 +28,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
+
+  "engines": {
+    "node": "8.11.3",
+    "npm": "5.6.0"
+  }
 }
