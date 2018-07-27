@@ -119,8 +119,10 @@ textarea {
 //===================
 
 
-$body-min-width: 1280px;
-$body-max-width: 1440px;
+//$body-min-width: 1280px;
+//$body-max-width: 1440px;
+$body-min-width: 720px;
+$body-max-width: 1080px;
 
 .content-container {
   min-width: $body-min-width;

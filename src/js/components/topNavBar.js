@@ -12,7 +12,7 @@ export default class TopNavBar extends Component {
           className="navbar navbar-default"
           role="navigation"
         >
-          <div className="container">
+          <div className="content-container">
             <div>
               <div className="pull-left">
                 {/*<button className="button-menu-mobile open-left waves-effect waves-light">*/}

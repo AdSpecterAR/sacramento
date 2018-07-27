@@ -11,15 +11,28 @@ export default class ClassSessionContainer extends Component {
 
     this.state = {
       class_session: {},
+      participants: [],
       loading: true
     };
 
     this.fetchClassSession = this.fetchClassSession.bind(this);
     this.setUserCourseSession = this.setUserCourseSession.bind(this);
+    this.getStudentNames = this.getStudentNames.bind(this);
   }
 
   componentDidMount() {
     this.fetchClassSession();
+    this.interval = setInterval(this.getStudentNames, 5000);
+  }
+
+  getStudentNames() {
+    API.getCourseSessionStudents({id: this.props.match.params.classId})
+      .then(({participants}) => this.setState({participants}))
+      .catch((response) => console.log('fetch live student count error', response));
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
@@ -27,6 +40,7 @@ export default class ClassSessionContainer extends Component {
       <ClassSession
         class_session={this.state.class_session}
         setUserCourseSession={this.setUserCourseSession}
+        participants={this.state.participants}
       />
     );
   }

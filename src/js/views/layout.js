@@ -13,11 +13,9 @@ export default class Layout extends Component {
 
         {/*<DeveloperSideNavBar />*/}
 
-        <div className="content-page">
-          <div className="content">
-            <div className="container">
-              {this.props.children}
-            </div>
+        <div className="content-container" style={{marginTop: '60px'}}>
+          <div className="container">
+            {this.props.children}
           </div>
         </div>
       </div>
