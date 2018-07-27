@@ -6,7 +6,6 @@
 @import url(stylesheets/flacto/pages.css);
 @import url(stylesheets/flacto/responsive.css);
 @import url(stylesheets/flacto/variables.css);
-
 .modal-background {
   background-color: rgba(71, 72, 83, 0.77);
   position: fixed;
@@ -838,6 +837,3 @@ textarea {
   left: 0;
   margin-left: auto;
   margin-right: auto; }
-
-.mejs__mediaelement iframe {
-  pointer-events: none; }
