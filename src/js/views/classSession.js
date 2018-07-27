@@ -22,7 +22,6 @@ export default class ClassSession extends Component {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
 
-    console.log('state', this.state);
     return (
       <div>
         {videoUrl ? (
