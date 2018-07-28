@@ -11,19 +11,27 @@ export default (() => {
         //let baseURL = 'http://localhost:3000'; // TODO: CHANGE TO BE DYNAMIC BY ENV AND IN CHECKOUTFORM FOR STRIPE
          // TODO: CHANGE TO BE DYNAMIC BY ENV
 
+          config.plugins.push({
+              new webpack.DefinePlugin({
+                  'process.env': {
+                      ENVVARIABLENAME: process.env.ENVVARIABLENAME
+                  }
+              })
+          });
         let baseURL = 'https://sunrise-staging-1.herokuapp.com';
-        console.log(process.env.ENV_HEROKU);
-          switch(process.env.ENV_HEROKU) {
-            case 'dev':
-              let baseURL = 'https://sunrise-dev.herokuapp.com';
-              break;
-            case 'staging':
-              baseURL = 'https://sunrise-staging-1.herokuapp.com';
-              break;
-            case 'production':
-              baseURL = 'https://sunrise-production.herokuapp.com';
-              break;
+        console.log(process.env);
+        switch(process.env.ENV_HEROKU) {
+          case 'dev':
+            let baseURL = 'https://sunrise-dev.herokuapp.com';
+            break;
+          case 'staging':
+            baseURL = 'https://sunrise-staging-1.herokuapp.com';
+            break;
+          case 'production':
+            baseURL = 'https://sunrise-production.herokuapp.com';
+            break;
         }
+        console.log(baseURL);
         let url = baseURL + options.url;
 
         request.open(options.type, url);
