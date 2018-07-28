@@ -12,6 +12,7 @@ export default (() => {
          // TODO: CHANGE TO BE DYNAMIC BY ENV
 
         let baseURL = 'https://sunrise-staging-1.herokuapp.com';
+        console.log(process.env.ENV_HEROKU)
         switch(process.env.ENV_HEROKU) {
             case 'dev':
               let baseURL = 'https://sunrise-dev.herokuapp.com';
