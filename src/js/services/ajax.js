@@ -13,13 +13,13 @@ export default (() => {
 
         let baseURL = 'https://sunrise-dev.herokuapp.com';
         switch(process.env.ENV_HEROKU) {
-            case dev:
+            case 'dev':
               let baseURL = 'https://sunrise-dev.herokuapp.com';
               break;
-            case staging:
+            case 'staging':
               baseURL = 'https://sunrise-staging-1.herokuapp.com';
               break;
-            case production:
+            case 'production':
               baseURL = 'https://sunrise-production.herokuapp.com';
               break;
         }
