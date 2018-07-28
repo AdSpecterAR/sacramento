@@ -52,6 +52,12 @@ export default (() => {
       url: (query) => `/users/${query.userId}/course_sessions/${query.courseSessionId}`
     },
     {
+      name: 'getCourseSessionStudents',
+      type: 'GET',
+      id: 'id',
+      url: (id) => `/course_sessions/${id}/users`
+    },
+    {
       name: 'submitCourseFeedback',
       type: 'POST',
       id: 'user_course_session_id',

@@ -3,6 +3,13 @@ import FeedbackModule           from '../components/feedbackModule';
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 
+//
+// TODO: Move this
+// YouTube User ID: 3-eGPuInuVmMTbyyFVUDlg
+//
+// YouTube Channel ID: UC3-eGPuInuVmMTbyyFVUDlg
+//
+
 
 export default class ClassSession extends Component {
 
@@ -10,8 +17,8 @@ export default class ClassSession extends Component {
     super(props);
 
     this.state = {
-      width: '560px',
-      height: '315px',
+      width: 840,
+      // height: '315px',
       isFullScreen: false
     };
 
@@ -25,17 +32,35 @@ export default class ClassSession extends Component {
     return (
       <div>
         {videoUrl ? (
-          <div style={{width: this.state.width, height: this.state.height}}>
-            <iframe
-              width={'100%'}
-              height={'100%'}
-              style={{pointerEvents: 'none'}}
-              src={videoUrl + '?autoplay=1&controls=0&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
-              allowFullScreen
-            />
+          <div style={{width: `${this.state.width}px`, height: `${this.calculateVideoHeight(this.state.width)}px`}}>
+            {/*<iframe*/}
+              {/*width={'100%'}*/}
+              {/*height={'100%'}*/}
+              {/*style={{pointerEvents: 'none'}}*/}
+              {/*src={videoUrl + '?autoplay=1&controls=0&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}*/}
+              {/*frameBorder="0"*/}
+              {/*allow="autoplay; encrypted-media"*/}
+              {/*sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"*/}
+              {/*allowFullScreen*/}
+            {/*/>*/}
+
+            <span>
+              <iframe
+                width={'100%'}
+                height={'100%'}
+                className="adjacent"
+                // style={{pointerEvents: 'none'}}
+                src={'https://www.youtube.com/embed/qZpeO6Zj8as?autoplay=1'}
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
+                allowFullScreen
+              />
+            </span>
+
+            <span style={{width: '240px'}}>
+              names
+            </span>
           </div>
         ) : (
           <div>
@@ -49,12 +74,32 @@ export default class ClassSession extends Component {
           Change size
         </div>
 
+        <div>
+          <h4>PARTICIPANTS</h4>
+
+          {this.renderParticipants()}
+        </div>
+
         <FeedbackModule
           classSession={this.props.class_session}
           setUserCourseSession={this.props.setUserCourseSession}
         />
       </div>
     );
+  }
+
+  renderParticipants() {
+    return this.props.participants.map((participant, index) => {
+      return (
+        <div key={`participant${index}`}>
+          {participant}
+        </div>
+      );
+    });
+  }
+
+  calculateVideoHeight(width) {
+    return width * 315 / 560;
   }
 
   toggleVideoSize() {

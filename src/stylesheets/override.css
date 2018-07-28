@@ -1,17 +1,10 @@
-$peer-purple: #4E516A;
-
-.card-box {
-  &.white {
-    background-color: white;
-    color: $peer-purple;
-  }
-}
+.card-box.white {
+  background-color: white;
+  color: #4E516A; }
 
 .sweet-alert-override.sweet-alert.showSweetAlert.visible {
   position: relative;
   margin-top: 50px;
   left: 0;
   margin-left: auto;
-  margin-right: auto;
-}
-
+  margin-right: auto; }

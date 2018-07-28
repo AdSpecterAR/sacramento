@@ -199,6 +199,7 @@ class Login extends Component {
         Session.create(user, user.authentication_token);
 
         history.push("/");
+        window.location.reload();
       })
       .catch((error) => {
         console.log('error', error);
