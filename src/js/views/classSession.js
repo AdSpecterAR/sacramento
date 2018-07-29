@@ -2,6 +2,7 @@ import React, { Component }     from 'react';
 import Moment                   from 'moment';
 import FeedbackModule           from '../components/feedbackModule';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
+import Moment                   from 'moment';
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 
@@ -30,11 +31,15 @@ export default class ClassSession extends Component {
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
+    let thumbnailUrl = courseSession.thumbnail_image_url;
+    let startTime = Moment(courseSession.start_time);
+    let liveStreamTime = Moment(startTime).subtract(2, "minutes").toDate();
+    console.log(liveStreamTime);
     let peerPurple = '#4E516A';
 
     return (
       <div>
-        {videoUrl ? (
+        { Moment().isAfter(Moment(liveStreamTime)) ? (
           <div
             style={{maxWidth: `${this.state.width}px`}}
             className="video-player-small"
@@ -55,7 +60,7 @@ export default class ClassSession extends Component {
                 width={'100%'}
                 height={'100%'}
                 // style={{pointerEvents: 'none'}}
-                src={'https://www.youtube.com/embed/so8U-eq9yYk'}
+                src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
                 frameBorder="0"
                 allow="autoplay; encrypted-media"
                 sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
@@ -77,9 +82,11 @@ export default class ClassSession extends Component {
           </div>
         ) : (
           <div>
-            Oh no!! Looks like there was a problem displaying the video.
-            Don't worry though, we're on it! If you have any further questions,
-            please send an email to john@cloudworkout.com.
+              <img
+                  style={{maxHeight: '400px'}}
+                  src={courseSession.thumbnail_image_url}
+                  alt=""
+              />
           </div>
         )}
 
