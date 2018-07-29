@@ -84,12 +84,16 @@ textarea {
     color: #2b7bb9; }
 
 .content-container {
-  min-width: 720px;
   max-width: 1080px;
   margin-left: auto;
   margin-right: auto;
   height: 100%;
   position: relative; }
+
+@media all and (max-width: 720px) {
+  .content-container .video-player-small {
+    margin-left: -15px;
+    margin-right: -15px; } }
 
 .p-0 {
   padding: 0; }
