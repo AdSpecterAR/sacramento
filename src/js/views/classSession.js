@@ -17,7 +17,7 @@ export default class ClassSession extends Component {
     super(props);
 
     this.state = {
-      width: 840,
+      width: 1080,
       // height: '315px',
       isFullScreen: false
     };
@@ -58,9 +58,17 @@ export default class ClassSession extends Component {
               />
             </span>
 
-            <span style={{width: '240px'}}>
-              names
-            </span>
+            {/*<iframe*/}
+              {/*width={'100%'}*/}
+              {/*height={'100%'}*/}
+              {/*// className="adjacent"*/}
+              {/*// style={{pointerEvents: 'none'}}*/}
+              {/*src={'https://www.youtube.com/live_chat?v=qZpeO6Zj8as&amp;embed_domain=localhost'}*/}
+              {/*// frameBorder="0"*/}
+              {/*// allow="autoplay; encrypted-media"*/}
+              {/*// sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"*/}
+              {/*// allowFullScreen*/}
+            {/*/>*/}
           </div>
         ) : (
           <div>
@@ -70,20 +78,61 @@ export default class ClassSession extends Component {
           </div>
         )}
 
-        <div onClick={this.toggleVideoSize}>
-          Change size
+        <div style={{paddingBottom: '80px'}}>
+          <div className="col-sm-7">
+            {/*<div onClick={this.toggleVideoSize}>*/}
+            {/*Change size*/}
+            {/*</div>*/}
+
+            <div style={{marginTop: '40px', paddingBottom: '20px', borderBottom: '2px solid #E8E8E8'}}>
+              <h2>
+                {this.props.class_session.course_name}
+              </h2>
+
+              <p className="m-b-0">
+                <b>Activity: </b> {this.props.class_session.course_category}
+              </p>
+
+              <p>
+                <b>Level: </b> {this.props.class_session.course_difficulty}
+              </p>
+            </div>
+
+            <div style={{marginTop: '40px', paddingBottom: '20px', borderBottom: '2px solid #E8E8E8'}}>
+              <h4>Description</h4>
+
+              <p>
+                {this.props.class_session.course_description}
+              </p>
+            </div>
+
+            <div style={{marginTop: '40px', paddingBottom: '20px', borderBottom: '2px solid #E8E8E8'}}>
+              <h4>Equipment</h4>
+
+              <p>
+                {this.props.class_session.course_equipment}
+              </p>
+            </div>
+
+
+            {/*<FeedbackModule*/}
+            {/*classSession={this.props.class_session}*/}
+            {/*setUserCourseSession={this.props.setUserCourseSession}*/}
+            {/*/>*/}
+          </div>
+
+          <div className="col-sm-4 col-sm-offset-1">
+            <div style={{marginTop: '40px'}}>
+              <h4>PARTICIPANTS</h4>
+
+              <p>
+                <b>{this.props.participants.length} watching</b>
+              </p>
+
+              {this.renderParticipants()}
+            </div>
+          </div>
         </div>
-
-        <div>
-          <h4>PARTICIPANTS</h4>
-
-          {this.renderParticipants()}
-        </div>
-
-        <FeedbackModule
-          classSession={this.props.class_session}
-          setUserCourseSession={this.props.setUserCourseSession}
-        />
       </div>
     );
   }

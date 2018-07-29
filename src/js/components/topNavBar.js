@@ -11,6 +11,7 @@ export default class TopNavBar extends Component {
         <div
           className="navbar navbar-default"
           role="navigation"
+          style={{backgroundColor: '#4E516A'}}
         >
           <div className="content-container">
             <div>

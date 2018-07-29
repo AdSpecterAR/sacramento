@@ -22,6 +22,7 @@ export default class ClassSessionContainer extends Component {
 
   componentDidMount() {
     this.fetchClassSession();
+    this.getStudentNames();
     this.interval = setInterval(this.getStudentNames, 5000);
   }
 
