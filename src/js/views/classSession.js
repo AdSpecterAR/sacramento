@@ -1,5 +1,6 @@
 import React, { Component }     from 'react';
 import FeedbackModule           from '../components/feedbackModule';
+import FixedAspectRatio         from '../services/fixedAspectRatio';
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 
@@ -32,7 +33,10 @@ export default class ClassSession extends Component {
     return (
       <div>
         {videoUrl ? (
-          <div style={{width: `${this.state.width}px`, height: `${this.calculateVideoHeight(this.state.width)}px`}}>
+          <div
+            style={{maxWidth: `${this.state.width}px`}}
+            className="video-player-small"
+          >
             {/*<iframe*/}
               {/*width={'100%'}*/}
               {/*height={'100%'}*/}
@@ -44,11 +48,10 @@ export default class ClassSession extends Component {
               {/*allowFullScreen*/}
             {/*/>*/}
 
-            <span>
+            <FixedAspectRatio ratio={'560:315'}>
               <iframe
                 width={'100%'}
                 height={'100%'}
-                className="adjacent"
                 // style={{pointerEvents: 'none'}}
                 src={'https://www.youtube.com/embed/qZpeO6Zj8as?autoplay=1'}
                 frameBorder="0"
@@ -56,7 +59,7 @@ export default class ClassSession extends Component {
                 sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
                 allowFullScreen
               />
-            </span>
+            </FixedAspectRatio>
 
             {/*<iframe*/}
               {/*width={'100%'}*/}

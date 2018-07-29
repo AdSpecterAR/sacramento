@@ -121,16 +121,25 @@ textarea {
 
 //$body-min-width: 1280px;
 //$body-max-width: 1440px;
-$body-min-width: 720px;
+//$body-min-width: 720px;
 $body-max-width: 1080px;
 
 .content-container {
-  min-width: $body-min-width;
+  //min-width: $body-min-width;
   max-width: $body-max-width;
   margin-left: auto;
   margin-right: auto;
   height: 100%;
   position: relative;
+}
+
+@media all and (max-width: 720px) {
+  .content-container {
+    .video-player-small {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
 }
 
 
