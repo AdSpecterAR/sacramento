@@ -2,7 +2,6 @@ import React, { Component }     from 'react';
 import Moment                   from 'moment';
 import FeedbackModule           from '../components/feedbackModule';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
-import Moment                   from 'moment';
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 
