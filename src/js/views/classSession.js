@@ -29,6 +29,7 @@ export default class ClassSession extends Component {
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
+    let peerPurple = '#4E516A';
 
     return (
       <div>
@@ -53,7 +54,7 @@ export default class ClassSession extends Component {
                 width={'100%'}
                 height={'100%'}
                 // style={{pointerEvents: 'none'}}
-                src={'https://www.youtube.com/embed/qZpeO6Zj8as?autoplay=1'}
+                src={'https://www.youtube.com/embed/so8U-eq9yYk'}
                 frameBorder="0"
                 allow="autoplay; encrypted-media"
                 sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
@@ -132,7 +133,14 @@ export default class ClassSession extends Component {
                 <b>{this.props.participants.length} watching</b>
               </p>
 
-              {this.renderParticipants()}
+              <div style={{
+                border: `1px solid #E8E8E8`,
+                backgroundColor: '#E8E8E8',
+                height: '250px',
+                overflowY: 'auto'
+              }}>
+                {this.renderParticipants()}
+              </div>
             </div>
           </div>
         </div>
@@ -143,8 +151,21 @@ export default class ClassSession extends Component {
   renderParticipants() {
     return this.props.participants.map((participant, index) => {
       return (
-        <div key={`participant${index}`}>
-          {participant}
+        <div style={{padding: '15px', paddingTop: index === 0 ? '20px' : '15px', borderBottom: '1px solid #E8E8E8'}}>
+          <div
+            className="pull-right"
+            style={{marginTop: '4px', marginRight: '10px', width: '8px', height: '8px', borderRadius: '4px', backgroundColor: '#68E090'}}
+          >
+          </div>
+
+          <span
+            key={`participant${index}`}
+            style={{
+              marginLeft: '10px',
+            }}
+          >
+            {participant}
+          </span>
         </div>
       );
     });
