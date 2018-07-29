@@ -190,7 +190,8 @@ class Login extends Component {
     API.registerNewUser(this.constructUserRegistrationCredentials())
       .then(({user}) => {
         Session.create(user, user.authentication_token);
-        
+
+        // TODO: CHANGE BACK TO '/' AFTER BETA
         history.push("/class/1");
         window.location.reload();
       })
@@ -208,6 +209,7 @@ class Login extends Component {
       .then(({user}) => {
         Session.create(user, user.authentication_token);
 
+        // TODO: CHANGE BACK TO '/' AFTER BETA
         history.push("/class/1");
         window.location.reload();
       })
