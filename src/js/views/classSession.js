@@ -59,7 +59,7 @@ export default class ClassSession extends Component {
                 width={'100%'}
                 height={'100%'}
                 // style={{pointerEvents: 'none'}}
-                src={'https://www.youtube.com/embed/so8U-eq9yYk'}
+                src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
                 frameBorder="0"
                 allow="autoplay; encrypted-media"
                 sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
