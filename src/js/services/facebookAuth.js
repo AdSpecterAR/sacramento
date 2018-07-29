@@ -34,16 +34,16 @@ export default class FacebookAuth extends Component {
           {/*{this.renderFBButton()}*/}
         </div>
 
-        <div>
-          <button
-            onClick={() => window.FB.logout()}
-            style={this.props.buttonStyle}
-            type="button"
-            className="btn btn-primary waves-effect w-md waves-light m-b-5 m-t-20"
-          >
-            Log out
-          </button>
-        </div>
+        {/*<div>*/}
+          {/*<button*/}
+            {/*onClick={() => window.FB.logout()}*/}
+            {/*style={this.props.buttonStyle}*/}
+            {/*type="button"*/}
+            {/*className="btn btn-primary waves-effect w-md waves-light m-b-5 m-t-20"*/}
+          {/*>*/}
+            {/*Log out*/}
+          {/*</button>*/}
+        {/*</div>*/}
       </div>
     );
   }
