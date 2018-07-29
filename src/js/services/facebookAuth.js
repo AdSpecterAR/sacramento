@@ -132,7 +132,8 @@ export default class FacebookAuth extends Component {
         .then(({user}) => {
           Session.create(user, user.fb_auth_token);
 
-          history.push("/");
+          // TODO: CHANGE BACK TO '/' AFTER BETA
+          history.push("/class/1");
           window.location.reload();
         });
     });

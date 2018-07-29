@@ -45,10 +45,17 @@ class Login extends Component {
     return (
       <div
         className="card-box"
-        style={{width: '400px', margin: '0 auto', marginTop: '200px'}}
+        style={{width: '400px', margin: '0 auto', marginTop: '100px'}}
       >
-        <h3 className="m-b-25 text-align-center">
-          {this.state.shouldShowRegistration ? 'Register' : 'Log in'}
+        <div style={{textAlign: 'center'}}>
+          <img
+            style={{width: '300px'}}
+            src="https://s3-us-west-1.amazonaws.com/cloudworkout/Grayscale+on+Transparent.png"
+          />
+        </div>
+
+        <h3 className="text-align-center" style={{marginTop: '50px'}}>
+          {/*{this.state.shouldShowRegistration ? 'Register' : 'Log in'}*/}
         </h3>
 
         {this.state.shouldShowRegistration && (
@@ -183,8 +190,9 @@ class Login extends Component {
     API.registerNewUser(this.constructUserRegistrationCredentials())
       .then(({user}) => {
         Session.create(user, user.authentication_token);
-        
-        history.push("/");
+
+        // TODO: CHANGE BACK TO '/' AFTER BETA
+        history.push("/class/1");
         window.location.reload();
       })
       .catch((error) => {
@@ -201,7 +209,8 @@ class Login extends Component {
       .then(({user}) => {
         Session.create(user, user.authentication_token);
 
-        history.push("/");
+        // TODO: CHANGE BACK TO '/' AFTER BETA
+        history.push("/class/1");
         window.location.reload();
       })
       .catch((error) => {
