@@ -1,4 +1,5 @@
 import React, { Component }     from 'react';
+import Moment                   from 'moment';
 import FeedbackModule           from '../components/feedbackModule';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
 
@@ -82,8 +83,11 @@ export default class ClassSession extends Component {
           </div>
         )}
 
-        <div style={{paddingBottom: '80px'}}>
-          <div className="col-sm-7">
+        <div>
+          <div
+            className="col-sm-7"
+            style={{paddingBottom: '80px'}}
+          >
             {/*<div onClick={this.toggleVideoSize}>*/}
             {/*Change size*/}
             {/*</div>*/}
@@ -94,11 +98,15 @@ export default class ClassSession extends Component {
               </h2>
 
               <p className="m-b-0">
-                <b>Activity: </b> {this.props.class_session.course_category}
+                <b>{Moment(courseSession.start_time).format('dddd, MMMM Do, h:mm a')}</b>
+              </p>
+
+              <p className="m-b-0">
+                <b>Activity: </b> High Intensity Interval Training {/*this.props.class_session.course_category*/}
               </p>
 
               <p>
-                <b>Level: </b> {this.props.class_session.course_difficulty}
+                <b>Level: </b> {this.capitalizeFirstLetter(this.props.class_session.course_difficulty)}
               </p>
             </div>
 
@@ -110,7 +118,7 @@ export default class ClassSession extends Component {
               </p>
             </div>
 
-            <div style={{marginTop: '40px', paddingBottom: '20px', borderBottom: '2px solid #E8E8E8'}}>
+            <div style={{marginTop: '40px', paddingBottom: '20px'}}>
               <h4>Equipment</h4>
 
               <p>
@@ -135,7 +143,7 @@ export default class ClassSession extends Component {
 
               <div style={{
                 border: `1px solid #E8E8E8`,
-                backgroundColor: '#E8E8E8',
+                backgroundColor: 'white',
                 height: '250px',
                 overflowY: 'auto'
               }}>
@@ -151,7 +159,7 @@ export default class ClassSession extends Component {
   renderParticipants() {
     return this.props.participants.map((participant, index) => {
       return (
-        <div style={{padding: '15px', paddingTop: index === 0 ? '20px' : '15px', borderBottom: '1px solid #E8E8E8'}}>
+        <div style={{padding: '15px', paddingTop: index === 0 ? '20px' : '15px'}}>
           <div
             className="pull-right"
             style={{marginTop: '4px', marginRight: '10px', width: '8px', height: '8px', borderRadius: '4px', backgroundColor: '#68E090'}}
@@ -169,6 +177,16 @@ export default class ClassSession extends Component {
         </div>
       );
     });
+  }
+
+  // TODO: MOVE TO UTILITY OR SERVICE FILE
+  capitalizeAllLetters(string) {
+    return string.toUpperCase();
+  }
+
+  // TODO: MOVE TO UTILITY OR SERVICE FILE
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   calculateVideoHeight(width) {
