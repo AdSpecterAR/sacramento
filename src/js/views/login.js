@@ -182,7 +182,10 @@ class Login extends Component {
   register() {
     API.registerNewUser(this.constructUserRegistrationCredentials())
       .then(({user}) => {
-        this.loginSuccessHandler(user);
+        Session.create(user, user.authentication_token);
+        
+        history.push("/");
+        window.location.reload();
       })
       .catch((error) => {
         console.log('error', error);
