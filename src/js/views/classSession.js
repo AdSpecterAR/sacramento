@@ -1,6 +1,7 @@
 import React, { Component }     from 'react';
 import FeedbackModule           from '../components/feedbackModule';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
+import Moment                   from 'moment';
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 
@@ -29,11 +30,15 @@ export default class ClassSession extends Component {
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
+    let thumbnailUrl = courseSession.thumbnail_image_url;
+    let startTime = Moment(courseSession.start_time);
+    let liveStreamTime = Moment(startTime).subtract(5, "minutes").toDate();
+    console.log(liveStreamTime);
     let peerPurple = '#4E516A';
 
     return (
       <div>
-        {videoUrl ? (
+        { Moment().isAfter(Moment(liveStreamTime)) ? (
           <div
             style={{maxWidth: `${this.state.width}px`}}
             className="video-player-small"
@@ -76,9 +81,11 @@ export default class ClassSession extends Component {
           </div>
         ) : (
           <div>
-            Oh no!! Looks like there was a problem displaying the video.
-            Don't worry though, we're on it! If you have any further questions,
-            please send an email to john@cloudworkout.com.
+              <img
+                  style={{maxHeight: '400px'}}
+                  src={courseSession.thumbnail_image_url}
+                  alt=""
+              />
           </div>
         )}
 
