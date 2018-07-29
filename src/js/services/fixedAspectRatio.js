@@ -1,7 +1,8 @@
+//
 // From http://steveholgado.com/posts/react-component-fixed-aspect-ratio/
+//
 
 import React from 'react'
-
 
 
 const FixedAspectRatio = ({ ratio = '1:1', children }) => {
