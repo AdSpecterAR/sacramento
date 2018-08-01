@@ -36,49 +36,15 @@ export default class ClassSession extends Component {
     console.log(liveStreamTime);
     let peerPurple = '#4E516A';
 
+    //let element = <renderVideo />;
+
     return (
       <div>
-        { Moment().isAfter(Moment(liveStreamTime)) ? (
-          <div
-            style={{maxWidth: `${this.state.width}px`}}
-            className="video-player-small"
-          >
-            {/*<iframe*/}
-              {/*width={'100%'}*/}
-              {/*height={'100%'}*/}
-              {/*style={{pointerEvents: 'none'}}*/}
-              {/*src={videoUrl + '?autoplay=1&controls=0&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}*/}
-              {/*frameBorder="0"*/}
-              {/*allow="autoplay; encrypted-media"*/}
-              {/*sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"*/}
-              {/*allowFullScreen*/}
-            {/*/>*/}
+        { Moment().isBefore(Moment(liveStreamTime)) ? (
+            <div>
+                {this.renderVideo(videoUrl)}
+            </div>
 
-            <FixedAspectRatio ratio={'560:315'}>
-              <iframe
-                width={'100%'}
-                height={'100%'}
-                // style={{pointerEvents: 'none'}}
-                src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
-                allowFullScreen
-              />
-            </FixedAspectRatio>
-
-            {/*<iframe*/}
-              {/*width={'100%'}*/}
-              {/*height={'100%'}*/}
-              {/*// className="adjacent"*/}
-              {/*// style={{pointerEvents: 'none'}}*/}
-              {/*src={'https://www.youtube.com/live_chat?v=qZpeO6Zj8as&amp;embed_domain=localhost'}*/}
-              {/*// frameBorder="0"*/}
-              {/*// allow="autoplay; encrypted-media"*/}
-              {/*// sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"*/}
-              {/*// allowFullScreen*/}
-            {/*/>*/}
-          </div>
         ) : (
           <div>
             <div
@@ -167,6 +133,7 @@ export default class ClassSession extends Component {
     );
   }
 
+
   renderParticipants() {
     return this.props.participants.map((participant, index) => {
       return (
@@ -189,6 +156,40 @@ export default class ClassSession extends Component {
       );
     });
   }
+
+    renderVideo(videoUrl){
+      return (
+          <div
+              style={{maxWidth: `${this.state.width}px`}}
+              className="video-player-small"
+          >
+              { videoUrl.includes("youtube") ? (
+                  <FixedAspectRatio ratio={'560:315'}>
+                      <iframe
+                          width={'100%'}
+                          height={'100%'}
+                          // style={{pointerEvents: 'none'}}
+                          src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
+                          frameBorder="0"
+                          // allow="autoplay; encrypted-media"
+                          sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
+                          allowFullScreen
+                      />
+                  </FixedAspectRatio>
+                ) : (
+                    <FixedAspectRatio ratio={'560:315'}>
+                        <video height="598" width="1064" preload="auto" controls>
+                            poster="http://mys3bucket.s3.amazonaws.com/videoImage.jpg"
+                            {/*<source src="d3rwsyrl4rem3b.cloudfront.net/SadVid.mp4" type='video/mp4' />*/}
+                            <source src={videoUrl}/>
+                        </video>
+                    </FixedAspectRatio>
+                )
+              }
+          </div>
+      )
+
+    }
 
   // TODO: MOVE TO UTILITY OR SERVICE FILE
   capitalizeAllLetters(string) {
@@ -221,3 +222,44 @@ export default class ClassSession extends Component {
   }
 
 }
+
+function renderVideo(){
+  return (
+      <div
+          style={{maxWidth: `${this.state.width}px`}}
+          className="video-player-small"
+      >
+          <FixedAspectRatio ratio={'560:315'}>
+              <video height="598" width="1064" preload="auto" controls>
+                  poster="http://mys3bucket.s3.amazonaws.com/videoImage.jpg"
+                  {/*<source src="d3rwsyrl4rem3b.cloudfront.net/SadVid.mp4" type='video/mp4' />*/}
+                  <source src="https://s3-us-west-2.amazonaws.com/jess-test-bucket/BigBuckBunny_320x180.mp4" />
+              </video>
+          </FixedAspectRatio>
+      </div>
+    )
+}
+
+        {/*<iframe*/}
+        {/*width={'100%'}*/}
+        {/*height={'100%'}*/}
+        {/*style={{pointerEvents: 'none'}}*/}
+        {/*src={videoUrl + '?autoplay=1&controls=0&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}*/}
+        {/*frameBorder="0"*/}
+        {/*allow="autoplay; encrypted-media"*/}
+        {/*sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"*/}
+        {/*allowFullScreen*/}
+        {/*/>*/}
+
+        {/* <FixedAspectRatio ratio={'560:315'}>
+              <iframe
+                width={'100%'}
+                height={'100%'}
+                // style={{pointerEvents: 'none'}}
+                src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
+                frameBorder="0"
+               // allow="autoplay; encrypted-media"
+                sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
+                allowFullScreen
+              />
+            </FixedAspectRatio>*/}
