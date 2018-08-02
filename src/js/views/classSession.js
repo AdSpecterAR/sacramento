@@ -32,7 +32,7 @@ export default class ClassSession extends Component {
     let videoUrl = courseSession.video_url;
     let thumbnailUrl = courseSession.thumbnail_image_url;
     let startTime = Moment(courseSession.start_time);
-    let liveStreamTime = Moment(startTime).subtract(2, "minutes").toDate();
+    let liveStreamTime = Moment(startTime).toDate();
     console.log(liveStreamTime);
     let peerPurple = '#4E516A';
 
