@@ -1,11 +1,15 @@
 import React, { Component }     from 'react';
 import Moment                   from 'moment';
-import { Player, ControlBar,
-  FullscreenToggle, PlayToggle,
-  VolumeMenuButton, BigPlayButton }
-                                from 'video-react';
-import FeedbackModule           from '../components/feedbackModule';
+import {
+  Player,
+  ControlBar,
+  FullscreenToggle,
+  PlayToggle,
+  VolumeMenuButton,
+  BigPlayButton
+}                               from 'video-react';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
+import Session                  from '../services/session';
 import "../../../node_modules/video-react/dist/video-react.css";
 
 
@@ -17,6 +21,7 @@ const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 //
 // YouTube Channel ID: UC3-eGPuInuVmMTbyyFVUDlg
 //
+
 
 export default class ClassSession extends Component {
 
@@ -30,6 +35,7 @@ export default class ClassSession extends Component {
     };
 
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
+    this.handleFullScreen = this.handleFullScreen.bind(this);
   }
 
   render() {
@@ -37,9 +43,8 @@ export default class ClassSession extends Component {
     let videoUrl = courseSession.video_url;
     let thumbnailUrl = courseSession.thumbnail_image_url;
     let startTime = Moment(courseSession.start_time);
-
-    let liveStreamTime = Moment(startTime).subtract(2, "minutes").toDate();
-
+    let liveStreamTime = Moment(startTime).toDate();
+    console.log(liveStreamTime);
     let peerPurple = '#4E516A';
 
     let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(liveStreamTime))).as('seconds');
@@ -117,33 +122,79 @@ export default class ClassSession extends Component {
           </div>
 
           <div className="col-sm-4 col-sm-offset-1">
-            <div style={{marginTop: '40px'}}>
-              <h4>PARTICIPANTS</h4>
+            {/*{this.renderLeaderboard()}*/}
+          </div>
 
-              <p>
-                <b>{this.props.participants.length} watching</b>
-              </p>
-
-              <div style={{
-                border: `1px solid #E8E8E8`,
-                backgroundColor: 'white',
-                height: '250px',
-                overflowY: 'auto'
-              }}>
-                {this.renderParticipants()}
-              </div>
-            </div>
+          <div>
+            <button onClick={this.handleFullScreen}>
+              Full screen
+            </button>
           </div>
         </div>
       </div>
     );
   }
 
+  renderLeaderboard() {
+    return (
+      <div style={{marginTop: '40px'}}>
+        {/*<h4>PARTICIPANTS</h4>*/}
+
+        {/*<p>*/}
+          {/*<b>{this.props.participants.length} watching</b>*/}
+        {/*</p>*/}
+
+        <div style={{
+          backgroundColor: 'rgba(46,44,46, 0.8)',
+          height: '250px',
+          overflowY: 'auto',
+          width: '100%',
+          color: 'white'
+        }}>
+          <div style={{padding: '15px', width: '100%', color: 'white', backgroundColor: 'rgba(19,30,61, 0.8)', height: '40px'}}>
+            <h5 className="pull-left" style={{color: 'white', margin: '0'}}>
+              Leaderboard
+            </h5>
+
+            <div className="pull-right">
+              Points
+            </div>
+          </div>
+
+          {this.renderParticipants()}
+        </div>
+      </div>
+    );
+  }
+
+  renderPremiumParticipants() {
+    return this.props.premiumParticipants.map((participant, index) => {
+      return (
+        <div style={{padding: '15px', paddingTop: index === 0 ? '20px' : '15px', backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'}}>
+          <div
+            className="pull-right"
+          >
+            {participant.points}
+          </div>
+
+          <span
+            key={`participant${index}`}
+            style={{
+              marginLeft: '10px',
+            }}
+          >
+            {participant.full_name}
+          </span>
+        </div>
+      );
+    });
+  }
+
 
   renderParticipants() {
     return this.props.participants.map((participant, index) => {
       return (
-        <div style={{padding: '15px', paddingTop: index === 0 ? '20px' : '15px'}}>
+        <div style={{padding: '15px', paddingTop: index === 0 ? '20px' : '15px', backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'}}>
           <div
             className="pull-right"
             style={{marginTop: '4px', marginRight: '10px', width: '8px', height: '8px', borderRadius: '4px', backgroundColor: '#68E090'}}
@@ -164,7 +215,7 @@ export default class ClassSession extends Component {
   }
 
   renderVideo(videoUrl, secondsAfterStartTime){
-    return ( 
+    return (
       <div
         style={{maxWidth: `${this.state.width}px`}}
         className="video-player-small"
@@ -175,6 +226,11 @@ export default class ClassSession extends Component {
           <Player ref="player" autoPlay={true}>
             <source src={videoUrl +"#t=" + secondsAfterStartTime } />
             <BigPlayButton position="center" />
+
+            <div style={{position: 'absolute', right: '30px', bottom: '80px', width: '300px'}}>
+              {this.renderLeaderboard()}
+            </div>
+
             <ControlBar autoHide={false} disableDefaultControls>
               <PlayToggle />
               <VolumeMenuButton />
@@ -206,6 +262,23 @@ export default class ClassSession extends Component {
         />
       </FixedAspectRatio>
     )
+  }
+
+  handleFullScreen() {
+    let elem = document.getElementById("youtubeVideo");
+    this.launchIntoFullscreen(elem);
+  }
+
+  launchIntoFullscreen(element) {
+    if(element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if(element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if(element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if(element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
   }
 
   // TODO: MOVE TO UTILITY OR SERVICE FILE

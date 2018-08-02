@@ -4,6 +4,29 @@ import ClassSession             from './classSession';
 import Session                  from '../services/session';
 
 
+const premiumParticipants = [
+  {
+    full_name: 'Jake Roust',
+    points: 0
+  },
+  {
+    full_name: 'Casey Lim',
+    points: 0
+  },
+  {
+    full_name: 'Rachel Mazuki',
+    points: 0
+  },
+  {
+    full_name: 'Miki Wan',
+    points: 0
+  },
+  {
+    full_name: 'Mel Fontenot',
+    points: 0
+  },
+];
+
 export default class ClassSessionContainer extends Component {
 
   constructor(props) {
@@ -12,6 +35,7 @@ export default class ClassSessionContainer extends Component {
     this.state = {
       class_session: {},
       participants: [],
+      premiumParticipants: premiumParticipants,
       loading: true
     };
 
