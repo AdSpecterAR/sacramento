@@ -33,21 +33,17 @@ export default class ClassSession extends Component {
     let thumbnailUrl = courseSession.thumbnail_image_url;
     let startTime = Moment(courseSession.start_time);
     let liveStreamTime = Moment(startTime).subtract(2, "minutes").toDate();
-    console.log(liveStreamTime);
+
     let peerPurple = '#4E516A';
 
     let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(startTime))).as('seconds');
-    console.log(secondsAfterStartTime);
-
-    //let element = <renderVideo />;
 
     return (
       <div>
-        { Moment().isAfter(Moment(liveStreamTime)) ? (
-            <div>
-                {this.renderVideo(videoUrl, secondsAfterStartTime)}
-            </div>
-
+        {Moment().isAfter(Moment(liveStreamTime)) ? (
+          <div>
+            {this.renderVideo(videoUrl, secondsAfterStartTime)}
+          </div>
         ) : (
           <div>
             <div
@@ -162,41 +158,45 @@ export default class ClassSession extends Component {
 
     renderVideo(videoUrl, secondsAfterStartTime){
       return (
-          <div
-              style={{maxWidth: `${this.state.width}px`}}
-              className="video-player-small"
-          >
-              { videoUrl.includes("youtube") ? (
-                  <FixedAspectRatio ratio={'560:315'}>
-                      <iframe
-                          width={'100%'}
-                          height={'100%'}
-                          // style={{pointerEvents: 'none'}}
-                          src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
-                          frameBorder="0"
-                          // allow="autoplay; encrypted-media"
-                          sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
-                          allowFullScreen
-                      />
-                  </FixedAspectRatio>
-                ) : (
-                    <FixedAspectRatio ratio={'560:315'}>
-                        <video id="video" height="598" width="1064" preload="auto" autoPlay>
-                            poster="http://mys3bucket.s3.amazonaws.com/videoImage.jpg"
-                            {/*<source src="d3rwsyrl4rem3b.cloudfront.net/SadVid.mp4" type='video/mp4' />*/}
-                            <source src={videoUrl + "#t=" + secondsAfterStartTime}/>
-                        </video>
-                      <script>
-                          document.getElementById("video1").addEventListener("loadedmetadata", function() {
-                            this.currentTime = 100
-                          }, false);
-                      </script>
-                    </FixedAspectRatio>
-                )
-              }
-          </div>
+        <div
+          style={{maxWidth: `${this.state.width}px`}}
+          className="video-player-small"
+        >
+          { this.isYoutubeLink(videoUrl) ? (
+              this.renderYoutubeVideo(videoUrl)
+            ) : (
+              <FixedAspectRatio ratio={'560:315'}>
+                <video id="video" height="598" width="1064" preload="auto" autoPlay controls>
+                  poster="http://mys3bucket.s3.amazonaws.com/videoImage.jpg"
+                  <source src={videoUrl + "#t=" + secondsAfterStartTime}/>
+                </video>
+              </FixedAspectRatio>
+            )
+          }
+        </div>
       )
 
+    }
+
+    isYoutubeLink(videoUrl) {
+      return videoUrl.includes("youtube")
+    }
+
+    renderYoutubeVideo(videoUrl) {
+      return (
+        <FixedAspectRatio ratio={'560:315'}>
+          <iframe
+            width={'100%'}
+            height={'100%'}
+            // style={{pointerEvents: 'none'}}
+            src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
+            frameBorder="0"
+            // allow="autoplay; encrypted-media"
+            sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
+            allowFullScreen
+          />
+        </FixedAspectRatio>
+      )
     }
 
   // TODO: MOVE TO UTILITY OR SERVICE FILE
@@ -231,43 +231,4 @@ export default class ClassSession extends Component {
 
 }
 
-function renderVideo(){
-  return (
-      <div
-          style={{maxWidth: `${this.state.width}px`}}
-          className="video-player-small"
-      >
-          <FixedAspectRatio ratio={'560:315'}>
-              <video height="598" width="1064" preload="auto" controls>
-                  poster="http://mys3bucket.s3.amazonaws.com/videoImage.jpg"
-                  {/*<source src="d3rwsyrl4rem3b.cloudfront.net/SadVid.mp4" type='video/mp4' />*/}
-                  <source src="https://s3-us-west-2.amazonaws.com/jess-test-bucket/BigBuckBunny_320x180.mp4" />
-              </video>
-          </FixedAspectRatio>
-      </div>
-    )
-}
 
-        {/*<iframe*/}
-        {/*width={'100%'}*/}
-        {/*height={'100%'}*/}
-        {/*style={{pointerEvents: 'none'}}*/}
-        {/*src={videoUrl + '?autoplay=1&controls=0&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}*/}
-        {/*frameBorder="0"*/}
-        {/*allow="autoplay; encrypted-media"*/}
-        {/*sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"*/}
-        {/*allowFullScreen*/}
-        {/*/>*/}
-
-        {/* <FixedAspectRatio ratio={'560:315'}>
-              <iframe
-                width={'100%'}
-                height={'100%'}
-                // style={{pointerEvents: 'none'}}
-                src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
-                frameBorder="0"
-               // allow="autoplay; encrypted-media"
-                sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
-                allowFullScreen
-              />
-            </FixedAspectRatio>*/}
