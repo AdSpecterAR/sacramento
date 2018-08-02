@@ -191,8 +191,7 @@ class Login extends Component {
       .then(({user}) => {
         Session.create(user, user.authentication_token);
 
-        // TODO: CHANGE BACK TO '/' AFTER BETA
-        history.push("/class/1");
+        history.push("/");
         window.location.reload();
       })
       .catch((error) => {
@@ -209,8 +208,7 @@ class Login extends Component {
       .then(({user}) => {
         Session.create(user, user.authentication_token);
 
-        // TODO: CHANGE BACK TO '/' AFTER BETA
-        history.push("/class/1");
+        history.push("/");
         window.location.reload();
       })
       .catch((error) => {

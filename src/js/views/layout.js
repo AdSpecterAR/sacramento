@@ -9,7 +9,7 @@ export default class Layout extends Component {
       <div>
         <TopNavBar auth={this.props.auth} />
 
-        <div className="content-container" style={{marginTop: '60px'}}>
+        <div className="content-container" style={{marginTop: '50px'}}>
           <div className="container">
             {this.props.children}
           </div>
