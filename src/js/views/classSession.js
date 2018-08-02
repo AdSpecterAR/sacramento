@@ -36,13 +36,16 @@ export default class ClassSession extends Component {
     console.log(liveStreamTime);
     let peerPurple = '#4E516A';
 
+    let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(startTime))).as('seconds');
+    console.log(secondsAfterStartTime);
+
     //let element = <renderVideo />;
 
     return (
       <div>
-        { Moment().isBefore(Moment(liveStreamTime)) ? (
+        { Moment().isAfter(Moment(liveStreamTime)) ? (
             <div>
-                {this.renderVideo(videoUrl)}
+                {this.renderVideo(videoUrl, secondsAfterStartTime)}
             </div>
 
         ) : (
@@ -157,7 +160,7 @@ export default class ClassSession extends Component {
     });
   }
 
-    renderVideo(videoUrl){
+    renderVideo(videoUrl, secondsAfterStartTime){
       return (
           <div
               style={{maxWidth: `${this.state.width}px`}}
@@ -178,11 +181,16 @@ export default class ClassSession extends Component {
                   </FixedAspectRatio>
                 ) : (
                     <FixedAspectRatio ratio={'560:315'}>
-                        <video height="598" width="1064" preload="auto" controls>
+                        <video id="video" height="598" width="1064" preload="auto" autoPlay>
                             poster="http://mys3bucket.s3.amazonaws.com/videoImage.jpg"
                             {/*<source src="d3rwsyrl4rem3b.cloudfront.net/SadVid.mp4" type='video/mp4' />*/}
-                            <source src={videoUrl}/>
+                            <source src={videoUrl + "#t=" + secondsAfterStartTime}/>
                         </video>
+                      <script>
+                          document.getElementById("video1").addEventListener("loadedmetadata", function() {
+                            this.currentTime = 100
+                          }, false);
+                      </script>
                     </FixedAspectRatio>
                 )
               }
