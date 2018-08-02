@@ -6,6 +6,7 @@
 @import url(stylesheets/flacto/pages.css);
 @import url(stylesheets/flacto/responsive.css);
 @import url(stylesheets/flacto/variables.css);
+
 .modal-background {
   background-color: rgba(71, 72, 83, 0.77);
   position: fixed;
