@@ -162,7 +162,6 @@ export default class ClassSession extends Component {
   }
 
   renderVideo(videoUrl, secondsAfterStartTime){
-
     return (
       <div
         style={{maxWidth: `${this.state.width}px`}}
