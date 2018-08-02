@@ -1,7 +1,13 @@
 import React, { Component }     from 'react';
 import Moment                   from 'moment';
+import { Player, ControlBar,
+  FullscreenToggle, PlayToggle,
+  VolumeMenuButton, BigPlayButton }
+                                from 'video-react';
 import FeedbackModule           from '../components/feedbackModule';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
+import "../../../node_modules/video-react/dist/video-react.css";
+
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 
@@ -11,7 +17,6 @@ const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 //
 // YouTube Channel ID: UC3-eGPuInuVmMTbyyFVUDlg
 //
-
 
 export default class ClassSession extends Component {
 
@@ -33,10 +38,10 @@ export default class ClassSession extends Component {
     let thumbnailUrl = courseSession.thumbnail_image_url;
     let startTime = Moment(courseSession.start_time);
     let liveStreamTime = Moment(startTime).subtract(2, "minutes").toDate();
-
     let peerPurple = '#4E516A';
 
     let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(startTime))).as('seconds');
+    console.log(secondsAfterStartTime);
 
     return (
       <div>
@@ -156,48 +161,51 @@ export default class ClassSession extends Component {
     });
   }
 
-    renderVideo(videoUrl, secondsAfterStartTime){
-      return (
-        <div
-          style={{maxWidth: `${this.state.width}px`}}
-          className="video-player-small"
-        >
-          { this.isYoutubeLink(videoUrl) ? (
-              this.renderYoutubeVideo(videoUrl)
-            ) : (
-              <FixedAspectRatio ratio={'560:315'}>
-                <video id="video" height="598" width="1064" preload="auto" autoPlay controls>
-                  poster="http://mys3bucket.s3.amazonaws.com/videoImage.jpg"
-                  <source src={videoUrl + "#t=" + secondsAfterStartTime}/>
-                </video>
-              </FixedAspectRatio>
-            )
-          }
-        </div>
-      )
+  renderVideo(videoUrl, secondsAfterStartTime){
 
-    }
+    return (
+      <div
+        style={{maxWidth: `${this.state.width}px`}}
+        className="video-player-small"
+      >
+        { this.isYoutubeLink(videoUrl) ? (
+          this.renderYoutubeVideo(videoUrl)
+        ) : (
+          <Player ref="player">
+            <source src={videoUrl +"#t=" + secondsAfterStartTime } />
+            <BigPlayButton position="center" />
+            <ControlBar autoHide={false} disableDefaultControls>
+              <PlayToggle />
+              <VolumeMenuButton />
+              <FullscreenToggle />
+            </ControlBar>
+          </Player>
+        )}
+      </div>
+    )
 
-    isYoutubeLink(videoUrl) {
-      return videoUrl.includes("youtube")
-    }
+  }
 
-    renderYoutubeVideo(videoUrl) {
-      return (
-        <FixedAspectRatio ratio={'560:315'}>
-          <iframe
-            width={'100%'}
-            height={'100%'}
-            // style={{pointerEvents: 'none'}}
-            src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
-            frameBorder="0"
-            // allow="autoplay; encrypted-media"
-            sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
-            allowFullScreen
-          />
-        </FixedAspectRatio>
-      )
-    }
+  isYoutubeLink(videoUrl) {
+    return videoUrl.includes("youtube")
+  }
+
+  renderYoutubeVideo(videoUrl) {
+    return (
+      <FixedAspectRatio ratio={'560:315'}>
+        <iframe
+          width={'100%'}
+          height={'100%'}
+          // style={{pointerEvents: 'none'}}
+          src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
+          frameBorder="0"
+          // allow="autoplay; encrypted-media"
+          sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
+          allowFullScreen
+        />
+      </FixedAspectRatio>
+    )
+  }
 
   // TODO: MOVE TO UTILITY OR SERVICE FILE
   capitalizeAllLetters(string) {
@@ -231,4 +239,9 @@ export default class ClassSession extends Component {
 
 }
 
-
+{/*<FixedAspectRatio ratio={'560:315'}>*/}
+{/*<video id="video" class="video-js  vjs-default-skin" height="598" width="1064" preload="auto" autoPlay controls>*/}
+{/*poster="http://mys3bucket.s3.amazonaws.com/videoImage.jpg"*/}
+{/*<source src={videoUrl + "#t=" + secondsAfterStartTime}/>*/}
+{/*</video>*/}
+{/*</FixedAspectRatio>*/}
