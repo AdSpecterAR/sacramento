@@ -146,7 +146,7 @@ export default class ClassSession extends Component {
               <h2>
                 {this.props.class_session.course_name}
               </h2>
-
+              
               <p className="m-b-0">
                 <b>{Moment(courseSession.start_time).format('dddd, MMMM Do, h:mm a')}</b>
               </p>
@@ -183,9 +183,41 @@ export default class ClassSession extends Component {
             {/*/>*/}
           </div>
 
-          {/*<div className="col-sm-4 col-sm-offset-1">*/}
+          <div className="col-sm-4 col-sm-offset-1" style={{marginTop: '40px'}}>
+            <div className="card-box text-align-center">
+              <h4>
+                Want to get on the leaderboard?
+              </h4>
+
+              <div className="m-t-25">
+                Premium members can sync up their Apple Watch
+                to our workouts to compete live. We'll send out
+                more information after your workout!
+              </div>
+            </div>
+
+            <div className="card-box text-align-center">
+              <h3>
+                Instructor Spotlight
+              </h3>
+
+              <div style={{width: '130px', height: '130px', margin: 'auto'}} className="m-t-20">
+                <img style={{borderRadius: '50%'}} width="100%" height="100%" src="https://s3-us-west-1.amazonaws.com/cloudworkout/stevekpa.jpg" alt=""/>
+              </div>
+
+              <h4 className="m-t-20">
+                Steve Kpa
+              </h4>
+
+              <div clasName="m-t-25">
+                Steve has over 10 years of experience in strength training,
+                Crossfit, and rehabilitation training. Steve is the owner of
+                Anchored Strength and Conditioning Gym in Milpitas, CA.
+              </div>
+            </div>
+
             {/*/!*{this.renderLeaderboard()}*!/*/}
-          {/*</div>*/}
+          </div>
 
           {/*<div>*/}
             {/*<button onClick={this.handleFullScreen}>*/}
