@@ -33,7 +33,7 @@ export default class ClassSession extends Component {
       {
         full_name: 'Jake Roust',
         coefficient: 1,
-        points: 0
+        points: 0 // TODO: add
       },
       {
         full_name: 'Casey Lim',
@@ -52,7 +52,7 @@ export default class ClassSession extends Component {
       },
       {
         full_name: 'Mel Fontenot',
-        coefficient: 0.5,
+        coefficient: 0.6,
         points: 0
       },
     ];
@@ -69,23 +69,21 @@ export default class ClassSession extends Component {
   }
 
   addPoints() {
-    if (this.isCurrentlyStreaming()) {
+    if (!this.isCurrentlyStreaming()) {
       console.log('hi');
       return;
     }
-
-
 
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
     let newParticipants = premiumParticipants.map((participant) => {
       let { full_name, coefficient, points } = participant;
-      let newPoints = Math.round(points + (coefficient * 4));
+      let newPoints = Math.round(points + (coefficient * Math.random(4)));
 
       return {
         full_name,
         coefficient,
-        points: Math.round(points + (coefficient * 4))
+        points: newPoints
       };
     });
 
@@ -186,15 +184,15 @@ export default class ClassSession extends Component {
             {/*/>*/}
           </div>
 
-          <div className="col-sm-4 col-sm-offset-1">
-            {/*{this.renderLeaderboard()}*/}
-          </div>
+          {/*<div className="col-sm-4 col-sm-offset-1">*/}
+            {/*/!*{this.renderLeaderboard()}*!/*/}
+          {/*</div>*/}
 
-          <div>
-            <button onClick={this.handleFullScreen}>
-              Full screen
-            </button>
-          </div>
+          {/*<div>*/}
+            {/*<button onClick={this.handleFullScreen}>*/}
+              {/*Full screen*/}
+            {/*</button>*/}
+          {/*</div>*/}
         </div>
       </div>
     );
@@ -209,6 +207,28 @@ export default class ClassSession extends Component {
           {/*<b>{this.props.participants.length} watching</b>*/}
         {/*</p>*/}
 
+        <div
+          style={{
+            padding: '15px',
+            width: '100%',
+            color: 'white',
+            backgroundColor: 'rgb(19, 30, 61)',
+            height: '40px',
+            fontSize: '12px'
+          }}
+        >
+          <h5
+            className="pull-left"
+            style={{color: 'white', margin: '0'}}
+          >
+            Leaderboard
+          </h5>
+
+          <div className="pull-right">
+            Points
+          </div>
+        </div>
+
         <div style={{
           backgroundColor: 'rgba(46,44,46, 0.8)',
           height: '300px',
@@ -216,28 +236,6 @@ export default class ClassSession extends Component {
           width: '100%',
           color: 'white'
         }}>
-          <div
-            style={{
-              padding: '15px',
-              width: '100%',
-              color: 'white',
-              backgroundColor: 'rgba(19, 30, 61, 0.8)',
-              height: '40px',
-              fontSize: '12px'
-            }}
-          >
-            <h5
-              className="pull-left"
-              style={{color: 'white', margin: '0'}}
-            >
-              Leaderboard
-            </h5>
-
-            <div className="pull-right">
-              Points
-            </div>
-          </div>
-
           {this.renderPremiumParticipants()}
           {this.renderParticipants()}
         </div>
@@ -389,10 +387,10 @@ export default class ClassSession extends Component {
   }
 
   isCurrentlyStreaming() {
-    return this.hasLiveStreamStarted(this.getLiveStreamTime()) && !this.hasLiveStreamEnded(this.getLiveStreamTime());
+    return this.hasLiveStreamStarted(this.getLiveStreamTime()) && this.isLiveStreamOngoing(this.getLiveStreamTime());
   }
 
-  hasLiveStreamEnded(liveStreamTime) {
+  isLiveStreamOngoing(liveStreamTime) {
     return Moment().isBefore(Moment(liveStreamTime).add(this.props.class_session.course_session.duration, 'minutes'));
   }
 

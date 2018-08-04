@@ -6,7 +6,6 @@
 @import url(stylesheets/flacto/pages.css);
 @import url(stylesheets/flacto/responsive.css);
 @import url(stylesheets/flacto/variables.css);
-
 .modal-background {
   background-color: rgba(71, 72, 83, 0.77);
   position: fixed;
@@ -215,6 +214,11 @@ textarea {
 
 .m-r-25 {
   margin-right: 25px; }
+
+.scrollbar-hover {
+  overflow: hidden; }
+  .scrollbar-hover:hover {
+    overflow-y: scroll; }
 
 .autosave-text {
   color: #AAB8C2;
