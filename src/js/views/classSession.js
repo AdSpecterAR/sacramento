@@ -147,7 +147,7 @@ export default class ClassSession extends Component {
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-
+  
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
