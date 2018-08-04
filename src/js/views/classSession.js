@@ -357,7 +357,6 @@ export default class ClassSession extends Component {
         <iframe
           width={'100%'}
           height={'100%'}
-          // style={{pointerEvents: 'none'}}
           src={videoUrl + '?autoplay=1&mode=opaque&rel=0&autohide=1&showinfo=0&wmode=transparent'}
           frameBorder="0"
           // allow="autoplay; encrypted-media"
