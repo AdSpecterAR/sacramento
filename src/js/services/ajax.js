@@ -9,8 +9,8 @@ export default (() => {
       return (resolve, reject) => {
         let request = new XMLHttpRequest();
 
-        // let baseURL = 'http://localhost:3000'; // TODO: CHANGE TO BE DYNAMIC BY ENV AND IN CHECKOUTFORM FOR STRIPE
-        let baseURL = 'https://sunrise-dev.herokuapp.com'; // TODO: CHANGE TO BE DYNAMIC BY ENV
+        let baseURL = 'http://localhost:3000'; // TODO: CHANGE TO BE DYNAMIC BY ENV AND IN CHECKOUTFORM FOR STRIPE
+        // let baseURL = 'https://sunrise-dev.herokuapp.com'; // TODO: CHANGE TO BE DYNAMIC BY ENV
         
         let url = baseURL + options.url;
 

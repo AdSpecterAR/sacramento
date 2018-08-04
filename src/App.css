@@ -6,7 +6,6 @@
 @import url(stylesheets/flacto/pages.css);
 @import url(stylesheets/flacto/responsive.css);
 @import url(stylesheets/flacto/variables.css);
-
 .modal-background {
   background-color: rgba(71, 72, 83, 0.77);
   position: fixed;
@@ -95,7 +94,16 @@ textarea {
 @media all and (max-width: 720px) {
   .content-container .video-player-small {
     margin-left: -15px;
-    margin-right: -15px; } }
+    margin-right: -15px; }
+  .leaderboard {
+    display: none; } }
+
+*:fullscreen, *:-webkit-full-screen, *:-moz-full-screen {
+  background-color: rgba(255, 255, 255, 0); }
+
+#youtubeVideo {
+  min-width: 100%;
+  height: 100%; }
 
 .p-0 {
   padding: 0; }

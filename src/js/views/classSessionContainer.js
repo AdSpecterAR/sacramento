@@ -26,12 +26,6 @@ export default class ClassSessionContainer extends Component {
     this.interval = setInterval(this.getStudentNames, 5000);
   }
 
-  getStudentNames() {
-    API.getCourseSessionStudents({id: this.props.match.params.classId})
-      .then(({participants}) => this.setState({participants}))
-      .catch((response) => console.log('fetch live student count error', response));
-  }
-
   componentWillUnmount() {
     clearInterval(this.interval);
   }
@@ -65,6 +59,14 @@ export default class ClassSessionContainer extends Component {
         this.setUserCourseSession(user_course_session);
       });
   }
+
+  getStudentNames() {
+    API.getCourseSessionStudents({id: this.props.match.params.classId})
+      .then(({participants}) => this.setState({participants}))
+      .catch((response) => console.log('fetch live student count error', response));
+  }
+
+
 
   setUserCourseSession(userCourseSession) {
     this.setState({
