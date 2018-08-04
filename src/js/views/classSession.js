@@ -42,7 +42,7 @@ export default class ClassSession extends Component {
 
     let peerPurple = '#4E516A';
 
-    let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(startTime))).as('seconds');
+    let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(liveStreamTime))).as('seconds');
     console.log(secondsAfterStartTime);
 
     return (
@@ -59,7 +59,7 @@ export default class ClassSession extends Component {
             >
               <FixedAspectRatio ratio={'560:315'}>
                 <div style={{width: '100%', height: '100%'}}>
-                  <img src="https://i.imgur.com/7pwEANH.png" width="100%" height="100%" />
+                  <img src={thumbnailUrl} width="100%" height="100%" />
                 </div>
               </FixedAspectRatio>
             </div>
@@ -164,7 +164,7 @@ export default class ClassSession extends Component {
   }
 
   renderVideo(videoUrl, secondsAfterStartTime){
-    return (
+    return ( 
       <div
         style={{maxWidth: `${this.state.width}px`}}
         className="video-player-small"
@@ -172,7 +172,7 @@ export default class ClassSession extends Component {
         { this.isYoutubeLink(videoUrl) ? (
           this.renderYoutubeVideo(videoUrl)
         ) : (
-          <Player ref="player">
+          <Player ref="player" autoPlay={true}>
             <source src={videoUrl +"#t=" + secondsAfterStartTime } />
             <BigPlayButton position="center" />
             <ControlBar autoHide={false} disableDefaultControls>
@@ -240,9 +240,3 @@ export default class ClassSession extends Component {
 
 }
 
-{/*<FixedAspectRatio ratio={'560:315'}>*/}
-{/*<video id="video" class="video-js  vjs-default-skin" height="598" width="1064" preload="auto" autoPlay controls>*/}
-{/*poster="http://mys3bucket.s3.amazonaws.com/videoImage.jpg"*/}
-{/*<source src={videoUrl + "#t=" + secondsAfterStartTime}/>*/}
-{/*</video>*/}
-{/*</FixedAspectRatio>*/}
