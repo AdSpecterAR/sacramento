@@ -101,9 +101,6 @@ export default class ClassSession extends Component {
     clearInterval(this.interval);
   }
 
-  getSecondsAfterStartTime(startTime) {
-    return Moment.duration(Moment().diff(Moment(startTime))).as('seconds');
-  }
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
@@ -202,7 +199,7 @@ export default class ClassSession extends Component {
 
   renderLeaderboard() {
     return (
-      <div style={{marginTop: '40px', fontFamily: 'Arimo'}}>
+      <div style={{marginTop: '40px', fontFamily: 'Arimo'}} className="leaderboard">
         {/*<h4>PARTICIPANTS</h4>*/}
 
         {/*<p>*/}
@@ -233,7 +230,7 @@ export default class ClassSession extends Component {
 
         <div style={{
           backgroundColor: 'rgba(46,44,46, 0.8)',
-          height: '300px',
+          height: '350px',
           overflowY: 'auto',
           width: '100%',
           color: 'white'
@@ -394,6 +391,10 @@ export default class ClassSession extends Component {
 
   isLiveStreamOngoing(liveStreamTime) {
     return Moment().isBefore(Moment(liveStreamTime).add(this.props.class_session.course_session.duration, 'minutes'));
+  }
+
+  getSecondsAfterStartTime(startTime) {
+    return Moment.duration(Moment().diff(Moment(startTime))).as('seconds');
   }
 
   //
