@@ -42,7 +42,7 @@ export default class ClassSession extends Component {
 
     let peerPurple = '#4E516A';
 
-    let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(startTime))).as('seconds');
+    let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(liveStreamTime))).as('seconds');
     console.log(secondsAfterStartTime);
 
     return (
@@ -172,7 +172,7 @@ export default class ClassSession extends Component {
         { this.isYoutubeLink(videoUrl) ? (
           this.renderYoutubeVideo(videoUrl)
         ) : (
-          <Player ref="player">
+          <Player ref="player" autoPlay={true}>
             <source src={videoUrl +"#t=" + secondsAfterStartTime } />
             <BigPlayButton position="center" />
             <ControlBar autoHide={false} disableDefaultControls>
