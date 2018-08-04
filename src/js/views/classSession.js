@@ -117,7 +117,30 @@ export default class ClassSession extends Component {
     });
   }
 
+  setInitialPoints() {
+    let premiumParticipants = _.clone(this.state.premiumParticipants);
+
+    let newParticipants = premiumParticipants.map((participant) => {
+      let { full_name, coefficient, points } = participant;
+      let seconds = this.getSecondsAfterStartTime();
+      let newPoints = Math.round((seconds * 0.5) - (0.3 * seconds) + (0.3 * coefficient * Math.random(seconds)));
+
+      return {
+        full_name,
+        coefficient,
+        points: newPoints
+      };
+    });
+
+    let sortedNewParticipants = _.sortBy(newParticipants, 'points').reverse();
+
+    this.setState({
+      premiumParticipants: sortedNewParticipants
+    });
+  }
+
   componentDidMount() {
+    this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 5000);
   }
 
