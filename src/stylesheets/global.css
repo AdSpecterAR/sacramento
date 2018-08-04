@@ -153,11 +153,6 @@ textarea {
 .m-r-25 {
   margin-right: 25px; }
 
-.scrollbar-hover {
-  overflow: hidden; }
-  .scrollbar-hover:hover {
-    overflow-y: scroll; }
-
 .autosave-text {
   color: #AAB8C2;
   display: inline-block; }

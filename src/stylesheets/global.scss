@@ -347,14 +347,6 @@ $body-max-width: 1080px;
 //=========
 
 
-.scrollbar-hover {
-  overflow: hidden;
-
-  &:hover {
-    overflow-y: scroll;
-  }
-}
-
 .autosave-text {
   color: $color-gray-medium;
   display: inline-block;

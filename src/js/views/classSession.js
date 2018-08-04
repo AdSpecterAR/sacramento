@@ -70,7 +70,6 @@ export default class ClassSession extends Component {
 
   addPoints() {
     if (!this.isCurrentlyStreaming()) {
-      console.log('hi');
       return;
     }
 
@@ -102,6 +101,9 @@ export default class ClassSession extends Component {
     clearInterval(this.interval);
   }
 
+  getSecondsAfterStartTime(startTime) {
+    return Moment.duration(Moment().diff(Moment(startTime))).as('seconds');
+  }
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
@@ -110,8 +112,8 @@ export default class ClassSession extends Component {
     // console.log(liveStreamTime);
     let thumbnailUrl = courseSession.thumbnail_image_url;
 
-    let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(liveStreamTime))).as('seconds');
-    console.log(secondsAfterStartTime);
+    let secondsAfterStartTime = this.getSecondsAfterStartTime(liveStreamTime);
+    // console.log(secondsAfterStartTime);
 
     return (
       <div>
