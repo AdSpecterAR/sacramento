@@ -8,6 +8,7 @@ import {
   VolumeMenuButton,
   BigPlayButton
 }                               from 'video-react';
+import _                        from 'underscore';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
 import Session                  from '../services/session';
 import "../../../node_modules/video-react/dist/video-react.css";
@@ -28,31 +29,95 @@ export default class ClassSession extends Component {
   constructor(props) {
     super(props);
 
+    let premiumParticipants = [
+      {
+        full_name: 'Jake Roust',
+        coefficient: 1,
+        points: 0
+      },
+      {
+        full_name: 'Casey Lim',
+        coefficient: 0.8,
+        points: 0
+      },
+      {
+        full_name: 'Rachel Mazuki',
+        coefficient: 0.7,
+        points: 0
+      },
+      {
+        full_name: 'Miki Wan',
+        coefficient: 0.9,
+        points: 0
+      },
+      {
+        full_name: 'Mel Fontenot',
+        coefficient: 0.5,
+        points: 0
+      },
+    ];
+
     this.state = {
       width: 1080,
-      // height: '315px',
+      premiumParticipants,
       isFullScreen: false
     };
 
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
     this.handleFullScreen = this.handleFullScreen.bind(this);
+    this.addPoints = this.addPoints.bind(this);
+  }
+
+  addPoints() {
+    if (this.isCurrentlyStreaming()) {
+      console.log('hi');
+      return;
+    }
+
+
+
+    let premiumParticipants = _.clone(this.state.premiumParticipants);
+
+    let newParticipants = premiumParticipants.map((participant) => {
+      let { full_name, coefficient, points } = participant;
+      let newPoints = Math.round(points + (coefficient * 4));
+
+      return {
+        full_name,
+        coefficient,
+        points: Math.round(points + (coefficient * 4))
+      };
+    });
+
+    let sortedNewParticipants = _.sortBy(newParticipants, 'points').reverse();
+
+    this.setState({
+      premiumParticipants: sortedNewParticipants
+    });
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.addPoints, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
+    let startTime = this.getCourseStartTime();
+    let liveStreamTime = this.getLiveStreamTime();
+    // console.log(liveStreamTime);
     let thumbnailUrl = courseSession.thumbnail_image_url;
-    let startTime = Moment(courseSession.start_time);
-    let liveStreamTime = Moment(startTime).toDate();
-    console.log(liveStreamTime);
-    let peerPurple = '#4E516A';
 
     let secondsAfterStartTime = Moment.duration(Moment().diff(Moment(liveStreamTime))).as('seconds');
     console.log(secondsAfterStartTime);
 
     return (
       <div>
-        {Moment().isAfter(Moment(liveStreamTime)) ? (
+        {this.hasLiveStreamStarted(liveStreamTime) ? (
           <div>
             {this.renderVideo(videoUrl, secondsAfterStartTime)}
           </div>
@@ -137,7 +202,7 @@ export default class ClassSession extends Component {
 
   renderLeaderboard() {
     return (
-      <div style={{marginTop: '40px'}}>
+      <div style={{marginTop: '40px', fontFamily: 'Arimo'}}>
         {/*<h4>PARTICIPANTS</h4>*/}
 
         {/*<p>*/}
@@ -146,13 +211,25 @@ export default class ClassSession extends Component {
 
         <div style={{
           backgroundColor: 'rgba(46,44,46, 0.8)',
-          height: '250px',
+          height: '300px',
           overflowY: 'auto',
           width: '100%',
           color: 'white'
         }}>
-          <div style={{padding: '15px', width: '100%', color: 'white', backgroundColor: 'rgba(19,30,61, 0.8)', height: '40px'}}>
-            <h5 className="pull-left" style={{color: 'white', margin: '0'}}>
+          <div
+            style={{
+              padding: '15px',
+              width: '100%',
+              color: 'white',
+              backgroundColor: 'rgba(19, 30, 61, 0.8)',
+              height: '40px',
+              fontSize: '12px'
+            }}
+          >
+            <h5
+              className="pull-left"
+              style={{color: 'white', margin: '0'}}
+            >
               Leaderboard
             </h5>
 
@@ -161,6 +238,7 @@ export default class ClassSession extends Component {
             </div>
           </div>
 
+          {this.renderPremiumParticipants()}
           {this.renderParticipants()}
         </div>
       </div>
@@ -168,11 +246,18 @@ export default class ClassSession extends Component {
   }
 
   renderPremiumParticipants() {
-    return this.props.premiumParticipants.map((participant, index) => {
+    return this.state.premiumParticipants.map((participant, index) => {
       return (
-        <div style={{padding: '15px', paddingTop: index === 0 ? '20px' : '15px', backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'}}>
+        <div
+          style={{
+            padding: '15px',
+            fontSize: '12px',
+            paddingTop: index === 0 ? '20px' : '15px',
+            backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'
+          }}
+        >
           <div
-            className="pull-right"
+            className="pull-right m-r-10"
           >
             {participant.points}
           </div>
@@ -194,10 +279,24 @@ export default class ClassSession extends Component {
   renderParticipants() {
     return this.props.participants.map((participant, index) => {
       return (
-        <div style={{padding: '15px', paddingTop: index === 0 ? '20px' : '15px', backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'}}>
+        <div
+          style={{
+            padding: '15px',
+            fontSize: '12px',
+            paddingTop: index === 0 ? '20px' : '15px',
+            backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'
+          }}
+        >
           <div
             className="pull-right"
-            style={{marginTop: '4px', marginRight: '10px', width: '8px', height: '8px', borderRadius: '4px', backgroundColor: '#68E090'}}
+            style={{
+              marginTop: '4px',
+              marginRight: '10px',
+              width: '8px',
+              height: '8px',
+              borderRadius: '4px',
+              backgroundColor: '#68E090'
+            }}
           >
           </div>
 
@@ -214,7 +313,7 @@ export default class ClassSession extends Component {
     });
   }
 
-  renderVideo(videoUrl, secondsAfterStartTime){
+  renderVideo(videoUrl, secondsAfterStartTime) {
     return (
       <div
         style={{maxWidth: `${this.state.width}px`}}
@@ -227,7 +326,15 @@ export default class ClassSession extends Component {
             <source src={videoUrl +"#t=" + secondsAfterStartTime } />
             <BigPlayButton position="center" />
 
-            <div style={{position: 'absolute', right: '30px', bottom: '80px', width: '300px'}}>
+            <div
+              style={{
+                position: 'absolute',
+                right: '25px',
+                bottom: '50px',
+                width: '250px',
+                zIndex: '1'
+              }}
+            >
               {this.renderLeaderboard()}
             </div>
 
@@ -269,22 +376,43 @@ export default class ClassSession extends Component {
     this.launchIntoFullscreen(elem);
   }
 
-  launchIntoFullscreen(element) {
-    if(element.requestFullscreen) {
-      element.requestFullscreen();
-    } else if(element.mozRequestFullScreen) {
-      element.mozRequestFullScreen();
-    } else if(element.webkitRequestFullscreen) {
-      element.webkitRequestFullscreen();
-    } else if(element.msRequestFullscreen) {
-      element.msRequestFullscreen();
-    }
+  getCourseStartTime() {
+    return Moment(this.props.class_session.course_session.start_time);
   }
 
-  // TODO: MOVE TO UTILITY OR SERVICE FILE
-  capitalizeAllLetters(string) {
-    return string.toUpperCase();
+  getLiveStreamTime() {
+    return Moment(this.props.class_session.course_session.start_time); // minus two minutes?
   }
+
+  hasLiveStreamStarted(liveStreamTime) {
+    return Moment().isAfter(Moment(liveStreamTime));
+  }
+
+  isCurrentlyStreaming() {
+    return this.hasLiveStreamStarted(this.getLiveStreamTime()) && !this.hasLiveStreamEnded(this.getLiveStreamTime());
+  }
+
+  hasLiveStreamEnded(liveStreamTime) {
+    return Moment().isBefore(Moment(liveStreamTime).add(this.props.class_session.course_session.duration, 'minutes'));
+  }
+
+  //
+  // launchIntoFullscreen(element) {
+  //   if(element.requestFullscreen) {
+  //     element.requestFullscreen();
+  //   } else if(element.mozRequestFullScreen) {
+  //     element.mozRequestFullScreen();
+  //   } else if(element.webkitRequestFullscreen) {
+  //     element.webkitRequestFullscreen();
+  //   } else if(element.msRequestFullscreen) {
+  //     element.msRequestFullscreen();
+  //   }
+  // }
+  //
+  // // TODO: MOVE TO UTILITY OR SERVICE FILE
+  // capitalizeAllLetters(string) {
+  //   return string.toUpperCase();
+  // }
 
   // TODO: MOVE TO UTILITY OR SERVICE FILE
   capitalizeFirstLetter(string) {
@@ -312,4 +440,3 @@ export default class ClassSession extends Component {
   }
 
 }
-

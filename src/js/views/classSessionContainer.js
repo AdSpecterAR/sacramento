@@ -4,29 +4,6 @@ import ClassSession             from './classSession';
 import Session                  from '../services/session';
 
 
-const premiumParticipants = [
-  {
-    full_name: 'Jake Roust',
-    points: 0
-  },
-  {
-    full_name: 'Casey Lim',
-    points: 0
-  },
-  {
-    full_name: 'Rachel Mazuki',
-    points: 0
-  },
-  {
-    full_name: 'Miki Wan',
-    points: 0
-  },
-  {
-    full_name: 'Mel Fontenot',
-    points: 0
-  },
-];
-
 export default class ClassSessionContainer extends Component {
 
   constructor(props) {
@@ -35,7 +12,6 @@ export default class ClassSessionContainer extends Component {
     this.state = {
       class_session: {},
       participants: [],
-      premiumParticipants: premiumParticipants,
       loading: true
     };
 
@@ -48,12 +24,6 @@ export default class ClassSessionContainer extends Component {
     this.fetchClassSession();
     this.getStudentNames();
     this.interval = setInterval(this.getStudentNames, 5000);
-  }
-
-  getStudentNames() {
-    API.getCourseSessionStudents({id: this.props.match.params.classId})
-      .then(({participants}) => this.setState({participants}))
-      .catch((response) => console.log('fetch live student count error', response));
   }
 
   componentWillUnmount() {
@@ -89,6 +59,14 @@ export default class ClassSessionContainer extends Component {
         this.setUserCourseSession(user_course_session);
       });
   }
+
+  getStudentNames() {
+    API.getCourseSessionStudents({id: this.props.match.params.classId})
+      .then(({participants}) => this.setState({participants}))
+      .catch((response) => console.log('fetch live student count error', response));
+  }
+
+
 
   setUserCourseSession(userCourseSession) {
     this.setState({
