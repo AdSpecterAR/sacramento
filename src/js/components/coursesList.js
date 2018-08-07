@@ -6,6 +6,7 @@ import FixedAspectRatio         from '../services/fixedAspectRatio';
 const programs = [
   {
     thumbnail_image_url: 'https://s3-us-west-1.amazonaws.com/cloudworkout/GroupHIIT.png',
+    id: 1,
     course: {
       name: 'Group HIIT 30 Day Bootcamp'
     },
@@ -23,6 +24,7 @@ const programs = [
 
 const onDemandVideos = [
   {
+    id: 1,
     thumbnail_image_url: 'https://res.cloudinary.com/classpass/image/upload/x_0,y_19,w_848,h_478,c_crop/h_894/usdzus21sro35bbhpp2p.jpg',
     course: {
       name: 'Core crunch'
@@ -32,7 +34,8 @@ const onDemandVideos = [
     start_time: '2018-08-02T15:00:00.665Z'
   },
   {
-    thumbnail_image_url: 'https://res.cloudinary.com/classpass/image/upload/x_0,y_19,w_848,h_478,c_crop/h_894/usdzus21sro35bbhpp2p.jpg',
+    id: 1,
+    thumbnail_image_url: 'https://s3-us-west-1.amazonaws.com/thumbnail-pics/2211261-attractive-man-doing-pushups-in-the-gym-human-being-photocase-stock-photo-large.jpeg',
     course: {
       name: 'Strength and Conditioning'
     },
@@ -41,7 +44,8 @@ const onDemandVideos = [
     start_time: '2018-08-02T17:00:00.665Z'
   },
   {
-    thumbnail_image_url: 'https://res.cloudinary.com/classpass/image/upload/x_0,y_19,w_848,h_478,c_crop/h_894/usdzus21sro35bbhpp2p.jpg',
+    id: 1,
+    thumbnail_image_url: 'https://s3-us-west-1.amazonaws.com/thumbnail-pics/517231346-612x612.jpg',
     course: {
       name: 'Core crunch'
     },
@@ -50,7 +54,8 @@ const onDemandVideos = [
     start_time: '2018-08-02T15:00:00.665Z'
   },
   {
-    thumbnail_image_url: 'https://res.cloudinary.com/classpass/image/upload/x_0,y_19,w_848,h_478,c_crop/h_894/usdzus21sro35bbhpp2p.jpg',
+    id: 1,
+    thumbnail_image_url: 'https://s3-us-west-1.amazonaws.com/thumbnail-pics/stock-photo--man-and-woman-strengthen-hands-at-fitness-training-571976104.jpg',
     course: {
       name: 'Cardio'
     },
@@ -75,9 +80,9 @@ export default class CoursesList extends Component {
           {this.renderCourseSection('Programs', programs)}
         </div>
 
-        {/*<div style={{marginTop: '70px'}}>*/}
-          {/*{this.renderCourseSection('On-demand classes', onDemandVideos)}*/}
-        {/*</div>*/}
+        <div style={{marginTop: '70px'}}>
+          {this.renderCourseSection('On-demand classes', onDemandVideos)}
+        </div>
       </div>
     );
   }
@@ -93,8 +98,8 @@ export default class CoursesList extends Component {
     let nextCourse = this.props.upcoming_courses[0];
 
     return nextCourse && (
-      <Link to="/class/7">
-        <FixedAspectRatio ratio={'560:200'}>
+      <Link to="/class/2">
+        <FixedAspectRatio ratio={'560:300'}>
           <div style={{width: '100%', height: '100%', position: 'relative'}}>
             <img
               src={nextCourse.thumbnail_image_url}
