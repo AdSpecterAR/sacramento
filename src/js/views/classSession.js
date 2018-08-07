@@ -126,7 +126,7 @@ export default class ClassSession extends Component {
             >
               <FixedAspectRatio ratio={'560:315'}>
                 <div style={{width: '100%', height: '100%'}}>
-                  <img src={thumbnailUrl} width="100%" height="100%" />
+                  <img src="https://i.imgur.com/7pwEANH.png" width="100%" height="100%" />
                 </div>
               </FixedAspectRatio>
             </div>
