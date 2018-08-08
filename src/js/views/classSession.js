@@ -309,25 +309,6 @@ export default class ClassSession extends Component {
             <img src={participant.profile_picture_url} height={30} width={30} style={{borderRadius: 50, margin: '5px', verticalAlign: 'middle'}}/>
             {participant.full_name}
           </span>
-
-          {/*<table>*/}
-            {/*<tr>*/}
-
-              {/*<td>*/}
-                {/*{index + 1}*/}
-              {/*</td>*/}
-              {/*<td>*/}
-                {/*<img src={participant.profile_picture_url} height={30} width={30} hspace="5px" style={{borderRadius: 50}}/>*/}
-              {/*</td>*/}
-              {/*<td>*/}
-                {/*{participant.full_name}*/}
-              {/*</td>*/}
-              {/*<td style={{float: 'right', }}>*/}
-                {/*{participant.points}*/}
-              {/*</td>*/}
-
-            {/*</tr>*/}
-          {/*</table>*/}
         </div>
       );
     });
