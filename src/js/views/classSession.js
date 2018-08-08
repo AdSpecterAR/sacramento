@@ -81,11 +81,12 @@ export default class ClassSession extends Component {
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
     let newParticipants = premiumParticipants.map((participant) => {
-      let { full_name, coefficient, points } = participant;
+      let { full_name, profile_picture_url, coefficient, points } = participant;
       let newPoints = Math.round(points + (coefficient * Math.random(4)));
 
       return {
         full_name,
+        profile_picture_url,
         coefficient,
         points: newPoints
       };
@@ -280,6 +281,7 @@ export default class ClassSession extends Component {
   }
 
   renderPremiumParticipants() {
+    console.log(this.state.premiumParticipants[0].profile_picture_url);
     return this.state.premiumParticipants.map((participant, index) => {
       return (
         <div
@@ -290,13 +292,12 @@ export default class ClassSession extends Component {
             backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'
           }}
         >
-          <div
-            className="pull-right m-r-10"
+
+          <div height="30"
+               className="pull-right m-r-10" style={{marginTop: '13px'}}
           >
             {participant.points}
           </div>
-          {index + 1}
-          {/*<img src={participant.profile_picture_url} height={30} width={30} hspace="5px"/>*/}
 
           <span
             key={`participant${index}`}
@@ -304,7 +305,8 @@ export default class ClassSession extends Component {
               marginLeft: '10px',
             }}
           >
-
+            {index + 1}
+            <img src={participant.profile_picture_url} height={30} width={30} style={{borderRadius: 50, margin: '5px', verticalAlign: 'middle'}}/>
             {participant.full_name}
           </span>
         </div>
@@ -355,7 +357,8 @@ export default class ClassSession extends Component {
   renderVideo(videoUrl, secondsAfterStartTime) {
     return (
       <div
-        style={{maxWidth: `${this.state.width}px`}}
+        style={{maxWidth: `${this.state.width}px`,
+        position: 'relative'}}
         className="video-player-small"
       >
         { this.isYoutubeLink(videoUrl) ? (
@@ -368,8 +371,8 @@ export default class ClassSession extends Component {
             <div
               style={{
                 position: 'absolute',
-                right: '25px',
-                bottom: '50px',
+                right: '0px',
+                top: '-40px',
                 width: '250px',
                 zIndex: '1'
               }}
