@@ -32,26 +32,31 @@ export default class ClassSession extends Component {
     let premiumParticipants = [
       {
         full_name: 'Jake Roust',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/mayo.jpg',
         coefficient: 1,
         points: 0 // TODO: add
       },
       {
         full_name: 'Casey Lim',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/haoda.png',
         coefficient: 0.8,
         points: 0
       },
       {
         full_name: 'Rachel Mazuki',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/chedy.jpg',
         coefficient: 0.7,
         points: 0
       },
       {
         full_name: 'Miki Wan',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/rabs.JPG',
         coefficient: 0.9,
         points: 0
       },
       {
         full_name: 'Mel Fontenot',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/berges.jpg',
         coefficient: 0.6,
         points: 0
       },
@@ -126,7 +131,7 @@ export default class ClassSession extends Component {
             >
               <FixedAspectRatio ratio={'560:315'}>
                 <div style={{width: '100%', height: '100%'}}>
-                  <img src={thumbnailUrl} width="100%" height="100%" />
+                  <img src="https://i.imgur.com/7pwEANH.png" width="100%" height="100%" />
                 </div>
               </FixedAspectRatio>
             </div>
@@ -196,27 +201,27 @@ export default class ClassSession extends Component {
               </div>
             </div>
 
-            <div className="card-box text-align-center">
-              <h3>
-                Instructor Spotlight
-              </h3>
+            {/*<div className="card-box text-align-center">*/}
+              {/*<h3>*/}
+                {/*Instructor Spotlight*/}
+              {/*</h3>*/}
 
-              <div style={{width: '130px', height: '130px', margin: 'auto'}} className="m-t-20">
-                <img style={{borderRadius: '50%'}} width="100%" height="100%" src="https://s3-us-west-1.amazonaws.com/cloudworkout/stevekpa.jpg" alt=""/>
-              </div>
+              {/*<div style={{width: '130px', height: '130px', margin: 'auto'}} className="m-t-20">*/}
+                {/*<img style={{borderRadius: '50%'}} width="100%" height="100%" src="https://s3-us-west-1.amazonaws.com/cloudworkout/stevekpa.jpg" alt=""/>*/}
+              {/*</div>*/}
 
-              <h4 className="m-t-20">
-                Steve Kpa
-              </h4>
+              {/*<h4 className="m-t-20">*/}
+                {/*Steve Kpa*/}
+              {/*</h4>*/}
 
-              <div clasName="m-t-25">
-                Steve has over 10 years of experience in strength training,
-                Crossfit, and rehabilitation training. Steve is the owner of
-                Anchored Strength and Conditioning Gym in Milpitas, CA.
-              </div>
-            </div>
+              {/*<div clasName="m-t-25">*/}
+                {/*Steve has over 10 years of experience in strength training,*/}
+                {/*Crossfit, and rehabilitation training. Steve is the owner of*/}
+                {/*Anchored Strength and Conditioning Gym in Milpitas, CA.*/}
+              {/*</div>*/}
+            {/*</div>*/}
 
-            {/*/!*{this.renderLeaderboard()}*!/*/}
+            {/*{this.renderLeaderboard()}*/}
           </div>
 
           {/*<div>*/}
@@ -290,6 +295,8 @@ export default class ClassSession extends Component {
           >
             {participant.points}
           </div>
+          {index + 1}
+          {/*<img src={participant.profile_picture_url} height={30} width={30} hspace="5px"/>*/}
 
           <span
             key={`participant${index}`}
@@ -297,6 +304,7 @@ export default class ClassSession extends Component {
               marginLeft: '10px',
             }}
           >
+
             {participant.full_name}
           </span>
         </div>
@@ -328,6 +336,8 @@ export default class ClassSession extends Component {
             }}
           >
           </div>
+
+          {/*<img src={participant.profile_picture_url} height={30} width={30}/>*/}
 
           <span
             key={`participant${index}`}
@@ -385,7 +395,7 @@ export default class ClassSession extends Component {
 
   renderYoutubeVideo(videoUrl) {
     return (
-      <FixedAspectRatio ratio={'560:315'}>
+      <FixedAspectRatio ratio={'560:300'}>
         <iframe
           width={'100%'}
           height={'100%'}
