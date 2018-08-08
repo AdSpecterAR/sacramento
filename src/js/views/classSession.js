@@ -281,7 +281,6 @@ export default class ClassSession extends Component {
   }
 
   renderPremiumParticipants() {
-    console.log(this.state.premiumParticipants[0].profile_picture_url);
     return this.state.premiumParticipants.map((participant, index) => {
       return (
         <div
@@ -293,8 +292,8 @@ export default class ClassSession extends Component {
           }}
         >
 
-          <div height="30"
-               className="pull-right m-r-10" style={{marginTop: '13px'}}
+          <div
+            className="pull-right m-r-10" style={{marginTop: '13px'}}
           >
             {participant.points}
           </div>
