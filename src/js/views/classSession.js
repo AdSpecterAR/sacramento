@@ -60,6 +60,24 @@ export default class ClassSession extends Component {
         coefficient: 0.6,
         points: 0
       },
+      {
+        full_name: 'Travis Williams',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/connor.jpg',
+        coefficient: 0.7,
+        points: 0
+      },
+      {
+        full_name: 'Scott Davidson',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/corey.jpg',
+        coefficient: 0.8,
+        points: 0
+      },
+      {
+        full_name: 'Ashley Tang',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/karen.jpg',
+        coefficient: 0.95,
+        points: 0
+      },
     ];
 
     this.state = {
@@ -81,11 +99,12 @@ export default class ClassSession extends Component {
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
     let newParticipants = premiumParticipants.map((participant) => {
-      let { full_name, coefficient, points } = participant;
+      let { full_name, profile_picture_url, coefficient, points } = participant;
       let newPoints = Math.round(points + (coefficient * Math.random(4)));
 
       return {
         full_name,
+        profile_picture_url,
         coefficient,
         points: newPoints
       };
@@ -273,7 +292,7 @@ export default class ClassSession extends Component {
           color: 'white'
         }}>
           {this.renderPremiumParticipants()}
-          {this.renderParticipants()}
+          {/*{this.renderParticipants()}*/}
         </div>
       </div>
     );
@@ -290,21 +309,21 @@ export default class ClassSession extends Component {
             backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'
           }}
         >
+
           <div
-            className="pull-right m-r-10"
+            className="pull-right m-r-10" style={{marginTop: '9px'}}
           >
             {participant.points}
           </div>
-          {index + 1}
-          {/*<img src={participant.profile_picture_url} height={30} width={30} hspace="5px"/>*/}
 
           <span
             key={`participant${index}`}
             style={{
-              marginLeft: '10px',
+              marginLeft: '0px',
             }}
           >
-
+            {index + 1}
+            <img src={participant.profile_picture_url} height={30} width={30} style={{borderRadius: '50%', marginRight: '10px', marginLeft: '20px', verticalAlign: 'middle'}}/>
             {participant.full_name}
           </span>
         </div>
@@ -355,7 +374,8 @@ export default class ClassSession extends Component {
   renderVideo(videoUrl, secondsAfterStartTime) {
     return (
       <div
-        style={{maxWidth: `${this.state.width}px`}}
+        style={{maxWidth: `${this.state.width}px`,
+        position: 'relative'}}
         className="video-player-small"
       >
         { this.isYoutubeLink(videoUrl) ? (
@@ -368,8 +388,8 @@ export default class ClassSession extends Component {
             <div
               style={{
                 position: 'absolute',
-                right: '25px',
-                bottom: '50px',
+                right: '0px',
+                top: '-40px',
                 width: '250px',
                 zIndex: '1'
               }}
