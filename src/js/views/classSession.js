@@ -60,6 +60,24 @@ export default class ClassSession extends Component {
         coefficient: 0.6,
         points: 0
       },
+      {
+        full_name: 'Travis Williams',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/connor.jpg',
+        coefficient: 0.7,
+        points: 0
+      },
+      {
+        full_name: 'Scott Davidson',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/corey.jpg',
+        coefficient: 0.8,
+        points: 0
+      },
+      {
+        full_name: 'Ashley Tang',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/karen.jpg',
+        coefficient: 0.95,
+        points: 0
+      },
     ];
 
     this.state = {
@@ -274,7 +292,7 @@ export default class ClassSession extends Component {
           color: 'white'
         }}>
           {this.renderPremiumParticipants()}
-          {this.renderParticipants()}
+          {/*{this.renderParticipants()}*/}
         </div>
       </div>
     );
@@ -293,7 +311,7 @@ export default class ClassSession extends Component {
         >
 
           <div
-            className="pull-right m-r-10" style={{marginTop: '13px'}}
+            className="pull-right m-r-10" style={{marginTop: '9px'}}
           >
             {participant.points}
           </div>
@@ -301,11 +319,11 @@ export default class ClassSession extends Component {
           <span
             key={`participant${index}`}
             style={{
-              marginLeft: '10px',
+              marginLeft: '0px',
             }}
           >
             {index + 1}
-            <img src={participant.profile_picture_url} height={30} width={30} style={{borderRadius: 50, margin: '5px', verticalAlign: 'middle'}}/>
+            <img src={participant.profile_picture_url} height={30} width={30} style={{borderRadius: '50%', marginRight: '10px', marginLeft: '20px', verticalAlign: 'middle'}}/>
             {participant.full_name}
           </span>
         </div>
