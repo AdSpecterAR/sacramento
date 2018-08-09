@@ -407,13 +407,13 @@ export default class ClassSession extends Component {
                   position: 'absolute', right: '70px',
                   marginTop: '10px',
                   marginRight: '10px',
-                  width: '10px',
-                  height: '10px',
+                  width: '8px',
+                  height: '8px',
                   borderRadius: '7px',
                   backgroundColor: '#ff0000'
                 }}
               >
-                <div style={{marginLeft: '15px', fontFamily: 'Arimo', fontSize: '12px', marginTop: '-1px' }}>
+                <div style={{marginLeft: '15px', fontFamily: 'Arimo', fontSize: '12px', marginTop: '-3px' }}>
                   Live
                 </div>
               </div>
