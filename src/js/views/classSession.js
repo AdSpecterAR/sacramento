@@ -48,12 +48,12 @@ export default class ClassSession extends Component {
         coefficient: 0.7,
         points: 0
       },
-      {
-        full_name: 'Miki Wan',
-        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/rabs.JPG',
-        coefficient: 0.9,
-        points: 0
-      },
+      // {
+      //   full_name: 'Miki Wan',
+      //   profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/rabs.JPG',
+      //   coefficient: 0.9,
+      //   points: 0
+      // },
       {
         full_name: 'Mel Fontenot',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/berges.jpg',
@@ -100,6 +100,7 @@ export default class ClassSession extends Component {
 
     let newParticipants = premiumParticipants.map((participant) => {
       let { full_name, profile_picture_url, coefficient, points } = participant;
+      console.log(profile_picture_url);
       let newPoints = Math.round(points + (coefficient * Math.random(4)));
 
       return {
@@ -121,12 +122,13 @@ export default class ClassSession extends Component {
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
     let newParticipants = premiumParticipants.map((participant) => {
-      let { full_name, coefficient, points } = participant;
+      let { full_name, profile_picture_url, coefficient, points } = participant;
       let seconds = this.getSecondsAfterStartTime();
       let newPoints = Math.round((seconds * 0.5) - (0.3 * seconds) + (0.3 * coefficient * Math.random(seconds)));
 
       return {
         full_name,
+        profile_picture_url,
         coefficient,
         points: newPoints
       };
@@ -315,7 +317,7 @@ export default class ClassSession extends Component {
           color: 'white'
         }}>
           {this.renderPremiumParticipants()}
-          {/*{this.renderParticipants()}*/}
+          {this.renderParticipants()}
         </div>
       </div>
     );
@@ -323,6 +325,7 @@ export default class ClassSession extends Component {
 
   renderPremiumParticipants() {
     return this.state.premiumParticipants.map((participant, index) => {
+      console.log(participant);
       return (
         <div
           style={{
@@ -346,7 +349,19 @@ export default class ClassSession extends Component {
             }}
           >
             {index + 1}
-            <img src={participant.profile_picture_url} height={30} width={30} style={{borderRadius: '50%', marginRight: '10px', marginLeft: '20px', verticalAlign: 'middle'}}/>
+
+            <img
+              src={participant.profile_picture_url}
+              height={30}
+              width={30}
+              style={{
+                borderRadius: '50%',
+                marginRight: '10px',
+                marginLeft: '20px',
+                verticalAlign: 'middle'
+              }}
+            />
+
             {participant.full_name}
           </span>
         </div>
@@ -379,12 +394,22 @@ export default class ClassSession extends Component {
           >
           </div>
 
-          {/*<img src={participant.profile_picture_url} height={30} width={30}/>*/}
+          {/*<img*/}
+            {/*src={participant.profile_picture_url}*/}
+            {/*height={30}*/}
+            {/*width={30}*/}
+            {/*style={{*/}
+              {/*borderRadius: '50%',*/}
+              {/*marginRight: '10px',*/}
+              {/*marginLeft: '20px',*/}
+              {/*verticalAlign: 'middle'*/}
+            {/*}}*/}
+          {/*/>*/}
 
           <span
             key={`participant${index}`}
             style={{
-              marginLeft: '10px',
+              marginLeft: '67px',
             }}
           >
             {participant}
@@ -420,7 +445,7 @@ export default class ClassSession extends Component {
               {this.renderLeaderboard()}
             </div>
 
-            <ControlBar autoHide={false} disableDefaultControls>
+            <ControlBar autoHide={false} disableDefaultControls autoPlay>
               <PlayToggle />
               <VolumeMenuButton />
               <FullscreenToggle />
@@ -436,7 +461,7 @@ export default class ClassSession extends Component {
                   backgroundColor: '#ff0000'
                 }}
               >
-                <div style={{marginLeft: '15px', fontFamily: 'Arimo', fontSize: '12px', marginTop: '-3px' }}>
+                <div style={{marginLeft: '15px', fontFamily: 'Arimo', fontSize: '12px', marginTop: '-1px' }}>
                   Live
                 </div>
               </div>
