@@ -444,7 +444,7 @@ export default class ClassSession extends Component {
               {this.renderLeaderboard()}
             </div>
 
-            <ControlBar autoHide={false} disableDefaultControls autoPlay>
+            <ControlBar autoHide={false} disableDefaultControls>
               <PlayToggle />
               <VolumeMenuButton />
               <FullscreenToggle />
