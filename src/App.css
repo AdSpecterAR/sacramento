@@ -851,3 +851,7 @@ textarea {
   left: 0;
   margin-left: auto;
   margin-right: auto; }
+
+.video-react .video-react-fullscreen-control.video-react-icon-fullscreen.video-react-icon {
+  position: absolute;
+  right: 10px; }

@@ -401,6 +401,22 @@ export default class ClassSession extends Component {
               <PlayToggle />
               <VolumeMenuButton />
               <FullscreenToggle />
+              <div
+                className="pull-right"
+                style={{
+                  position: 'absolute', right: '70px',
+                  marginTop: '10px',
+                  marginRight: '10px',
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '7px',
+                  backgroundColor: '#ff0000'
+                }}
+              >
+                <div style={{marginLeft: '15px', fontFamily: 'Arimo', fontSize: '12px', marginTop: '-3px' }}>
+                  Live
+                </div>
+              </div>
             </ControlBar>
           </Player>
         )}
