@@ -149,7 +149,6 @@ export default class ClassSession extends Component {
   }
   
   render() {
-    console.log(this.props);
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
     let startTime = this.getCourseStartTime();
