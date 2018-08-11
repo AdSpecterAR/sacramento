@@ -20,12 +20,12 @@ export default class TopNavBar extends Component {
                   {/*<i className="zmdi zmdi-menu" />*/}
                 {/*</button>*/}
 
-                <Link to="/">
+                {/*<Link to="/">*/}
                   <img
                     style={{width: '200px', marginTop: '20px', marginLeft: '15px'}}
                     src="https://s3-us-west-1.amazonaws.com/cloudworkout/White+on+Transparent.png"
                   />
-                </Link>
+                {/*</Link>*/}
 
                 <span className="clearfix" />
               </div>
