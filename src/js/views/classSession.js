@@ -506,7 +506,7 @@ export default class ClassSession extends Component {
   }
 
   hasLiveStreamStarted(liveStreamTime) {
-    return Moment().isAfter(Moment(liveStreamTime));
+    return Moment().isAfter(Moment(liveStreamTime).subtract(5, 'seconds'));
   }
 
   isCurrentlyStreaming() {
