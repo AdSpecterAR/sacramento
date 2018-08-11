@@ -149,6 +149,7 @@ export default class ClassSession extends Component {
   }
   
   render() {
+    console.log(this.props);
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
     let startTime = this.getCourseStartTime();
@@ -243,25 +244,25 @@ export default class ClassSession extends Component {
               </div>
             </div>
 
-            {/*<div className="card-box text-align-center">*/}
-              {/*<h3>*/}
-                {/*Instructor Spotlight*/}
-              {/*</h3>*/}
+            <div className="card-box text-align-center">
+              <h3>
+                Instructor Spotlight
+              </h3>
 
-              {/*<div style={{width: '130px', height: '130px', margin: 'auto'}} className="m-t-20">*/}
-                {/*<img style={{borderRadius: '50%'}} width="100%" height="100%" src="https://s3-us-west-1.amazonaws.com/cloudworkout/stevekpa.jpg" alt=""/>*/}
-              {/*</div>*/}
+              <div style={{width: '130px', height: '130px', margin: 'auto'}} className="m-t-20">
+                <img style={{borderRadius: '50%'}} width="100%" height="100%" src="https://s3-us-west-1.amazonaws.com/cloudworkout/Leticia_Taylor.png" alt=""/>
+              </div>
 
-              {/*<h4 className="m-t-20">*/}
-                {/*Steve Kpa*/}
-              {/*</h4>*/}
+              <h4 className="m-t-20">
+                {}
+              </h4>
 
-              {/*<div clasName="m-t-25">*/}
-                {/*Steve has over 10 years of experience in strength training,*/}
-                {/*Crossfit, and rehabilitation training. Steve is the owner of*/}
-                {/*Anchored Strength and Conditioning Gym in Milpitas, CA.*/}
-              {/*</div>*/}
-            {/*</div>*/}
+              <div clasName="m-t-25">
+                Leticia has over 4 years of experience teaching hot yoga,
+                pilates, and HIIT classes. She's currently an instructor
+                at Core 40 in San Francisco.
+              </div>
+            </div>
 
             {/*{this.renderLeaderboard()}*/}
           </div>
