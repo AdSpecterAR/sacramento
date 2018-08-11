@@ -239,7 +239,7 @@ export default class ClassSession extends Component {
               </h4>
 
               <div className="m-t-25">
-                Premium members can sync up their Apple Watch
+                Premium members can sync up our heart rate monitors
                 to our workouts to compete live. We'll send out
                 more information after your workout!
               </div>
