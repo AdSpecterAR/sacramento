@@ -325,7 +325,6 @@ export default class ClassSession extends Component {
 
   renderPremiumParticipants() {
     return this.state.premiumParticipants.map((participant, index) => {
-      console.log(participant);
       return (
         <div
           style={{
