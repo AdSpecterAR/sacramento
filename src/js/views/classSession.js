@@ -290,7 +290,7 @@ export default class ClassSession extends Component {
     if(metric == 'calories') {
       return (
         <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="calories">
-          <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png'} style={{height: '15px', margin: '8px'}}/>
+          <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png'} style={{height: '15px', margin: '8px', marginBottom: '11px'}}/>
           Calories
           <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
             {this.state.calories}
@@ -300,7 +300,7 @@ export default class ClassSession extends Component {
     } else if(metric == 'heart rate') {
       return (
         <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="heart rate">
-          <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/heart+emoji.png'} style={{height: '15px', margin: '8px'}}/>
+          <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/heart+emoji.png'} style={{height: '15px', margin: '8px', marginBottom: '11px'}}/>
           Heart Rate
           <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
             {this.state.heartRate}
