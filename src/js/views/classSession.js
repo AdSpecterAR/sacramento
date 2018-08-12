@@ -30,6 +30,7 @@ export default class ClassSession extends Component {
     super(props);
 
     let calories = 0;
+    let heartRate = 0;
     let premiumParticipants = [
       {
         full_name: 'Jake Roust',
@@ -85,7 +86,8 @@ export default class ClassSession extends Component {
       width: 1080,
       premiumParticipants,
       isFullScreen: false,
-      calories
+      calories,
+      heartRate
     };
 
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
@@ -270,7 +272,7 @@ export default class ClassSession extends Component {
             </div>
 
             {/*{this.renderLeaderboard()}*/}
-            {/*{this.renderCalories()}*/}
+
           </div>
 
           {/*<div>*/}
@@ -283,17 +285,30 @@ export default class ClassSession extends Component {
     );
   }
 
-  renderCalories() {
-    console.log(this.state.calories);
-    return (
-      <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px'}} className="calories">
-        <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png'} style={{height: '15px', margin: '8px'}}/>
-        Calories
-        <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
-           {this.state.calories}
+  renderMetrics(metric) {
+    if(metric == 'calories') {
+      return (
+        <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="calories">
+          <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png'} style={{height: '15px', margin: '8px'}}/>
+          Calories
+          <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
+            {this.state.calories}
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else if(metric == 'heart rate') {
+      return (
+        <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="heart rate">
+          <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/heart+emoji.png'} style={{height: '15px', margin: '8px'}}/>
+          Heart Rate
+          <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
+            {this.state.heartRate}
+          </div>
+        </div>
+      )
+    } else {
+      console.log("Invalid metric");
+    }
   }
 
   addCalories() {
@@ -469,7 +484,8 @@ export default class ClassSession extends Component {
                 top: '0px',
                 zIndex: '1'
               }}>
-              {this.renderCalories()}
+              {this.renderMetrics('calories')}
+              {this.renderMetrics('heart rate')}
             </div>
 
             <div
