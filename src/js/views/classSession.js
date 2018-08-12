@@ -29,6 +29,7 @@ export default class ClassSession extends Component {
   constructor(props) {
     super(props);
 
+    let calories = 0;
     let premiumParticipants = [
       {
         full_name: 'Jake Roust',
@@ -83,12 +84,14 @@ export default class ClassSession extends Component {
     this.state = {
       width: 1080,
       premiumParticipants,
-      isFullScreen: false
+      isFullScreen: false,
+      calories
     };
 
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
     this.handleFullScreen = this.handleFullScreen.bind(this);
     this.addPoints = this.addPoints.bind(this);
+    this.addCalories = this.addCalories.bind(this);
   }
 
   addPoints() {
@@ -144,6 +147,7 @@ export default class ClassSession extends Component {
   componentDidMount() {
     this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 5000);
+    this.interval = setInterval(this.addCalories, 5000);
   }
 
   componentWillUnmount() {
@@ -266,6 +270,7 @@ export default class ClassSession extends Component {
             </div>
 
             {/*{this.renderLeaderboard()}*/}
+            {/*{this.renderCalories()}*/}
           </div>
 
           {/*<div>*/}
@@ -276,6 +281,32 @@ export default class ClassSession extends Component {
         </div>
       </div>
     );
+  }
+
+  renderCalories() {
+    console.log(this.state.calories);
+    return (
+      <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px'}} className="calories">
+        <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png'} style={{height: '15px', margin: '8px'}}/>
+        Calories
+        <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
+           {/*{this.state.calories}*/}
+           100
+        </div>
+      </div>
+    )
+  }
+
+  addCalories() {
+    if (!this.isCurrentlyStreaming()) {
+      return;
+    }
+
+    let addedCalories = Math.round(Math.random());
+    console.log(addedCalories);
+    this.setState({
+      calories: this.state.calories + addedCalories
+    });
   }
 
   renderLeaderboard() {
@@ -431,6 +462,16 @@ export default class ClassSession extends Component {
           <Player ref="player" autoPlay={true}>
             <source src={videoUrl +"#t=" + secondsAfterStartTime } />
             <BigPlayButton position="center" />
+
+            <div
+              style={{
+                position: 'absolute',
+                left: '0px',
+                top: '0px',
+                zIndex: '1'
+              }}>
+              {this.renderCalories()}
+            </div>
 
             <div
               style={{
