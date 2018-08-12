@@ -30,7 +30,7 @@ export default class ClassSession extends Component {
     super(props);
 
     let calories = 0;
-    let heartRate = 0;
+    let heartRate = 80;
     let premiumParticipants = [
       {
         full_name: 'Jake Roust',
@@ -94,6 +94,7 @@ export default class ClassSession extends Component {
     this.handleFullScreen = this.handleFullScreen.bind(this);
     this.addPoints = this.addPoints.bind(this);
     this.addCalories = this.addCalories.bind(this);
+    this.addHeartRate = this.addHeartRate.bind(this);
   }
 
   addPoints() {
@@ -105,7 +106,6 @@ export default class ClassSession extends Component {
 
     let newParticipants = premiumParticipants.map((participant) => {
       let { full_name, profile_picture_url, coefficient, points } = participant;
-      console.log(profile_picture_url);
       let newPoints = Math.round(points + (coefficient * Math.random(4)));
 
       return {
@@ -150,6 +150,7 @@ export default class ClassSession extends Component {
     this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 5000);
     this.interval = setInterval(this.addCalories, 5000);
+    this.interval = setInterval(this.addHeartRate, 5000);
   }
 
   componentWillUnmount() {
@@ -317,9 +318,30 @@ export default class ClassSession extends Component {
     }
 
     let addedCalories = Math.round(Math.random());
-    console.log(addedCalories);
     this.setState({
       calories: this.state.calories + addedCalories
+    });
+  }
+
+  addHeartRate() {
+    if (!this.isCurrentlyStreaming()) {
+      return;
+    }
+
+    let addedHeartRate = 0;
+    if(this.state.heartRate < 150) {
+      addedHeartRate = Math.random() * 7;
+    } else if(this.state.heartRate > 171) {
+      addedHeartRate = Math.random() * -4;
+    } else {
+      let max = 5;
+      let min = -5;
+      addedHeartRate = Math.random() * (max - min) + min;
+    }
+
+    console.log(addedHeartRate);
+    this.setState({
+      heartRate: this.state.heartRate + Math.round(addedHeartRate)
     });
   }
 
