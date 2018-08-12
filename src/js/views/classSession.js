@@ -339,7 +339,6 @@ export default class ClassSession extends Component {
       addedHeartRate = Math.random() * (max - min) + min;
     }
 
-    console.log(addedHeartRate);
     this.setState({
       heartRate: this.state.heartRate + Math.round(addedHeartRate)
     });
