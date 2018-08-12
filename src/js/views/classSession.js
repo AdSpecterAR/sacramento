@@ -331,7 +331,7 @@ export default class ClassSession extends Component {
     let addedHeartRate = 0;
     if(this.state.heartRate < 150) {
       addedHeartRate = Math.random() * 7;
-    } else if(this.state.heartRate > 171) {
+    } else if(this.state.heartRate > 165) {
       addedHeartRate = Math.random() * -4;
     } else {
       let max = 5;
