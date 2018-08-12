@@ -290,8 +290,7 @@ export default class ClassSession extends Component {
         <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png'} style={{height: '15px', margin: '8px'}}/>
         Calories
         <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
-           {/*{this.state.calories}*/}
-           100
+           {this.state.calories}
         </div>
       </div>
     )
