@@ -149,7 +149,7 @@ export default class ClassSession extends Component {
   componentDidMount() {
     this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 5000);
-    this.interval = setInterval(this.addCalories, 5000);
+    this.interval = setInterval(this.addCalories, 4500);
     this.interval = setInterval(this.addHeartRate, 5000);
   }
 
