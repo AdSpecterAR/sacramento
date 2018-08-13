@@ -15,6 +15,8 @@ import "../../../node_modules/video-react/dist/video-react.css";
 
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
+const HeartRate = 'Heart Rate';
+const Calories = 'Calories';
 
 //
 // TODO: Move this
@@ -150,7 +152,7 @@ export default class ClassSession extends Component {
     this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 5000);
     this.interval = setInterval(this.addCalories, 4500);
-    this.interval = setInterval(this.addHeartRate, 5000);
+    this.interval = setInterval(this.addHeartRate, 3500);
   }
 
   componentWillUnmount() {
@@ -287,19 +289,21 @@ export default class ClassSession extends Component {
   }
 
   renderMetrics(metric) {
-    if(metric == 'calories') {
+    if (metric == Calories) {
       return (
-        <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="calories">
+        <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="metric">
           <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png'} style={{height: '15px', margin: '8px', marginBottom: '11px'}}/>
+
           Calories
+
           <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
             {this.state.calories}
           </div>
         </div>
       )
-    } else if(metric == 'heart rate') {
+    } else if (metric == HeartRate) {
       return (
-        <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="heart rate">
+        <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="metric">
           <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/heart+emoji.png'} style={{height: '15px', margin: '8px', marginBottom: '11px'}}/>
           Heart Rate
           <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
@@ -318,17 +322,20 @@ export default class ClassSession extends Component {
     }
 
     let addedCalories = Math.round(Math.random());
+
     this.setState({
       calories: this.state.calories + addedCalories
     });
   }
 
   addHeartRate() {
+
     if (!this.isCurrentlyStreaming()) {
       return;
     }
 
     let addedHeartRate = 0;
+
     if(this.state.heartRate < 150) {
       addedHeartRate = Math.random() * 7;
     } else if(this.state.heartRate > 165) {
@@ -505,8 +512,10 @@ export default class ClassSession extends Component {
                 top: '0px',
                 zIndex: '1'
               }}>
-              {this.renderMetrics('calories')}
-              {this.renderMetrics('heart rate')}
+              <RenderMetrics metric={Calories} measurement={this.state.calories} />
+              <RenderMetrics metric={HeartRate} measurement={this.state.heartRate} />
+              {/*{this.renderMetrics(Calories)}*/}
+              {/*{this.renderMetrics(HeartRate)}*/}
             </div>
 
             <div
@@ -640,5 +649,36 @@ export default class ClassSession extends Component {
       });
     }
   }
+}
 
+class RenderMetrics extends Component {
+  render() {
+    let metric = this.props.metric;
+    let imageUrl = '';
+
+    if (metric === Calories) {
+      imageUrl = 'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png';
+
+    } else if (metric === HeartRate) {
+      imageUrl = 'https://s3-us-west-1.amazonaws.com/cloudworkout/heart+emoji.png';
+
+    } else {
+      console.log("Invalid metric");
+      return;
+    }
+
+    return (
+      <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="metric">
+        <img src={imageUrl} style={{height: '15px', margin: '8px', marginBottom: '11px'}}/>
+
+        {metric}
+
+        <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
+          {this.props.measurement}
+        </div>
+      </div>
+    )
+  }
+
+  
 }
