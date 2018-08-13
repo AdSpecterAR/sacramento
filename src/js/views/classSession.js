@@ -31,8 +31,6 @@ export default class ClassSession extends Component {
   constructor(props) {
     super(props);
 
-    let calories = 0;
-    let heartRate = 80;
     let premiumParticipants = [
       {
         full_name: 'Jake Roust',
@@ -88,15 +86,11 @@ export default class ClassSession extends Component {
       width: 1080,
       premiumParticipants,
       isFullScreen: false,
-      calories,
-      heartRate
     };
 
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
     this.handleFullScreen = this.handleFullScreen.bind(this);
     this.addPoints = this.addPoints.bind(this);
-    this.addCalories = this.addCalories.bind(this);
-    this.addHeartRate = this.addHeartRate.bind(this);
   }
 
   addPoints() {
@@ -151,8 +145,6 @@ export default class ClassSession extends Component {
   componentDidMount() {
     this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 5000);
-    this.interval = setInterval(this.addCalories, 4500);
-    this.interval = setInterval(this.addHeartRate, 3500);
   }
 
   componentWillUnmount() {
@@ -164,11 +156,9 @@ export default class ClassSession extends Component {
     let videoUrl = courseSession.video_url;
     let startTime = this.getCourseStartTime();
     let liveStreamTime = this.getLiveStreamTime();
-    // console.log(liveStreamTime);
     let thumbnailUrl = courseSession.thumbnail_image_url;
 
     let secondsAfterStartTime = this.getSecondsAfterStartTime(liveStreamTime);
-    // console.log(secondsAfterStartTime);
 
     return (
       <div>
@@ -286,69 +276,6 @@ export default class ClassSession extends Component {
         </div>
       </div>
     );
-  }
-
-  renderMetrics(metric) {
-    if (metric == Calories) {
-      return (
-        <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="metric">
-          <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png'} style={{height: '15px', margin: '8px', marginBottom: '11px'}}/>
-
-          Calories
-
-          <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
-            {this.state.calories}
-          </div>
-        </div>
-      )
-    } else if (metric == HeartRate) {
-      return (
-        <div style={{margin: '10px', fontFamily:'Arimo', fontSize: '16px', display: 'inline-block'}} className="metric">
-          <img src={'https://s3-us-west-1.amazonaws.com/cloudworkout/heart+emoji.png'} style={{height: '15px', margin: '8px', marginBottom: '11px'}}/>
-          Heart Rate
-          <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
-            {this.state.heartRate}
-          </div>
-        </div>
-      )
-    } else {
-      console.log("Invalid metric");
-    }
-  }
-
-  addCalories() {
-    if (!this.isCurrentlyStreaming()) {
-      return;
-    }
-
-    let addedCalories = Math.round(Math.random());
-
-    this.setState({
-      calories: this.state.calories + addedCalories
-    });
-  }
-
-  addHeartRate() {
-
-    if (!this.isCurrentlyStreaming()) {
-      return;
-    }
-
-    let addedHeartRate = 0;
-
-    if(this.state.heartRate < 150) {
-      addedHeartRate = Math.random() * 7;
-    } else if(this.state.heartRate > 165) {
-      addedHeartRate = Math.random() * -4;
-    } else {
-      let max = 5;
-      let min = -5;
-      addedHeartRate = Math.random() * (max - min) + min;
-    }
-
-    this.setState({
-      heartRate: this.state.heartRate + Math.round(addedHeartRate)
-    });
   }
 
   renderLeaderboard() {
@@ -512,10 +439,8 @@ export default class ClassSession extends Component {
                 top: '0px',
                 zIndex: '1'
               }}>
-              <RenderMetrics metric={Calories} measurement={this.state.calories} />
-              <RenderMetrics metric={HeartRate} measurement={this.state.heartRate} />
-              {/*{this.renderMetrics(Calories)}*/}
-              {/*{this.renderMetrics(HeartRate)}*/}
+              <RenderMetrics metric={Calories} />
+              <RenderMetrics metric={HeartRate} />
             </div>
 
             <div
@@ -651,16 +576,74 @@ export default class ClassSession extends Component {
   }
 }
 
+//RenderMetrics handles the rendering and changing values of the heart rate and calories
 class RenderMetrics extends Component {
+  constructor(props) {
+    super(props);
+
+    let calories = 0;
+    let heartRate = 80;
+
+    this.state = {
+      calories,
+      heartRate
+    }
+
+    this.addCalories = this.addCalories.bind(this);
+    this.addHeartRate = this.addHeartRate.bind(this);
+  }
+
+  addCalories(){
+    //randomly either adds 1 or 0 calories every interval
+    let addedCalories = Math.round(Math.random());
+
+    this.setState({
+      calories: this.state.calories + addedCalories
+    });
+  }
+
+  addHeartRate(){
+    //raises heart rate until minimum and then keeps it between the minimum and maximum
+    let addedHeartRate = 0;
+    let minHeartRate = 150;
+    let maxHeartRate = 165;
+
+    if(this.state.heartRate < minHeartRate) {
+      addedHeartRate = Math.random() * 7;
+    } else if(this.state.heartRate > maxHeartRate) {
+      addedHeartRate = Math.random() * -4;
+    } else {
+      let max = 5;
+      let min = -5;
+      addedHeartRate = Math.random() * (max - min) + min;
+    }
+
+    this.setState({
+      heartRate: this.state.heartRate + Math.round(addedHeartRate)
+    });
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.addCalories, 4500);
+    this.interval = setInterval(this.addHeartRate, 3500);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
+  }
+
   render() {
     let metric = this.props.metric;
     let imageUrl = '';
+    let measurement =  '';
 
     if (metric === Calories) {
       imageUrl = 'https://s3-us-west-1.amazonaws.com/cloudworkout/fire+emoji.png';
+      measurement = this.state.calories;
 
     } else if (metric === HeartRate) {
       imageUrl = 'https://s3-us-west-1.amazonaws.com/cloudworkout/heart+emoji.png';
+      measurement = this.state.heartRate;
 
     } else {
       console.log("Invalid metric");
@@ -674,11 +657,11 @@ class RenderMetrics extends Component {
         {metric}
 
         <div style={{marginLeft: '30px', textAlign: 'center',fontFamily:'Arimo', fontSize: '28px'}}>
-          {this.props.measurement}
+          {measurement}
         </div>
       </div>
     )
   }
 
-  
+
 }
