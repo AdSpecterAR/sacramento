@@ -30,6 +30,10 @@ export default class ClassSession extends Component {
   constructor(props) {
     super(props);
 
+    //default data
+    let data1 = [0, 10, 5, 7, 8, 6, 4, 3, 5, 7, 10, 10, 8, 7, 6, 6, 5, 7, 8, 6];
+    let data2 = [3, 4, 6, 6, 5, 4, 3, 5, 6, 8, 9, 8, 7, 8, 5, 6, 8, 9, 8, 7, 6];
+
     let premiumParticipants = [
       {
         full_name: 'Jake Roust',
@@ -81,9 +85,6 @@ export default class ClassSession extends Component {
       },
     ];
 
-    let data1 = [0, 10, 5, 7, 8, 6, 4, 3, 5, 7, 10, 10, 8, 7, 6, 6, 5, 7, 8, 6];
-    let data2 = [3, 4, 6, 6, 5, 4, 3, 5, 6, 8, 9, 8, 7, 8, 5, 6, 8, 9, 8, 7, 6];
-
     this.state = {
       width: 1080,
       premiumParticipants,
@@ -95,23 +96,6 @@ export default class ClassSession extends Component {
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
     this.handleFullScreen = this.handleFullScreen.bind(this);
     this.addPoints = this.addPoints.bind(this);
-    this.addData1 = this.addData1.bind(this);
-    this.addData2 = this.addData2.bind(this);
-
-  }
-
-  addData1(){
-    let addedData = Math.round(Math.random() * 10);
-    this.state.data1.push(addedData);
-    this.state.data1.splice(0, 1);
-    console.log(this.state.data1);
-  }
-
-  addData2(){
-    let addedData = Math.round(Math.random() * 10);
-    this.state.data2.push(addedData);
-    this.state.data2.splice(0, 1);
-    console.log(this.state.data2);
   }
 
   addPoints() {
@@ -167,8 +151,6 @@ export default class ClassSession extends Component {
   componentDidMount() {
     this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 5000);
-    this.interval = setInterval(this.addData1, 5000);
-    this.interval = setInterval(this.addData2, 5000);
   }
 
   componentWillUnmount() {
@@ -301,27 +283,6 @@ export default class ClassSession extends Component {
       </div>
     );
   }
-
-  renderLineGraph(data, colour) {
-    // let videoLength = 200;//seconds
-    // let lengthBetweenDataPoints = 5; //seconds
-    // let howManyDataPoints = videoLength / lengthBetweenDataPoints;
-    // let distanceBetweenDataPoints = 100 / howManyDataPoints;
-    // let theWidth = (distanceBetweenDataPoints + data.length) + "%";
-    // console.log(theWidth);
-    return (
-      <div>
-        <Trend data={data}
-               smooth
-               strokeWidth={2.5}
-               gradient={[colour]}
-               // height={75}
-               // width={1000}
-        />
-      </div>
-    )
-  }
-
 
   renderLeaderboard() {
     return (
@@ -497,7 +458,8 @@ export default class ClassSession extends Component {
                       width: '100%',
               }}
             >
-              {this.renderLineGraph(this.state.data1, 'red')}
+              {/*{this.renderLineGraph(this.state.data1, 'red')}*/}
+              <LineGraph data={this.state.data1} colour={'red'}/>
             </div>
 
             <div
@@ -507,7 +469,7 @@ export default class ClassSession extends Component {
                 width: '100%',
               }}
             >
-              {this.renderLineGraph(this.state.data2, 'blue')}
+              <LineGraph data={this.state.data2} colour={'blue'} />
             </div>
 
             <ControlBar autoHide={false} disableDefaultControls>
@@ -630,4 +592,49 @@ export default class ClassSession extends Component {
     }
   }
 
+}
+
+class LineGraph extends Component {
+
+  constructor(props) {
+    super(props);
+
+    let data = this.props.data;
+
+    this.state = {
+      data
+    }
+
+    this.addData = this.addData.bind(this);
+  }
+
+  //adds a random data point from 1 - 10, removes the first point
+  addData(){
+    let addedData = Math.round(Math.random() * 10);
+    this.state.data.push(addedData);
+    this.state.data.splice(0, 1);
+    console.log(this.state.data);
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.addData, 3000);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
+  }
+
+  render(){
+    return (
+      <div>
+        <Trend data={this.state.data}
+               smooth
+               strokeWidth={2.5}
+               gradient={[this.props.colour]}
+          // height={75}
+          // width={1000}
+        />
+      </div>
+    )
+  }
 }
