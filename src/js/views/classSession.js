@@ -85,7 +85,7 @@ export default class ClassSession extends Component {
     this.state = {
       width: 1080,
       premiumParticipants,
-      isFullScreen: false,
+      isFullScreen: false
     };
 
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
@@ -439,8 +439,8 @@ export default class ClassSession extends Component {
                 top: '0px',
                 zIndex: '1'
               }}>
-              <RenderMetrics metric={Calories} />
-              <RenderMetrics metric={HeartRate} />
+              <Metrics metric={Calories} />
+              <Metrics metric={HeartRate} />
             </div>
 
             <div
@@ -576,8 +576,8 @@ export default class ClassSession extends Component {
   }
 }
 
-//RenderMetrics handles the rendering and changing values of the heart rate and calories
-class RenderMetrics extends Component {
+//Metrics handles the rendering and changing values of the heart rate and calories
+class Metrics extends Component {
   constructor(props) {
     super(props);
 
@@ -610,8 +610,10 @@ class RenderMetrics extends Component {
 
     if(this.state.heartRate < minHeartRate) {
       addedHeartRate = Math.random() * 7;
+
     } else if(this.state.heartRate > maxHeartRate) {
       addedHeartRate = Math.random() * -4;
+      
     } else {
       let max = 5;
       let min = -5;
