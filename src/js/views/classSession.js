@@ -12,6 +12,7 @@ import _                        from 'underscore';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
 import Session                  from '../services/session';
 import "../../../node_modules/video-react/dist/video-react.css";
+import Trend                    from 'react-trend'
 
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
@@ -80,15 +81,37 @@ export default class ClassSession extends Component {
       },
     ];
 
+    let data1 = [0, 10, 5, 7, 8, 6, 4, 3, 5, 7, 10, 10, 8, 7, 6, 6, 5, 7, 8, 6];
+    let data2 = [3, 4, 6, 6, 5, 4, 3, 5, 6, 8, 9, 8, 7, 8, 5, 6, 8, 9, 8, 7, 6];
+
     this.state = {
       width: 1080,
       premiumParticipants,
-      isFullScreen: false
+      isFullScreen: false,
+      data1,
+      data2
     };
 
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
     this.handleFullScreen = this.handleFullScreen.bind(this);
     this.addPoints = this.addPoints.bind(this);
+    this.addData1 = this.addData1.bind(this);
+    this.addData2 = this.addData2.bind(this);
+
+  }
+
+  addData1(){
+    let addedData = Math.round(Math.random() * 10);
+    this.state.data1.push(addedData);
+    this.state.data1.splice(0, 1);
+    console.log(this.state.data1);
+  }
+
+  addData2(){
+    let addedData = Math.round(Math.random() * 10);
+    this.state.data2.push(addedData);
+    this.state.data2.splice(0, 1);
+    console.log(this.state.data2);
   }
 
   addPoints() {
@@ -144,6 +167,8 @@ export default class ClassSession extends Component {
   componentDidMount() {
     this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 5000);
+    this.interval = setInterval(this.addData1, 5000);
+    this.interval = setInterval(this.addData2, 5000);
   }
 
   componentWillUnmount() {
@@ -225,7 +250,6 @@ export default class ClassSession extends Component {
               </p>
             </div>
 
-
             {/*<FeedbackModule*/}
             {/*classSession={this.props.class_session}*/}
             {/*setUserCourseSession={this.props.setUserCourseSession}*/}
@@ -277,6 +301,27 @@ export default class ClassSession extends Component {
       </div>
     );
   }
+
+  renderLineGraph(data, colour) {
+    // let videoLength = 200;//seconds
+    // let lengthBetweenDataPoints = 5; //seconds
+    // let howManyDataPoints = videoLength / lengthBetweenDataPoints;
+    // let distanceBetweenDataPoints = 100 / howManyDataPoints;
+    // let theWidth = (distanceBetweenDataPoints + data.length) + "%";
+    // console.log(theWidth);
+    return (
+      <div>
+        <Trend data={data}
+               smooth
+               strokeWidth={2.5}
+               gradient={[colour]}
+               // height={75}
+               // width={1000}
+        />
+      </div>
+    )
+  }
+
 
   renderLeaderboard() {
     return (
@@ -442,6 +487,27 @@ export default class ClassSession extends Component {
               }}
             >
               {this.renderLeaderboard()}
+            </div>
+
+            <div
+              style={{position: 'absolute',
+                      bottom: '20px',
+                      right: '0',
+                      zIndex: '1',
+                      width: '100%',
+              }}
+            >
+              {this.renderLineGraph(this.state.data1, 'red')}
+            </div>
+
+            <div
+              style={{position: 'absolute',
+                bottom: '20px',
+                zIndex: '1',
+                width: '100%',
+              }}
+            >
+              {this.renderLineGraph(this.state.data2, 'blue')}
             </div>
 
             <ControlBar autoHide={false} disableDefaultControls>
