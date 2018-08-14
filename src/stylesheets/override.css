@@ -12,3 +12,7 @@
 .video-react .video-react-fullscreen-control.video-react-icon-fullscreen.video-react-icon {
   position: absolute;
   right: 10px; }
+
+.video-react .video-react-fullscreen-control.video-react-icon-fullscreen-exit.video-react-icon {
+  position: absolute;
+  right: 10px; }

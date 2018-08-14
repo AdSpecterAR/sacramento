@@ -405,7 +405,7 @@ export default class ClassSession extends Component {
                 className="pull-right"
                 style={{
                   position: 'absolute', right: '70px',
-                  marginTop: '10px',
+                  marginTop: '12px',
                   marginRight: '10px',
                   width: '8px',
                   height: '8px',
