@@ -12,8 +12,7 @@ import _                        from 'underscore';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
 import Session                  from '../services/session';
 import "../../../node_modules/video-react/dist/video-react.css";
-import Trend                    from 'react-trend'
-
+import LineGraph                from './lineGraph'
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 
@@ -450,25 +449,9 @@ export default class ClassSession extends Component {
               {this.renderLeaderboard()}
             </div>
 
-            <div
-              style={{position: 'absolute',
-                      bottom: '20px',
-                      zIndex: '1',
-                      width: '100%',
-              }}
-            >
-              {/* TODO: make width dynamically match video width */}
-              <LineGraph data={this.state.data1} colour={'red'}/>
-            </div>
-
-            <div
-              style={{position: 'absolute',
-                bottom: '20px',
-                zIndex: '1',
-                width: '100%',
-              }}
-            >
-              <LineGraph data={this.state.data2} colour={'blue'} width={1050}/>
+            <div>
+              <LineGraph data={this.state.data1} colour={'orange'}/>
+              <LineGraph data={this.state.data2} colour={'green'}/>
             </div>
 
             <ControlBar autoHide={false} disableDefaultControls>
@@ -591,47 +574,3 @@ export default class ClassSession extends Component {
   }
 }
 
-class LineGraph extends Component {
-
-  constructor(props) {
-    super(props);
-
-    let data = this.props.data;
-
-    this.state = {
-      data
-    }
-
-    this.addData = this.addData.bind(this);
-  }
-
-  //adds a random data point from 1 - 10, removes the first point
-  addData(){
-    let addedData = Math.round(Math.random() * 10);
-    this.state.data.push(addedData);
-    this.state.data.splice(0, 1);
-    console.log(this.state.data);
-  }
-
-  componentDidMount() {
-    this.interval = setInterval(this.addData, 3000);
-  }
-
-  componentWillUnmount(){
-    clearInterval(this.interval);
-  }
-
-  render(){
-    return (
-      <div>
-        <Trend data={this.state.data}
-               smooth
-               strokeWidth={2.5}
-               gradient={[this.props.colour]}
-               height={100}
-               // width={700}
-        />
-      </div>
-    )
-  }
-}
