@@ -12,9 +12,14 @@ import _                        from 'underscore';
 import FixedAspectRatio         from '../services/fixedAspectRatio';
 import Session                  from '../services/session';
 import "../../../node_modules/video-react/dist/video-react.css";
+import Metrics, {
+  HeartRate,
+  Calories
+}                                from './workoutMetrics'
 
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
+
 
 //
 // TODO: Move this
@@ -100,7 +105,6 @@ export default class ClassSession extends Component {
 
     let newParticipants = premiumParticipants.map((participant) => {
       let { full_name, profile_picture_url, coefficient, points } = participant;
-      console.log(profile_picture_url);
       let newPoints = Math.round(points + (coefficient * Math.random(4)));
 
       return {
@@ -155,11 +159,9 @@ export default class ClassSession extends Component {
     let videoUrl = courseSession.video_url;
     let startTime = this.getCourseStartTime();
     let liveStreamTime = this.getLiveStreamTime();
-    // console.log(liveStreamTime);
     let thumbnailUrl = courseSession.thumbnail_image_url;
 
     let secondsAfterStartTime = this.getSecondsAfterStartTime(liveStreamTime);
-    // console.log(secondsAfterStartTime);
 
     return (
       <div>
@@ -266,6 +268,7 @@ export default class ClassSession extends Component {
             </div>
 
             {/*{this.renderLeaderboard()}*/}
+
           </div>
 
           {/*<div>*/}
@@ -435,6 +438,17 @@ export default class ClassSession extends Component {
             <div
               style={{
                 position: 'absolute',
+                left: '0px',
+                top: '0px',
+                zIndex: '1'
+              }}>
+              <Metrics metric={Calories} />
+              <Metrics metric={HeartRate} />
+            </div>
+
+            <div
+              style={{
+                position: 'absolute',
                 right: '0px',
                 top: '-40px',
                 width: '250px',
@@ -563,5 +577,4 @@ export default class ClassSession extends Component {
       });
     }
   }
-
 }
