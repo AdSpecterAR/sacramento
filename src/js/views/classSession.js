@@ -167,7 +167,7 @@ export default class ClassSession extends Component {
 
     let secondsAfterStartTime = this.getSecondsAfterStartTime(liveStreamTime);
     // console.log(secondsAfterStartTime);
-
+    console.log(this.refs.video);
     return (
       <div>
         {this.hasLiveStreamStarted(liveStreamTime) ? (
@@ -374,7 +374,6 @@ export default class ClassSession extends Component {
     });
   }
 
-
   renderParticipants() {
     return this.props.participants.map((participant, index) => {
       return (
@@ -430,6 +429,7 @@ export default class ClassSession extends Component {
         style={{maxWidth: `${this.state.width}px`,
         position: 'relative'}}
         className="video-player-small"
+        ref="video"
       >
         { this.isYoutubeLink(videoUrl) ? (
           this.renderYoutubeVideo(videoUrl)
@@ -453,12 +453,11 @@ export default class ClassSession extends Component {
             <div
               style={{position: 'absolute',
                       bottom: '20px',
-                      right: '0',
                       zIndex: '1',
                       width: '100%',
               }}
             >
-              {/*{this.renderLineGraph(this.state.data1, 'red')}*/}
+              {/* TODO: make width dynamically match video width */}
               <LineGraph data={this.state.data1} colour={'red'}/>
             </div>
 
@@ -469,7 +468,7 @@ export default class ClassSession extends Component {
                 width: '100%',
               }}
             >
-              <LineGraph data={this.state.data2} colour={'blue'} />
+              <LineGraph data={this.state.data2} colour={'blue'} width={1050}/>
             </div>
 
             <ControlBar autoHide={false} disableDefaultControls>
@@ -497,7 +496,6 @@ export default class ClassSession extends Component {
         )}
       </div>
     )
-
   }
 
   isYoutubeLink(videoUrl) {
@@ -591,7 +589,6 @@ export default class ClassSession extends Component {
       });
     }
   }
-
 }
 
 class LineGraph extends Component {
@@ -631,8 +628,8 @@ class LineGraph extends Component {
                smooth
                strokeWidth={2.5}
                gradient={[this.props.colour]}
-          // height={75}
-          // width={1000}
+               height={100}
+               // width={700}
         />
       </div>
     )
