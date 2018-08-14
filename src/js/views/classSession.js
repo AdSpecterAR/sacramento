@@ -163,10 +163,8 @@ export default class ClassSession extends Component {
     let liveStreamTime = this.getLiveStreamTime();
     // console.log(liveStreamTime);
     let thumbnailUrl = courseSession.thumbnail_image_url;
-
     let secondsAfterStartTime = this.getSecondsAfterStartTime(liveStreamTime);
-    // console.log(secondsAfterStartTime);
-    console.log(this.refs.video);
+
     return (
       <div>
         {this.hasLiveStreamStarted(liveStreamTime) ? (
