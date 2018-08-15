@@ -13,8 +13,14 @@ import FixedAspectRatio         from '../services/fixedAspectRatio';
 import Session                  from '../services/session';
 import "../../../node_modules/video-react/dist/video-react.css";
 
+import Metrics, {
+  HeartRate,
+  Calories
+}                                from './workoutMetrics'
+import LineGraph                from './lineGraph'
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
+
 
 //
 // TODO: Move this
@@ -28,6 +34,10 @@ export default class ClassSession extends Component {
 
   constructor(props) {
     super(props);
+
+    //default data
+    let data1 = [0, 10, 5, 7, 8, 6, 4, 3, 5, 7, 10, 10, 8, 7, 6, 6, 5, 7, 8, 6];
+    let data2 = [3, 4, 6, 6, 5, 4, 3, 5, 6, 8, 9, 8, 7, 8, 5, 6, 8, 9, 8, 7, 6];
 
     let premiumParticipants = [
       {
@@ -83,7 +93,9 @@ export default class ClassSession extends Component {
     this.state = {
       width: 1080,
       premiumParticipants,
-      isFullScreen: false
+      isFullScreen: false,
+      data1,
+      data2
     };
 
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
@@ -100,7 +112,6 @@ export default class ClassSession extends Component {
 
     let newParticipants = premiumParticipants.map((participant) => {
       let { full_name, profile_picture_url, coefficient, points } = participant;
-      console.log(profile_picture_url);
       let newPoints = Math.round(points + (coefficient * Math.random(4)));
 
       return {
@@ -155,11 +166,8 @@ export default class ClassSession extends Component {
     let videoUrl = courseSession.video_url;
     let startTime = this.getCourseStartTime();
     let liveStreamTime = this.getLiveStreamTime();
-    // console.log(liveStreamTime);
     let thumbnailUrl = courseSession.thumbnail_image_url;
-
     let secondsAfterStartTime = this.getSecondsAfterStartTime(liveStreamTime);
-    // console.log(secondsAfterStartTime);
 
     return (
       <div>
@@ -225,7 +233,6 @@ export default class ClassSession extends Component {
               </p>
             </div>
 
-
             {/*<FeedbackModule*/}
             {/*classSession={this.props.class_session}*/}
             {/*setUserCourseSession={this.props.setUserCourseSession}*/}
@@ -266,6 +273,7 @@ export default class ClassSession extends Component {
             </div>
 
             {/*{this.renderLeaderboard()}*/}
+
           </div>
 
           {/*<div>*/}
@@ -368,7 +376,6 @@ export default class ClassSession extends Component {
     });
   }
 
-
   renderParticipants() {
     return this.props.participants.map((participant, index) => {
       return (
@@ -424,6 +431,7 @@ export default class ClassSession extends Component {
         style={{maxWidth: `${this.state.width}px`,
         position: 'relative'}}
         className="video-player-small"
+        ref="video"
       >
         { this.isYoutubeLink(videoUrl) ? (
           this.renderYoutubeVideo(videoUrl)
@@ -435,13 +443,29 @@ export default class ClassSession extends Component {
             <div
               style={{
                 position: 'absolute',
+                left: '0px',
+                top: '0px',
+                zIndex: '1'
+              }}>
+              <Metrics metric={Calories} />
+              <Metrics metric={HeartRate} />
+            </div>
+
+            <div
+              style={{
+                position: 'absolute',
                 right: '0px',
                 top: '-40px',
-                width: '250px',
+                width: '25%',
                 zIndex: '1'
               }}
             >
               {this.renderLeaderboard()}
+            </div>
+
+            <div>
+              <LineGraph data={this.state.data1} colour={'orange'}/>
+              <LineGraph data={this.state.data2} colour={'green'}/>
             </div>
 
             <ControlBar autoHide={false} disableDefaultControls>
@@ -469,7 +493,6 @@ export default class ClassSession extends Component {
         )}
       </div>
     )
-
   }
 
   isYoutubeLink(videoUrl) {
@@ -563,5 +586,4 @@ export default class ClassSession extends Component {
       });
     }
   }
-
 }
