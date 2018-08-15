@@ -38,11 +38,19 @@ export default class LineGraph extends Component {
     clearInterval(this.interval);
   }
 
+  markerEnd(colour){
+    return (
+        <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5"
+                markerWidth="5" markerHeight="5">
+          <circle cx="5" cy="5" r="5" fill={colour} />
+        </marker>
+    )
+  }
+
   render(){
     console.log(this.refs.lineGraph)
 
     return (
-
       <div ref="lineGraph"
            style={{position: 'absolute',
              bottom: '20px',
@@ -51,19 +59,21 @@ export default class LineGraph extends Component {
              // overflow: 'hidden'
              // maxHeight: '100px'
            }}>
+
+        <svg>
+          {this.markerEnd(this.props.colour)}
+        </svg>
         <Trend data={this.state.data}
                autoDraw
                smooth
                strokeWidth={0.75}
                strokeOpacity={0.75}
-               markerEnd= '<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5"
-                                                                         markerWidth="5" markerHeight="5">
-        <circle cx="5" cy="5" r="5" fill="red" />
-      </marker>'
+               markerEnd="url(#dot)"
                gradient={[this.props.colour]}
           // height={100}
           // width={1500}
-        />
+        >
+        </Trend>
       </div>
     )
   }
