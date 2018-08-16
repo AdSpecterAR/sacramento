@@ -17,7 +17,7 @@ import Metrics, {
   HeartRate,
   Calories
 }                                from './workoutMetrics'
-import LineGraph                from './lineGraph'
+import LineGraph                 from './lineGraph'
 
 const url = 'https://www.youtube.com/embed/es2Ha1oKkgY';
 
@@ -44,18 +44,21 @@ export default class ClassSession extends Component {
         full_name: 'Jake Roust',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/mayo.jpg',
         coefficient: 1,
+        initial_points: 98,
         points: 0 // TODO: add
       },
       {
         full_name: 'Casey Lim',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/haoda.png',
         coefficient: 0.8,
+        initial_points: 110,
         points: 0
       },
       {
         full_name: 'Rachel Mazuki',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/chedy.jpg',
         coefficient: 0.7,
+        initial_points: 100,
         points: 0
       },
       // {
@@ -68,25 +71,46 @@ export default class ClassSession extends Component {
         full_name: 'Mel Fontenot',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/berges.jpg',
         coefficient: 0.6,
+        initial_points: 103,
         points: 0
       },
       {
         full_name: 'Travis Williams',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/connor.jpg',
         coefficient: 0.7,
+        initial_points: 87,
         points: 0
       },
       {
         full_name: 'Scott Davidson',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/corey.jpg',
         coefficient: 0.8,
+        initial_points: 65,
         points: 0
       },
       {
         full_name: 'Ashley Tang',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/karen.jpg',
         coefficient: 0.95,
+        initial_points: 86,
         points: 0
+      },
+    ];
+
+    let competingParticipants = [
+      {
+        full_name: 'Gabriel Hudson',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/berges.jpg',
+        coefficient: 0.8,
+        points: data1[data1.length - 1],
+        colour: 'green'
+      },
+      {
+        full_name: 'Valerie Yung',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/rabs.JPG',
+        coefficient: 0.8,
+        points: 0,
+        colour: 'orange'
       },
     ];
 
@@ -94,6 +118,7 @@ export default class ClassSession extends Component {
       width: 1080,
       premiumParticipants,
       isFullScreen: false,
+      competingParticipants,
       data1,
       data2
     };
@@ -104,21 +129,30 @@ export default class ClassSession extends Component {
   }
 
   addPoints() {
-    if (!this.isCurrentlyStreaming()) {
+    // if (!this.isCurrentlyStreaming()) {
+    //   return;
+    // }
+
+    const { player } = this.refs.player.getState();
+
+    if(player.currentTime < 5) {
+      this.setInitialPoints();
       return;
     }
 
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
     let newParticipants = premiumParticipants.map((participant) => {
-      let { full_name, profile_picture_url, coefficient, points } = participant;
-      let newPoints = Math.round(points + (coefficient * Math.random(4)));
+      let { full_name, profile_picture_url, coefficient, initial_points, points } = participant;
+      let addedPoints = (coefficient * Math.random() * 3);
+      let newPoints = Math.round(points + addedPoints);
 
       return {
         full_name,
         profile_picture_url,
         coefficient,
-        points: newPoints
+        initial_points,
+        points: newPoints,
       };
     });
 
@@ -133,14 +167,16 @@ export default class ClassSession extends Component {
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
     let newParticipants = premiumParticipants.map((participant) => {
-      let { full_name, profile_picture_url, coefficient, points } = participant;
+      let { full_name, profile_picture_url, coefficient, initial_points } = participant;
       let seconds = this.getSecondsAfterStartTime();
-      let newPoints = Math.round((seconds * 0.5) - (0.3 * seconds) + (0.3 * coefficient * Math.random(seconds)));
+      // let newPoints = Math.round((seconds * 0.5) - (0.3 * seconds) + (0.3 * coefficient * Math.random(seconds)));
+      let newPoints = participant.initial_points;
 
       return {
         full_name,
         profile_picture_url,
         coefficient,
+        initial_points,
         points: newPoints
       };
     });
@@ -154,7 +190,7 @@ export default class ClassSession extends Component {
 
   componentDidMount() {
     this.setInitialPoints();
-    this.interval = setInterval(this.addPoints, 5000);
+    this.interval = setInterval(this.addPoints, 2500);
   }
 
   componentWillUnmount() {
@@ -286,6 +322,81 @@ export default class ClassSession extends Component {
     );
   }
 
+  renderOneVsOneBoard() {
+    return (
+      <div style={{fontFamily: 'Arimo'}} className="leaderboard">
+
+        <div style={{
+          backgroundColor: 'rgba(46,44,46, 0.8)',
+          height: '100px',
+          overflowY: 'auto',
+          width: '100%',
+          color: 'white'
+        }}>
+          {this.renderCompetingParticipants()}
+        </div>
+      </div>
+    )
+  }
+
+  renderCompetingParticipants(){
+    return this.state.competingParticipants.map((participant, index) => {
+      return (
+        <div
+          style={{
+            padding: '20px',
+            fontSize: '12px',
+            paddingTop: index === 0 ? '20px' : '15px',
+            backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'
+          }}
+        >
+
+          <div
+            className="pull-right m-r-10"
+          >
+            {participant.points}
+          </div>
+
+          <span
+            key={`participant${index}`}
+            style={{
+              marginLeft: '0px',
+            }}
+          >
+
+            <div
+              className="pull-left"
+              style={{
+                marginTop: '-10px',
+                marginRight: '10px',
+                width: '38px',
+                height: '38px',
+                borderRadius: '20px',
+                backgroundColor: participant.colour,
+                verticalAlign: 'middle'
+              }}
+            >
+              <img
+                src={participant.profile_picture_url}
+                height={30}
+                width={30}
+                style={{
+                  borderRadius: '50%',
+                  // marginRight: '10px',
+                  marginLeft: '4px',
+                  marginTop: '4px',
+                  verticalAlign: 'middle'
+                }}
+              />
+            </div>
+
+            {participant.full_name}
+          </span>
+        </div>
+      );
+    });
+  }
+
   renderLeaderboard() {
     return (
       <div style={{marginTop: '40px', fontFamily: 'Arimo'}} className="leaderboard">
@@ -319,7 +430,7 @@ export default class ClassSession extends Component {
 
         <div style={{
           backgroundColor: 'rgba(46,44,46, 0.8)',
-          height: '350px',
+          height: '300px',
           overflowY: 'auto',
           width: '100%',
           color: 'white'
@@ -426,6 +537,8 @@ export default class ClassSession extends Component {
   }
 
   renderVideo(videoUrl, secondsAfterStartTime) {
+    // console.log(this.refs.player);
+
     return (
       <div
         style={{maxWidth: `${this.state.width}px`,
@@ -436,7 +549,7 @@ export default class ClassSession extends Component {
         { this.isYoutubeLink(videoUrl) ? (
           this.renderYoutubeVideo(videoUrl)
         ) : (
-          <Player ref="player" autoPlay={true}>
+          <Player ref="player" autoPlay={true} loop={true}>
             <source src={videoUrl +"#t=" + secondsAfterStartTime } />
             <BigPlayButton position="center" />
 
@@ -447,7 +560,7 @@ export default class ClassSession extends Component {
                 top: '0px',
                 zIndex: '1'
               }}>
-              <Metrics metric={Calories} />
+              <Metrics metric={Calories}  />
               <Metrics metric={HeartRate} />
             </div>
 
@@ -463,12 +576,25 @@ export default class ClassSession extends Component {
               {this.renderLeaderboard()}
             </div>
 
+            <div
+              style={{
+                position: 'absolute',
+                right: '0px',
+                bottom: '30px',
+                width: '25%',
+                zIndex: '1'
+              }}
+            >
+              {/*{this.renderOneVsOneBoard()}*/}
+            </div>
+
             <div>
               <LineGraph data={this.state.data1} colour={'orange'}/>
               <LineGraph data={this.state.data2} colour={'green'}/>
             </div>
 
-            <ControlBar autoHide={false} disableDefaultControls>
+            {/*disableDefaultControls*/}
+            <ControlBar autoHide={false} >
               <PlayToggle />
               <VolumeMenuButton />
               <FullscreenToggle />

@@ -18,7 +18,7 @@ export default class LineGraph extends Component {
 
   //adds a random data point from 1 - 10, removes the first point
   addData(){
-    let addedData = Math.round(Math.random() * 2 - 1);
+    let addedData = Math.round(Math.random() * 4 - 2);
 
     let data = _.clone(this.state.data);
     let length = data.length;
@@ -48,7 +48,6 @@ export default class LineGraph extends Component {
   }
 
   render(){
-    console.log(this.refs.lineGraph)
 
     return (
       <div ref="lineGraph"

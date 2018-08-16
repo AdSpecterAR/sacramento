@@ -31,7 +31,7 @@ const onDemandVideos = [
     },
     instructor_full_name: 'Taylor Soh',
     duration: 25,
-    start_time: '2018-08-02T15:00:00.665Z'
+    start_time: '2018-08-12T15:00:00.665Z'
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ const onDemandVideos = [
     },
     instructor_full_name: 'Steven Kpa',
     duration: 60,
-    start_time: '2018-08-02T17:00:00.665Z'
+    start_time: '2018-08-10T17:00:00.665Z'
   },
   {
     id: 1,
@@ -51,7 +51,7 @@ const onDemandVideos = [
     },
     instructor_full_name: 'Taylor Soh',
     duration: 25,
-    start_time: '2018-08-02T15:00:00.665Z'
+    start_time: '2018-08-09T13:00:00.665Z'
   },
   {
     id: 3,
@@ -61,7 +61,7 @@ const onDemandVideos = [
     },
     instructor_full_name: 'Taylor Soh',
     duration: 25,
-    start_time: '2018-08-02T15:00:00.665Z'
+    start_time: '2018-08-02T15:30:00.665Z'
   }
 ];
 

@@ -9,8 +9,8 @@ export default class Metrics extends Component {
   constructor(props) {
     super(props);
 
-    let calories = 0;
-    let heartRate = 80;
+    let calories = 32;
+    let heartRate = 138;
 
     this.state = {
       calories,
@@ -19,6 +19,20 @@ export default class Metrics extends Component {
 
     this.addCalories = this.addCalories.bind(this);
     this.addHeartRate = this.addHeartRate.bind(this);
+    this.resetCalories = this.resetCalories.bind(this);
+    this.resetHeartRate = this.resetHeartRate.bind(this);
+  }
+
+  resetCalories() {
+    this.setState({
+      calories: 32
+    })
+  }
+
+  resetHeartRate() {
+    this.setState({
+      heartRate: 138
+    })
   }
 
   addCalories() {
@@ -56,6 +70,8 @@ export default class Metrics extends Component {
   componentDidMount() {
     this.interval = setInterval(this.addCalories, 4500);
     this.interval = setInterval(this.addHeartRate, 3500);
+    this.interval = setInterval(this.resetCalories, 30000);
+    this.interval = setInterval(this.resetHeartRate, 30000);
   }
 
   componentWillUnmount() {
