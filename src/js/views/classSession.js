@@ -55,6 +55,13 @@ export default class ClassSession extends Component {
         points: 0
       },
       {
+        full_name: 'John Li',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/john.PNG',
+        coefficient: 0.9,
+        initial_points: 106,
+        points: 0
+      },
+      {
         full_name: 'Rachel Mazuki',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/chedy.jpg',
         coefficient: 0.7,
@@ -126,6 +133,7 @@ export default class ClassSession extends Component {
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
     this.handleFullScreen = this.handleFullScreen.bind(this);
     this.addPoints = this.addPoints.bind(this);
+    this.updateCompetingPoints = this.updateCompetingPoints.bind(this);
   }
 
   addPoints() {
@@ -136,6 +144,8 @@ export default class ClassSession extends Component {
     const { player } = this.refs.player.getState();
 
     if(player.currentTime < 5) {
+      this.refs.calories.resetCalories();
+      this.refs.heartRate.resetHeartRate();
       this.setInitialPoints();
       return;
     }
@@ -191,6 +201,7 @@ export default class ClassSession extends Component {
   componentDidMount() {
     this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 2500);
+    // this.interval = setInterval(this.updateCompetingPoints, 250);
   }
 
   componentWillUnmount() {
@@ -322,6 +333,7 @@ export default class ClassSession extends Component {
     );
   }
 
+  //this is the 2 person leaderboard that goes with the trend line for 1 v 1 competition
   renderOneVsOneBoard() {
     return (
       <div style={{fontFamily: 'Arimo'}} className="leaderboard">
@@ -339,7 +351,10 @@ export default class ClassSession extends Component {
     )
   }
 
+  //this is just like renderPremiumParticipants except the participants get coloured
+  //circles and don't display points
   renderCompetingParticipants(){
+    // console.log(competingParticipants);
     return this.state.competingParticipants.map((participant, index) => {
       return (
         <div
@@ -351,11 +366,11 @@ export default class ClassSession extends Component {
           }}
         >
 
-          <div
-            className="pull-right m-r-10"
-          >
-            {participant.points}
-          </div>
+          {/*<div*/}
+            {/*className="pull-right m-r-10"*/}
+          {/*>*/}
+            {/*{participant.points}*/}
+          {/*</div>*/}
 
           <span
             key={`participant${index}`}
@@ -394,6 +409,40 @@ export default class ClassSession extends Component {
           </span>
         </div>
       );
+    });
+  }
+
+  //this get the most recent points from the LineGraph component(these are just random numbers for demo day
+  updateCompetingPoints(){
+    // console.log("updating");
+    let competingParticipants = _.clone(this.state.competingParticipants);
+
+    let newParticipants = competingParticipants.map((participant) => {
+      let { full_name, profile_picture_url, coefficient, initial_points, colour } = participant;
+
+      let data = data = this.refs.line1.data;;
+      if (participant.colour === 'orange') {
+        data = this.refs.line1.state.data;
+      } else if (participant.colour === 'green') {
+        data = this.refs.line2.state.data;
+      }
+      // console.log(data);
+      let newPoints = data[data.length - 1];
+
+      return {
+        full_name,
+        profile_picture_url,
+        coefficient,
+        initial_points,
+        points: newPoints,
+        colour
+      };
+    });
+
+    let sortedNewParticipants = _.sortBy(newParticipants, 'points').reverse();
+
+    this.setState({
+      competingParticipants: sortedNewParticipants
     });
   }
 
@@ -450,7 +499,7 @@ export default class ClassSession extends Component {
             padding: '15px',
             fontSize: '12px',
             paddingTop: index === 0 ? '20px' : '15px',
-            backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'
+            backgroundColor: participant.full_name === "John Li" ? 'rgba(19,30,61, 0.8)' : 'rgba(46,44,46, 0.8)'
           }}
         >
 
@@ -560,8 +609,8 @@ export default class ClassSession extends Component {
                 top: '0px',
                 zIndex: '1'
               }}>
-              <Metrics metric={Calories}  />
-              <Metrics metric={HeartRate} />
+              <Metrics metric={Calories} ref="calories" />
+              <Metrics metric={HeartRate} ref="heartRate"/>
             </div>
 
             <div
@@ -589,12 +638,12 @@ export default class ClassSession extends Component {
             </div>
 
             <div>
-              <LineGraph data={this.state.data1} colour={'orange'}/>
-              <LineGraph data={this.state.data2} colour={'green'}/>
+              <LineGraph data={this.state.data1} colour={'orange'} ref="line1" />
+              <LineGraph data={this.state.data2} colour={'green'} ref="line2" />
             </div>
 
-            {/*disableDefaultControls*/}
-            <ControlBar autoHide={false} >
+
+            <ControlBar autoHide={false} disableDefaultControls>
               <PlayToggle />
               <VolumeMenuButton />
               <FullscreenToggle />

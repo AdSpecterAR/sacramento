@@ -19,7 +19,6 @@ export default class LineGraph extends Component {
   //adds a random data point from 1 - 10, removes the first point
   addData(){
     let addedData = Math.round(Math.random() * 4 - 2);
-
     let data = _.clone(this.state.data);
     let length = data.length;
     data.push(data[length - 1] + addedData);
@@ -53,8 +52,9 @@ export default class LineGraph extends Component {
       <div ref="lineGraph"
            style={{position: 'absolute',
              bottom: '20px',
+             left: '15%',
              zIndex: '1',
-             width: '75%',
+             width: '60%',
              // overflow: 'hidden'
              // maxHeight: '100px'
            }}>
@@ -64,7 +64,7 @@ export default class LineGraph extends Component {
         </svg>
         <Trend data={this.state.data}
                smooth
-               strokeWidth={1}
+               strokeWidth={1.4}
                strokeOpacity={0.7}
                markerEnd="url(#dot)"
                gradient={[this.props.colour]}
