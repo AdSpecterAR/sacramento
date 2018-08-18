@@ -51,10 +51,10 @@ export default class LineGraph extends Component {
     return (
       <div ref="lineGraph"
            style={{position: 'absolute',
-             bottom: '20px',
+             bottom: '25px',
              left: '15%',
              zIndex: '1',
-             width: '60%',
+             width: '40%',
              // overflow: 'hidden'
              // maxHeight: '100px'
            }}>
@@ -64,7 +64,7 @@ export default class LineGraph extends Component {
         </svg>
         <Trend data={this.state.data}
                smooth
-               strokeWidth={1.4}
+               strokeWidth={1.8}
                strokeOpacity={0.7}
                markerEnd="url(#dot)"
                gradient={[this.props.colour]}

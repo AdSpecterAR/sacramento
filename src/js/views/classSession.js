@@ -45,7 +45,8 @@ export default class ClassSession extends Component {
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/mayo.jpg',
         coefficient: 1,
         initial_points: 98,
-        points: 0 // TODO: add
+        points: 0, // TODO: add
+        colour: '#21c121'
       },
       {
         full_name: 'Casey Lim',
@@ -54,13 +55,13 @@ export default class ClassSession extends Component {
         initial_points: 110,
         points: 0
       },
-      {
-        full_name: 'John Li',
-        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/john.PNG',
-        coefficient: 0.9,
-        initial_points: 106,
-        points: 0
-      },
+      // {
+      //   full_name: 'John Li',
+      //   profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/john.PNG',
+      //   coefficient: 0.9,
+      //   initial_points: 106,
+      //   points: 0
+      // },
       {
         full_name: 'Rachel Mazuki',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/chedy.jpg',
@@ -108,16 +109,17 @@ export default class ClassSession extends Component {
         coefficient: 0.8,
         initial_points: 96,
         points: 0,
+        colour: 'orange'
       }
     ];
 
     let competingParticipants = [
       {
-        full_name: 'John Li',
-        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/john.PNG',
+        full_name: 'Jake Roust',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/mayo.jpg',
         coefficient: 0.8,
         points: data1[data1.length - 1],
-        colour: 'green'
+        colour: '#21c121'
       },
       {
         full_name: 'Valerie Yung',
@@ -161,7 +163,7 @@ export default class ClassSession extends Component {
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
     let newParticipants = premiumParticipants.map((participant) => {
-      let { full_name, profile_picture_url, coefficient, initial_points, points } = participant;
+      let { full_name, profile_picture_url, coefficient, initial_points, points , colour} = participant;
       let addedPoints = (coefficient * Math.random() * 3);
       let newPoints = Math.round(points + addedPoints);
 
@@ -171,6 +173,7 @@ export default class ClassSession extends Component {
         coefficient,
         initial_points,
         points: newPoints,
+        colour
       };
     });
 
@@ -185,7 +188,7 @@ export default class ClassSession extends Component {
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
     let newParticipants = premiumParticipants.map((participant) => {
-      let { full_name, profile_picture_url, coefficient, initial_points } = participant;
+      let { full_name, profile_picture_url, coefficient, initial_points , colour} = participant;
       let seconds = this.getSecondsAfterStartTime();
       // let newPoints = Math.round((seconds * 0.5) - (0.3 * seconds) + (0.3 * coefficient * Math.random(seconds)));
       let newPoints = participant.initial_points;
@@ -195,7 +198,8 @@ export default class ClassSession extends Component {
         profile_picture_url,
         coefficient,
         initial_points,
-        points: newPoints
+        points: newPoints,
+        colour
       };
     });
 
@@ -218,6 +222,7 @@ export default class ClassSession extends Component {
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
+    // videoUrl = 'SadVid.mp4';
     let startTime = this.getCourseStartTime();
     let liveStreamTime = this.getLiveStreamTime();
     let thumbnailUrl = courseSession.thumbnail_image_url;
@@ -368,7 +373,7 @@ export default class ClassSession extends Component {
       return (
         <div
           style={{
-            padding: '20px',
+            padding: '25px',
             fontSize: '16px',
             paddingTop: index === 0 ? '20px' : '15px',
             backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'
@@ -393,22 +398,22 @@ export default class ClassSession extends Component {
               style={{
                 marginTop: '-10px',
                 marginRight: '10px',
-                width: '45px',
-                height: '45px',
+                width: '37px',
+                height: '37px',
                 borderRadius: '50%',
-                backgroundColor: participant.colour,
+                // backgroundColor: participant.colour,
                 verticalAlign: 'middle'
               }}
             >
               <img
                 src={participant.profile_picture_url}
-                height={37}
-                width={37}
+                height={30}
+                width={30}
                 style={{
                   borderRadius: '50%',
                   // marginRight: '10px',
-                  marginLeft: '4.5px',
-                  marginTop: '4.5px',
+                  marginLeft: '4px',
+                  marginTop: '4px',
                   verticalAlign: 'middle'
                 }}
               />
@@ -488,10 +493,11 @@ export default class ClassSession extends Component {
 
         <div style={{
           backgroundColor: 'rgba(46,44,46, 0.8)',
-          height: '300px',
+          height: '480px',
           overflowY: 'auto',
           width: '100%',
-          color: 'white'
+          color: 'white',
+          overflow: 'hidden'
         }}>
           {this.renderPremiumParticipants()}
           {this.renderParticipants()}
@@ -508,14 +514,25 @@ export default class ClassSession extends Component {
             padding: '15px',
             fontSize: '12px',
             paddingTop: index === 0 ? '20px' : '15px',
-            backgroundColor: participant.full_name === "John Li" ? 'rgba(19,30,61, 0.8)' : 'rgba(46,44,46, 0.8)'
+            backgroundColor: participant.full_name === "Jake Roust" ? 'rgba(19,30,61, 0.8)' : 'rgba(46,44,46, 0.8)'
           }}
         >
 
           <div
-            className="pull-right m-r-10" style={{marginTop: '9px'}}
+            className="pull-right m-r-10" style={{
+              height: '15px',
+              width: '30px',
+              marginTop: '6px',
+              borderRadius: '25%',
+              backgroundColor: participant.colour,
+              verticalAlign: 'text-middle'
+            }}
           >
-            {participant.points}
+            <span style={{
+              margin: '5.5px'
+            }}>
+              {participant.points}
+            </span>
           </div>
 
           <span
@@ -595,7 +612,6 @@ export default class ClassSession extends Component {
   }
 
   renderVideo(videoUrl, secondsAfterStartTime) {
-    // console.log(this.refs.player);
 
     return (
       <div
@@ -607,8 +623,9 @@ export default class ClassSession extends Component {
         { this.isYoutubeLink(videoUrl) ? (
           this.renderYoutubeVideo(videoUrl)
         ) : (
-          <Player ref="player" autoPlay={true} loop={true}>
-            <source src={videoUrl +"#t=" + secondsAfterStartTime } />
+          <Player ref="player" autoPlay={true} loop={true} >
+            {/*<source src={videoUrl +"#t=" + secondsAfterStartTime } />*/}
+            <source src={videoUrl} />
             <BigPlayButton position="center" />
 
             <div
@@ -627,7 +644,7 @@ export default class ClassSession extends Component {
                 position: 'absolute',
                 right: '0px',
                 top: '-40px',
-                width: '25%',
+                width: '250px',
                 zIndex: '1'
               }}
             >
@@ -637,10 +654,12 @@ export default class ClassSession extends Component {
             <div
               style={{
                 position: 'absolute',
-                left: '0px',
-                bottom: '10%',
+                left: '10px',
+                bottom: '5%',
                 width: '25%',
                 zIndex: '1'
+
+
               }}
             >
               {this.renderOneVsOneBoard()}
@@ -649,7 +668,7 @@ export default class ClassSession extends Component {
             <div
             >
               <LineGraph data={this.state.data1} colour={'orange'} ref="line1" />
-              <LineGraph data={this.state.data2} colour={'green'} ref="line2" />
+              <LineGraph data={this.state.data2} colour={'#21c121'} ref="line2" />
             </div>
 
 
