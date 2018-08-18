@@ -401,7 +401,7 @@ export default class ClassSession extends Component {
                 width: '37px',
                 height: '37px',
                 borderRadius: '50%',
-                // backgroundColor: participant.colour,
+                backgroundColor: participant.colour,
                 verticalAlign: 'middle'
               }}
             >
