@@ -102,12 +102,19 @@ export default class ClassSession extends Component {
         initial_points: 86,
         points: 0
       },
+      {
+        full_name: 'Valerie Yung',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/rabs.JPG',
+        coefficient: 0.8,
+        initial_points: 96,
+        points: 0,
+      }
     ];
 
     let competingParticipants = [
       {
-        full_name: 'Gabriel Hudson',
-        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/berges.jpg',
+        full_name: 'John Li',
+        profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/john.PNG',
         coefficient: 0.8,
         points: data1[data1.length - 1],
         colour: 'green'
@@ -133,22 +140,23 @@ export default class ClassSession extends Component {
     this.toggleVideoSize = this.toggleVideoSize.bind(this);
     this.handleFullScreen = this.handleFullScreen.bind(this);
     this.addPoints = this.addPoints.bind(this);
-    this.updateCompetingPoints = this.updateCompetingPoints.bind(this);
   }
 
   addPoints() {
     // if (!this.isCurrentlyStreaming()) {
     //   return;
     // }
+    try{
+      const { player } = this.refs.player.getState();
 
-    const { player } = this.refs.player.getState();
+      if(player.currentTime < 5) {
+        this.refs.calories.resetCalories();
+        this.refs.heartRate.resetHeartRate();
+        this.setInitialPoints();
+        return;
+      }
+    } catch(err) {}
 
-    if(player.currentTime < 5) {
-      this.refs.calories.resetCalories();
-      this.refs.heartRate.resetHeartRate();
-      this.setInitialPoints();
-      return;
-    }
 
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
@@ -201,7 +209,6 @@ export default class ClassSession extends Component {
   componentDidMount() {
     this.setInitialPoints();
     this.interval = setInterval(this.addPoints, 2500);
-    // this.interval = setInterval(this.updateCompetingPoints, 250);
   }
 
   componentWillUnmount() {
@@ -339,11 +346,13 @@ export default class ClassSession extends Component {
       <div style={{fontFamily: 'Arimo'}} className="leaderboard">
 
         <div style={{
-          backgroundColor: 'rgba(46,44,46, 0.8)',
-          height: '100px',
+          // backgroundColor: 'rgba(46,44,46, 0.8)',
+          backgroundColor: 'none',
+          height: '100%',
           overflowY: 'auto',
           width: '100%',
-          color: 'white'
+          color: 'white',
+          zIndex: 1
         }}>
           {this.renderCompetingParticipants()}
         </div>
@@ -360,7 +369,7 @@ export default class ClassSession extends Component {
         <div
           style={{
             padding: '20px',
-            fontSize: '12px',
+            fontSize: '16px',
             paddingTop: index === 0 ? '20px' : '15px',
             backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'
           }}
@@ -384,22 +393,22 @@ export default class ClassSession extends Component {
               style={{
                 marginTop: '-10px',
                 marginRight: '10px',
-                width: '38px',
-                height: '38px',
-                borderRadius: '20px',
+                width: '45px',
+                height: '45px',
+                borderRadius: '50%',
                 backgroundColor: participant.colour,
                 verticalAlign: 'middle'
               }}
             >
               <img
                 src={participant.profile_picture_url}
-                height={30}
-                width={30}
+                height={37}
+                width={37}
                 style={{
                   borderRadius: '50%',
                   // marginRight: '10px',
-                  marginLeft: '4px',
-                  marginTop: '4px',
+                  marginLeft: '4.5px',
+                  marginTop: '4.5px',
                   verticalAlign: 'middle'
                 }}
               />
@@ -628,16 +637,17 @@ export default class ClassSession extends Component {
             <div
               style={{
                 position: 'absolute',
-                right: '0px',
-                bottom: '30px',
+                left: '0px',
+                bottom: '10%',
                 width: '25%',
                 zIndex: '1'
               }}
             >
-              {/*{this.renderOneVsOneBoard()}*/}
+              {this.renderOneVsOneBoard()}
             </div>
 
-            <div>
+            <div
+            >
               <LineGraph data={this.state.data1} colour={'orange'} ref="line1" />
               <LineGraph data={this.state.data2} colour={'green'} ref="line2" />
             </div>
