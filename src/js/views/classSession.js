@@ -44,9 +44,9 @@ export default class ClassSession extends Component {
         full_name: 'Jake Roust',
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/mayo.jpg',
         coefficient: 1,
-        initial_points: 98,
+        initial_points: 101,
         points: 0, // TODO: add
-        colour: '#21c121'
+        colour: 'rgba(82, 192, 83, 0.8)'
       },
       {
         full_name: 'Casey Lim',
@@ -119,7 +119,7 @@ export default class ClassSession extends Component {
         profile_picture_url: 'https://s3-us-west-1.amazonaws.com/avatars-cloudworkout/mayo.jpg',
         coefficient: 0.8,
         points: data1[data1.length - 1],
-        colour: '#21c121'
+        colour: 'rgba(82, 192, 83, 0.8)'
       },
       {
         full_name: 'Valerie Yung',
@@ -350,12 +350,38 @@ export default class ClassSession extends Component {
     return (
       <div style={{fontFamily: 'Arimo'}} className="leaderboard">
 
+        {/*<div*/}
+          {/*style={{*/}
+            {/*position: 'absolute',*/}
+            {/*bottom: '80px',*/}
+            {/*padding: '15px',*/}
+            {/*width: '55%',*/}
+            {/*color: 'white',*/}
+            {/*// backgroundColor: 'rgb(19, 30, 61)',*/}
+            {/*height: '40px',*/}
+            {/*fontSize: '22px'*/}
+          {/*}}*/}
+        {/*>*/}
+          {/*<h5*/}
+            {/*// className="pull-right"*/}
+            {/*style={{*/}
+
+              {/*color: 'white',*/}
+              {/*margin: '0',*/}
+              {/*marginLeft: '57px'*/}
+            {/*}}*/}
+          {/*>*/}
+            {/*vs.*/}
+          {/*</h5>*/}
+
+        {/*</div>*/}
+
         <div style={{
           // backgroundColor: 'rgba(46,44,46, 0.8)',
           backgroundColor: 'none',
           height: '100%',
           overflowY: 'auto',
-          width: '100%',
+          width: '55%',
           color: 'white',
           zIndex: 1
         }}>
@@ -365,6 +391,13 @@ export default class ClassSession extends Component {
     )
   }
 
+  YouOrName(you, name) {
+    if (name == you) {
+      return "You"
+    } else {
+      return name;
+    }
+  }
   //this is just like renderPremiumParticipants except the participants get coloured
   //circles and don't display points
   renderCompetingParticipants(){
@@ -376,6 +409,7 @@ export default class ClassSession extends Component {
             padding: '25px',
             fontSize: '16px',
             paddingTop: index === 0 ? '20px' : '15px',
+            paddingBottom: '6px',
             backgroundColor: participant === Session.getCurrentUser().full_name ? 'rgba(19,30,61, 0.8)' : 'none'
           }}
         >
@@ -393,13 +427,22 @@ export default class ClassSession extends Component {
             }}
           >
 
+            {index === 0 ? (<div></div>) : (
+              <div style={{
+                marginLeft: '52px',
+                marginBottom: '20px'
+              }}>
+                vs.
+              </div>
+            )}
+
             <div
               className="pull-left"
               style={{
                 marginTop: '-10px',
                 marginRight: '10px',
-                width: '37px',
-                height: '37px',
+                width: '38px',
+                height: '38px',
                 borderRadius: '50%',
                 backgroundColor: participant.colour,
                 verticalAlign: 'middle'
@@ -418,8 +461,8 @@ export default class ClassSession extends Component {
                 }}
               />
             </div>
-
-            {participant.full_name}
+            {this.YouOrName('Jake Roust', participant.full_name)}
+            {/*{participant.full_name}*/}
           </span>
         </div>
       );
@@ -437,7 +480,7 @@ export default class ClassSession extends Component {
       let data = data = this.refs.line1.data;;
       if (participant.colour === 'orange') {
         data = this.refs.line1.state.data;
-      } else if (participant.colour === 'green') {
+      } else if (participant.colour === 'rgba(82, 192, 83, 0.8)') {
         data = this.refs.line2.state.data;
       }
       // console.log(data);
@@ -487,7 +530,7 @@ export default class ClassSession extends Component {
           </h5>
 
           <div className="pull-right">
-            Points
+            Score
           </div>
         </div>
 
@@ -514,25 +557,27 @@ export default class ClassSession extends Component {
             padding: '15px',
             fontSize: '12px',
             paddingTop: index === 0 ? '20px' : '15px',
-            backgroundColor: participant.full_name === "Jake Roust" ? 'rgba(19,30,61, 0.8)' : 'rgba(46,44,46, 0.8)'
+            backgroundColor: participant.colour || 'rgba(46,44,46, 0.8)'
+            // backgroundColor: participant.full_name === "Jake Roust" ? 'rgba(19,30,61, 0.8)' : 'rgba(46,44,46, 0.8)'
           }}
         >
 
           <div
             className="pull-right m-r-10" style={{
-              height: '15px',
-              width: '30px',
-              marginTop: '6px',
-              borderRadius: '25%',
+              height: '25px',
+              width: '45px',
+              marginTop: '3px',
+              borderRadius: '45%',
               // backgroundColor: participant.colour,
               verticalAlign: 'text-middle'
             }}
           >
-            <span style={{
-              margin: '5.5px'
+            <div style={{
+              margin: '6px',
+              textAlign: 'center'
             }}>
               {participant.points}
-            </span>
+            </div>
           </div>
 
           <span
@@ -668,7 +713,7 @@ export default class ClassSession extends Component {
             <div
             >
               <LineGraph data={this.state.data1} colour={'orange'} ref="line1" />
-              <LineGraph data={this.state.data2} colour={'#21c121'} ref="line2" />
+              <LineGraph data={this.state.data2} colour={'rgba(82, 192, 83, 0.8)'} ref="line2" />
             </div>
 
 

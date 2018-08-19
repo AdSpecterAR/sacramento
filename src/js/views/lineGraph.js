@@ -65,7 +65,7 @@ export default class LineGraph extends Component {
         <Trend data={this.state.data}
                smooth
                strokeWidth={1.8}
-               strokeOpacity={0.7}
+               strokeOpacity={1}
                markerEnd="url(#dot)"
                gradient={[this.props.colour]}
           // height={100}
