@@ -419,6 +419,15 @@ export default class ClassSession extends Component {
   }
 
   renderVideo(videoUrl, secondsAfterStartTime) {
+
+    document.oncontextmenu = function () { // Use document as opposed to window for IE8 compatibility
+      return false;
+    };
+
+    window.addEventListener('contextmenu', function (e) { // Not compatible with IE < 9
+      e.preventDefault();
+    }, false);
+    
     return (
       <div
         style={{maxWidth: `${this.state.width}px`,
