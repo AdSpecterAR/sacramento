@@ -442,7 +442,7 @@ export default class ClassSession extends Component {
         { this.isYoutubeLink(videoUrl) ? (
           this.renderYoutubeVideo(videoUrl)
         ) : (
-          <Player ref="player" autoPlay={true} muted={true}>
+          <Player ref="player" autoPlay={true} muted={true} preload={auto}>
             <source src={videoUrl +"#t=" + secondsAfterStartTime } />
             <BigPlayButton position="center" />
 
