@@ -428,6 +428,10 @@ export default class ClassSession extends Component {
       e.preventDefault();
     }, false);
 
+    if(!this.isCurrentlyStreaming()) {
+      secondsAfterStartTime = 0;
+    }
+
     return (
       <div
 
@@ -438,7 +442,7 @@ export default class ClassSession extends Component {
         { this.isYoutubeLink(videoUrl) ? (
           this.renderYoutubeVideo(videoUrl)
         ) : (
-          <Player ref="player" autoPlay={true} muted={true}>
+          <Player ref="player" autoPlay={true}>
             <source src={videoUrl +"#t=" + secondsAfterStartTime } />
             <BigPlayButton position="center" />
 
