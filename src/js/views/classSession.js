@@ -427,9 +427,10 @@ export default class ClassSession extends Component {
     window.addEventListener('contextmenu', function (e) { // Not compatible with IE < 9
       e.preventDefault();
     }, false);
-    
+
     return (
       <div
+
         style={{maxWidth: `${this.state.width}px`,
         position: 'relative'}}
         className="video-player-small"
@@ -437,7 +438,7 @@ export default class ClassSession extends Component {
         { this.isYoutubeLink(videoUrl) ? (
           this.renderYoutubeVideo(videoUrl)
         ) : (
-          <Player ref="player" autoPlay={true}>
+          <Player ref="player" autoPlay={true} muted={true}>
             <source src={videoUrl +"#t=" + secondsAfterStartTime } />
             <BigPlayButton position="center" />
 
