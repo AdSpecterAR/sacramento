@@ -100,7 +100,6 @@ export default class ClassSession extends Component {
 
     let newParticipants = premiumParticipants.map((participant) => {
       let { full_name, profile_picture_url, coefficient, points } = participant;
-      console.log(profile_picture_url);
       let newPoints = Math.round(points + (coefficient * Math.random(4)));
 
       return {
@@ -153,6 +152,7 @@ export default class ClassSession extends Component {
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
+    let isLive = courseSession.live;
     let startTime = this.getCourseStartTime();
     let liveStreamTime = this.getLiveStreamTime();
     // console.log(liveStreamTime);
@@ -165,7 +165,7 @@ export default class ClassSession extends Component {
       <div>
         {this.hasLiveStreamStarted(liveStreamTime) ? (
           <div>
-            {this.renderVideo(videoUrl, secondsAfterStartTime)}
+            {this.renderVideo(videoUrl, secondsAfterStartTime, isLive)}
           </div>
         ) : (
           <div>
@@ -418,7 +418,7 @@ export default class ClassSession extends Component {
     });
   }
 
-  renderVideo(videoUrl, secondsAfterStartTime) {
+  renderVideo(videoUrl, secondsAfterStartTime, isLive) {
 
     document.oncontextmenu = function () { // Use document as opposed to window for IE8 compatibility
       return false;
@@ -432,58 +432,83 @@ export default class ClassSession extends Component {
       secondsAfterStartTime = 0;
     }
 
+    if(this.isYoutubeLink(videoUrl)) {
+      return (
+        <div
+          style={{maxWidth: `${this.state.width}px`,
+            position: 'relative'}}
+          className="video-player-small"
+        >
+          {this.renderYoutubeVideo(videoUrl)}
+        </div>
+      )
+    } else if(isLive) {
+      return (
+        <div
+          style={{maxWidth: `${this.state.width}px`,
+            position: 'relative'}}
+          className="video-player-small">
+          {this.renderLiveVideo(videoUrl, secondsAfterStartTime)}
+        </div>
+      )
+
+    } else {
+      return (
+          <div
+            style={{maxWidth: `${this.state.width}px`,
+              position: 'relative'}}
+            className="video-player-small">
+            <Player ref="player" >
+              <source src={videoUrl +"#t=" + secondsAfterStartTime } />
+              <BigPlayButton position="center" />
+              <ControlBar />
+            </Player>
+          </div>
+      )
+    }
+  }
+
+  renderLiveVideo(videoUrl, secondsAfterStartTime) {
     return (
-      <div
+        <Player ref="player" autoPlay={true} muted={true} playsInline={true}>
+          <source src={videoUrl +"#t=" + secondsAfterStartTime } />
+          <BigPlayButton position="center" />
 
-        style={{maxWidth: `${this.state.width}px`,
-        position: 'relative'}}
-        className="video-player-small"
-      >
-        { this.isYoutubeLink(videoUrl) ? (
-          this.renderYoutubeVideo(videoUrl)
-        ) : (
-          <Player ref="player" autoPlay={true} muted={true} playsInline={true}>
-            <source src={videoUrl +"#t=" + secondsAfterStartTime } />
-            <BigPlayButton position="center" />
+          <div
+            style={{
+              position: 'absolute',
+              right: '0px',
+              top: '-40px',
+              width: '250px',
+              zIndex: '1'
+            }}
+          >
+            {this.renderLeaderboard()}
+          </div>
 
+          <ControlBar autoHide={false} disableDefaultControls>
+            <PlayToggle />
+            <VolumeMenuButton />
+            <FullscreenToggle />
             <div
+              className="pull-right"
               style={{
-                position: 'absolute',
-                right: '0px',
-                top: '-40px',
-                width: '250px',
-                zIndex: '1'
+                position: 'absolute', right: '70px',
+                marginTop: '10px',
+                marginRight: '10px',
+                width: '8px',
+                height: '8px',
+                borderRadius: '7px',
+                backgroundColor: '#ff0000'
               }}
             >
-              {this.renderLeaderboard()}
-            </div>
-
-            <ControlBar autoHide={false} disableDefaultControls>
-              <PlayToggle />
-              <VolumeMenuButton />
-              <FullscreenToggle />
-              <div
-                className="pull-right"
-                style={{
-                  position: 'absolute', right: '70px',
-                  marginTop: '10px',
-                  marginRight: '10px',
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '7px',
-                  backgroundColor: '#ff0000'
-                }}
-              >
-                <div style={{marginLeft: '15px', fontFamily: 'Arimo', fontSize: '12px', marginTop: '-1px' }}>
-                  Live
-                </div>
+              <div style={{marginLeft: '15px', fontFamily: 'Arimo', fontSize: '12px', marginTop: '-1px' }}>
+                Live
               </div>
-            </ControlBar>
-          </Player>
-        )}
-      </div>
+            </div>
+          </ControlBar>
+        </Player>
     )
-
   }
 
   isYoutubeLink(videoUrl) {
