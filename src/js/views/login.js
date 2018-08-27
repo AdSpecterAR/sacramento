@@ -241,7 +241,7 @@ class Login extends Component {
 
   constructUserRegistrationCredentials() {
     return {
-      user: {
+      registration: {
         first_name: this.state.firstName,
         last_name: this.state.lastName,
         email: this.state.email,

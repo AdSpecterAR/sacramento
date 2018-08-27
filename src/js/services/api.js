@@ -20,10 +20,15 @@ export default (() => {
       type: 'POST',
       url: '/users/sign_in'
     },
+    // {
+    //   name: 'registerNewUser',
+    //   type: 'POST',
+    //   url: '/register_new_user'
+    // },
     {
       name: 'registerNewUser',
-      type: 'POST',
-      url: '/register_new_user'
+      type: 'GET',
+      url: '/users/sign_up'
     },
     {
       name: 'facebookAuth',
