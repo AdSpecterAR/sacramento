@@ -63,6 +63,11 @@ export default (() => {
       id: 'user_course_session_id',
       url: id => `/user_course_sessions/${id}/feedback`
     },
+    {
+      name: 'getInstructors',
+      type: 'GET',
+      url: '/get_instructors'
+    }
   ];
 
   // TODO: finish API service
