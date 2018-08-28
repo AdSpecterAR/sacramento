@@ -7,6 +7,9 @@ import {
   Tab, Tabs, TabList, TabPanel
 }                               from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import AddCourseForm            from '../components/AddCourseForm'
+import AddCourseSessionForm     from '../components/AddCourseSessionForm'
+import InstructorForm           from '../components/InstructorForm'
 
 class AdminPanel extends Component {
 
@@ -16,21 +19,8 @@ class AdminPanel extends Component {
 
     this.state = {
       instructors: [],
-
-      courseName: '',
-      duration: 0,
-      category: '',
-      difficulty: '',
-      instructor: '',
-      description: '',
-      equipment: '',
-
-      start_time: '',
-      session_duration: 0,
-      video_url: '',
-      thumbnail_image_url: '',
-      course: '',
-      live: false,
+      users: [],
+      courses: [],
 
       first_name: '',
       last_name: '',
@@ -39,14 +29,18 @@ class AdminPanel extends Component {
     }
 
     this.fetchInstructors = this.fetchInstructors.bind(this);
+    this.fetchUsers = this.fetchUsers.bind(this);
+    this.fetchCourses = this.fetchCourses.bind(this);
   }
 
   componentDidMount() {
     this.fetchInstructors();
+    this.fetchUsers();
+    this.fetchCourses();
   }
 
   render() {
-    console.log(this.state.instructors);
+    console.log(this.state.users);
     return (
       <div>
         <Tabs>
@@ -57,152 +51,14 @@ class AdminPanel extends Component {
           </TabList>
 
           <TabPanel>
-            <div>
-              Add Course
+            <AddCourseForm instructors={this.state.instructors}/>
+          </TabPanel>
 
-              <div className="m-t-15">
-
-                Course Name:
-                <input
-                  type="string"
-                  className="form-control"
-                  placeholder="Course Name"
-                  value={this.state.courseName}
-                  // onChange={(e) => this.handleTextChange('lastName', e.target.value)}
-                />
-              </div>
-
-              <div className="m-t-15">
-
-                Duration(in minutes):
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="duration"
-                  value={this.state.duration}
-                />
-              </div>
-
-              <div className="m-t-15">
-
-                Category:
-                <select id="category">
-                  <option value="hiit"> HIIT </option>
-                  <option value="yoga"> Yoga </option>
-                  <option value="cardio"> Cardio </option>
-                </select>
-              </div>
-
-              <div className="m-t-15">
-
-                Difficulty:
-                <select id="difficulty">
-                  <option value="beginner"> Beginner </option>
-                  <option value="intermediate"> Intermediate </option>
-                  <option value="difficult"> Difficult </option>
-                </select>
-              </div>
-
-              <div className="m-t-15">
-                Instructor
-                <select id="instructor">
-                </select>
-              </div>
-
-              <div className="m-t-15">
-                Description(optional):
-                <input
-                  type="string"
-                  className="form-control"
-                  placeholder="description"
-                  value={this.state.description}
-                />
-              </div>
-
-              <div className="m-t-15">
-                Equipment(optional):
-                <input
-                  type="string"
-                  className="form-control"
-                  placeholder="equipment"
-                  value={this.state.equipment}
-                />
-              </div>
-
-
-
-            </div>
+          <TabPanel>
+            <AddCourseSessionForm courses={this.state.courses}/>
           </TabPanel>
           <TabPanel>
-            <div>
-              this is the add course sesion tab
-
-              <div className="m-t-15">
-                Start Time:
-                <input
-                  type="datetime-local"
-                  className="form-control"
-                  placeholder="Start Time"
-                  value={this.state.start_time}
-                />
-              </div>
-
-              <div className="m-t-15">
-                Duration(in minutes. This is optional and will override the default course duration) :
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="duration"
-                  value={this.state.session_duration}
-                />
-              </div>
-
-              <div className="m-t-15">
-                Video URL:
-                <input
-                  type="string"
-                  className="form-control"
-                  placeholder="Video Url"
-                  value={this.state.video_url}
-                />
-              </div>
-
-              <div className="m-t-15">
-                Thumbnail URL:
-                <input
-                  type="string"
-                  className="form-control"
-                  placeholder="Thumbnail Image Url"
-                  value={this.state.thumbnail_image_url}
-                />
-              </div>
-
-              <div className="m-t-15">
-                Course:
-                <input
-                  type="string"
-                  className="form-control"
-                  placeholder="Course"
-                  value={this.state.course}
-                />
-              </div>
-
-              <div className="m-t-15">
-                Live
-                <input
-                  type="checkbox"
-                  className="form-control"
-                  // placeholder="equipment"
-                  value={this.state.live}
-                />
-              </div>
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div>
-              this is the instructor tab
-              {/*look up user, set instructor flag to true*/}
-            </div>
+            <InstructorForm users={this.state.users}/>
           </TabPanel>
         </Tabs>
       </div>
@@ -215,13 +71,29 @@ class AdminPanel extends Component {
 
   fetchInstructors() {
     API.getInstructors()
-      .then(({users}) => {
-        let { instructors } = users;
-
+      .then(({instructors}) =>
         this.setState({
           instructors
-        });
-      });
+        }))
+      .catch((response) => console.log('fetch instructors error', response))
+  }
+
+  fetchUsers() {
+    API.getUsers()
+      .then(({users}) =>
+      this.setState({
+        users
+      }))
+      .catch((response) => console.log('fetch users error', response))
+  }
+
+  fetchCourses() {
+    API.getCourses()
+      .then(({courses}) =>
+      this.setState({
+        courses
+      }))
+      .catch((response) =>console.log('fetch courses error', response))
   }
 
 }
