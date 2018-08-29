@@ -18,7 +18,7 @@ class AddCourseForm extends Component {
       description: '',
       equipment: '',
 
-      success: false
+      courseCreated: false
     }
 
     this.create_course = this.create_course.bind(this);
@@ -133,7 +133,7 @@ class AddCourseForm extends Component {
   }
 
   renderSuccess() {
-    if(this.state.success) {
+    if(this.state.courseCreated) {
       return (
         <div>
           Course successfully added!
@@ -182,7 +182,7 @@ class AddCourseForm extends Component {
     API.createCourse(this.constructCourseFields())
       .then(({course}) => {
         this.setState( {
-          success: true
+          courseCreated: true
         })
       })
       .catch((error) => {

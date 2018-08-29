@@ -19,18 +19,15 @@ class AdminPanel extends Component {
 
     this.state = {
       instructors: [],
-      users: [],
       courses: [],
     }
 
     this.fetchInstructors = this.fetchInstructors.bind(this);
-    this.fetchUsers = this.fetchUsers.bind(this);
     this.fetchCourses = this.fetchCourses.bind(this);
   }
 
   componentDidMount() {
     this.fetchInstructors();
-    this.fetchUsers();
     this.fetchCourses();
   }
 
@@ -72,15 +69,6 @@ class AdminPanel extends Component {
           instructors
         }))
       .catch((response) => console.log('fetch instructors error', response))
-  }
-
-  fetchUsers() {
-    API.getUsers()
-      .then(({users}) =>
-      this.setState({
-        users
-      }))
-      .catch((response) => console.log('fetch users error', response))
   }
 
   fetchCourses() {

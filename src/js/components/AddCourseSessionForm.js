@@ -15,7 +15,7 @@ class AddCourseSessionForm extends Component {
       thumbnail_image_url: '',
       course_id: '',
 
-      success: false
+      courseCreated: false
     }
 
     this.create_course_session = this.create_course_session.bind(this);
@@ -112,7 +112,7 @@ class AddCourseSessionForm extends Component {
   }
 
   renderSuccess() {
-    if(this.state.success) {
+    if(this.state.courseCreated) {
       return (
         <div>
           Course session successfully added!
@@ -159,7 +159,7 @@ class AddCourseSessionForm extends Component {
     API.createCourseSession(this.constructCourseSessionFields())
       .then(({course_session}) => {
         this.setState( {
-          success: true
+          courseCreated: true
         })
       })
       .catch((error) => {
