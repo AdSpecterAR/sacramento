@@ -35,11 +35,11 @@ class AddCourseForm extends Component {
       <div>
         {this.renderSuccess()}
 
-        Add Course
+        * required
 
         <div className="m-t-15">
 
-          Course Name:
+          *Course Name:
           <input
             type="string"
             className="form-control"
@@ -51,7 +51,7 @@ class AddCourseForm extends Component {
 
         <div className="m-t-15">
 
-          Duration(in minutes):
+          *Duration(in minutes):
           <input
             type="number"
             className="form-control"
@@ -63,7 +63,7 @@ class AddCourseForm extends Component {
 
         <div className="m-t-15">
 
-          Category:
+          *Category:
           <select id="category"
                   onChange={(e) => this.handleTextChange('category', e.target.value)}
                   defaultValue=""
@@ -77,7 +77,7 @@ class AddCourseForm extends Component {
 
         <div className="m-t-15">
 
-          Difficulty:
+          *Difficulty:
           <select id="difficulty"
                   onChange={(e) => this.handleTextChange('difficulty', e.target.value)}
                   defaultValue="">
@@ -89,7 +89,7 @@ class AddCourseForm extends Component {
         </div>
 
         <div className="m-t-15">
-          Instructor
+          *Instructor
           <select id="instructor"
                   onChange={(e) => this.handleTextChange('instructor_id', e.target.value)}
                   defaultValue="">

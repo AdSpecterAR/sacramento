@@ -32,10 +32,10 @@ class AddCourseSessionForm extends Component {
       <div>
         {this.renderSuccess()}
 
-        Add Course Session
+        * required
 
         <div className="m-t-15">
-          Start Time:
+          *Start Time:
           <input
             type="datetime-local"
             className="form-control"
@@ -57,7 +57,7 @@ class AddCourseSessionForm extends Component {
         </div>
 
         <div className="m-t-15">
-          Video URL:
+          *Video URL:
           <input
             type="string"
             className="form-control"
@@ -68,7 +68,7 @@ class AddCourseSessionForm extends Component {
         </div>
 
         <div className="m-t-15">
-          Thumbnail URL:
+          *Thumbnail URL:
           <input
             type="string"
             className="form-control"
@@ -79,7 +79,7 @@ class AddCourseSessionForm extends Component {
         </div>
 
         <div className="m-t-15">
-          Course:
+          *Course:
           <select id="course"
           defaultValue=""
                   onChange={(e) => this.handleTextChange('course_id', e.target.value)}>
