@@ -26,6 +26,21 @@ export default (() => {
       url: '/register_new_user'
     },
     {
+      name: 'registerNewInstructor',
+      type: 'POST',
+      url: '/register_new_instructor'
+    },
+    {
+      name: 'createCourse',
+      type: 'POST',
+      url: '/create_course'
+    },
+    {
+      name: 'createCourseSession',
+      type: 'POST',
+      url: '/create_course_session'
+    },
+    {
       name: 'facebookAuth',
       type: 'POST',
       url: '/facebook_authentication'
@@ -41,7 +56,7 @@ export default (() => {
       url: '/subscribe'
     },
     {
-      name: 'getCourses',
+      name: 'getUpcomingCourses',
       type: 'GET',
       url: '/upcoming_courses'
     },

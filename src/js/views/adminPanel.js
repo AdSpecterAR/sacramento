@@ -21,11 +21,6 @@ class AdminPanel extends Component {
       instructors: [],
       users: [],
       courses: [],
-
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
     }
 
     this.fetchInstructors = this.fetchInstructors.bind(this);
@@ -40,15 +35,18 @@ class AdminPanel extends Component {
   }
 
   render() {
-    console.log(this.state.users);
     return (
       <div>
         <Tabs>
           <TabList>
+            <Tab>Add Instructor</Tab>
             <Tab>Add Course</Tab>
             <Tab>Add Course Session</Tab>
-            <Tab>Add Instructor</Tab>
           </TabList>
+
+          <TabPanel>
+            <InstructorForm instructors={this.state.instructors}/>
+          </TabPanel>
 
           <TabPanel>
             <AddCourseForm instructors={this.state.instructors}/>
@@ -57,9 +55,7 @@ class AdminPanel extends Component {
           <TabPanel>
             <AddCourseSessionForm courses={this.state.courses}/>
           </TabPanel>
-          <TabPanel>
-            <InstructorForm users={this.state.users}/>
-          </TabPanel>
+
         </Tabs>
       </div>
     )

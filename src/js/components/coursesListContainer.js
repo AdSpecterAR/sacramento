@@ -22,6 +22,7 @@ class CoursesListContainer extends Component {
   }
 
   render() {
+    console.log(this.state.upcoming_courses);
     return !this.state.loading && (
       <CoursesList upcoming_courses={this.state.upcoming_courses} />
     );
@@ -34,7 +35,7 @@ class CoursesListContainer extends Component {
 
 
   fetchCourses() {
-    API.getCourses()
+    API.getUpcomingCourses()
       .then(({courses}) => {
         let { upcoming_courses } = courses;
 
