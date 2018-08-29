@@ -420,6 +420,7 @@ export default class ClassSession extends Component {
 
   renderVideo(videoUrl, secondsAfterStartTime, isLive) {
 
+    // this disables right click so that people can't right click to show controls or save video
     document.oncontextmenu = function () { // Use document as opposed to window for IE8 compatibility
       return false;
     };
@@ -428,6 +429,7 @@ export default class ClassSession extends Component {
       e.preventDefault();
     }, false);
 
+    // if video is not currently streaming, this starts the video at the beginning instead of the middle
     if(!this.isCurrentlyStreaming()) {
       secondsAfterStartTime = 0;
     }
@@ -468,6 +470,7 @@ export default class ClassSession extends Component {
     }
   }
 
+  // renders video without controls
   renderLiveVideo(videoUrl, secondsAfterStartTime) {
     return (
         <Player ref="player" autoPlay={true} muted={true} playsInline={true}>
