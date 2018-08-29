@@ -31,6 +31,7 @@ class AddCourseForm extends Component {
         width: '100%'
       }
     };
+
     return (
       <div>
         {this.renderSuccess()}
@@ -38,7 +39,6 @@ class AddCourseForm extends Component {
         * required
 
         <div className="m-t-15">
-
           *Course Name:
           <input
             type="string"
@@ -50,7 +50,6 @@ class AddCourseForm extends Component {
         </div>
 
         <div className="m-t-15">
-
           *Duration(in minutes):
           <input
             type="number"
@@ -62,7 +61,6 @@ class AddCourseForm extends Component {
         </div>
 
         <div className="m-t-15">
-
           *Category:
           <select id="category"
                   onChange={(e) => this.handleTextChange('category', e.target.value)}
@@ -76,7 +74,6 @@ class AddCourseForm extends Component {
         </div>
 
         <div className="m-t-15">
-
           *Difficulty:
           <select id="difficulty"
                   onChange={(e) => this.handleTextChange('difficulty', e.target.value)}
@@ -134,18 +131,19 @@ class AddCourseForm extends Component {
 
   renderSuccess() {
     if(this.state.courseCreated) {
+
       return (
         <div>
           Course successfully added!
         </div>
       )
+
     } else {
       return;
     }
   }
 
   renderSubmitButton(styles) {
-    // new user registering with email and password
     return (
       <button
         onClick={this.create_course}

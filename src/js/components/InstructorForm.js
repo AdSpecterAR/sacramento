@@ -6,8 +6,6 @@ import ReactTable               from "react-table";
 import 'react-table/react-table.css'
 import Modal                    from '../services/modal';
 import API from "../services/api";
-import history from "../services/history";
-import Session from "../services/session";
 
 class InstructorForm extends Component {
 
@@ -31,6 +29,7 @@ class InstructorForm extends Component {
       <div>
 
         {this.renderInstructorForm()}
+
         <button
           onClick={() => this.openInstructorModalWithProps()}
           type="button"
@@ -60,6 +59,7 @@ class InstructorForm extends Component {
       Header: 'Email',
       accessor: 'email'
     }]
+
     return (
       <ReactTable
         data={this.props.instructors}
@@ -74,6 +74,7 @@ class InstructorForm extends Component {
         width: '100%'
       }
     };
+
     return (
       <Modal
         showModal={this.state.showModal}
@@ -131,6 +132,7 @@ class InstructorForm extends Component {
           </div>
 
           {this.renderSubmitButton(styles)}
+
         </div>
       </Modal>
     )
@@ -190,10 +192,6 @@ class InstructorForm extends Component {
       })
       .catch((error) => {
         console.log('error', error);
-
-        // this.setState({
-        //   shouldShowErrorMessages: true
-        // });
       });
   }
 }

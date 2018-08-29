@@ -28,8 +28,10 @@ class AddCourseSessionForm extends Component {
         width: '100%'
       }
     };
+
     return (
       <div>
+
         {this.renderSuccess()}
 
         * required
@@ -107,17 +109,20 @@ class AddCourseSessionForm extends Component {
         {/*</div>*/}
 
         {this.renderSubmitButton(styles)}
+
       </div>
     )
   }
 
   renderSuccess() {
+
     if(this.state.courseCreated) {
       return (
         <div>
           Course session successfully added!
         </div>
       )
+
     } else {
       return;
     }
