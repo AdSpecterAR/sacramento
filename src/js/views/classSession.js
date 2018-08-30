@@ -680,8 +680,8 @@ export default class ClassSession extends Component {
                 top: '0px',
                 zIndex: '1'
               }}>
-              <Metrics metric={Calories} ref="calories" />
-              <Metrics metric={HeartRate} ref="heartRate"/>
+              {/*<Metrics metric={Calories} ref="calories" />*/}
+              {/*<Metrics metric={HeartRate} ref="heartRate"/>*/}
             </div>
 
             <div
@@ -693,7 +693,7 @@ export default class ClassSession extends Component {
                 zIndex: '1'
               }}
             >
-              {this.renderLeaderboard()}
+              {/*{this.renderLeaderboard()}*/}
             </div>
 
             <div
@@ -707,13 +707,13 @@ export default class ClassSession extends Component {
 
               }}
             >
-              {this.renderOneVsOneBoard()}
+              {/*{this.renderOneVsOneBoard()}*/}
             </div>
 
             <div
             >
-              <LineGraph data={this.state.data1} colour={'orange'} ref="line1" />
-              <LineGraph data={this.state.data2} colour={'rgba(82, 192, 83, 0.8)'} ref="line2" />
+              {/*<LineGraph data={this.state.data1} colour={'orange'} ref="line1" />*/}
+              {/*<LineGraph data={this.state.data2} colour={'rgba(82, 192, 83, 0.8)'} ref="line2" />*/}
             </div>
 
 
