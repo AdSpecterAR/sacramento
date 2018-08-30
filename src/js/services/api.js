@@ -26,6 +26,21 @@ export default (() => {
       url: '/register_new_user'
     },
     {
+      name: 'registerNewInstructor',
+      type: 'POST',
+      url: '/admin/register_new_instructor'
+    },
+    {
+      name: 'createCourse',
+      type: 'POST',
+      url: '/admin/create_course'
+    },
+    {
+      name: 'createCourseSession',
+      type: 'POST',
+      url: '/admin/create_course_session'
+    },
+    {
       name: 'facebookAuth',
       type: 'POST',
       url: '/facebook_authentication'
@@ -41,7 +56,7 @@ export default (() => {
       url: '/subscribe'
     },
     {
-      name: 'getCourses',
+      name: 'getUpcomingCourses',
       type: 'GET',
       url: '/upcoming_courses'
     },
@@ -63,6 +78,21 @@ export default (() => {
       id: 'user_course_session_id',
       url: id => `/user_course_sessions/${id}/feedback`
     },
+    {
+      name: 'getInstructors',
+      type: 'GET',
+      url: '/get_instructors'
+    },
+    {
+      name: 'getUsers',
+      type: 'GET',
+      url: '/get_users'
+    },
+    {
+      name: 'getCourses',
+      type: 'GET',
+      url: '/get_courses'
+    }
   ];
 
   // TODO: finish API service

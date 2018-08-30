@@ -34,7 +34,7 @@ class CoursesListContainer extends Component {
 
 
   fetchCourses() {
-    API.getCourses()
+    API.getUpcomingCourses()
       .then(({courses}) => {
         let { upcoming_courses } = courses;
 

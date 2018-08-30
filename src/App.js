@@ -12,6 +12,7 @@ import Logout                     from './js/views/logout';
 import ClassSessionContainer      from './js/views/classSessionContainer';
 import CoursesListContainer       from './js/components/coursesListContainer';
 import CheckoutFormContainer      from './js/components/checkoutFormContainer';
+import AdminPanel                 from './js/views/adminPanel'
 import './App.css';
 
 
@@ -30,11 +31,12 @@ class App extends Component {
               <AuthorizedRoute exact path="/" component={CoursesListContainer} />
               <AuthorizedRoute path="/class/:classId" component={ClassSessionContainer} />
               <AuthorizedRoute path="/charge" component={CheckoutFormContainer} />
+              <AuthorizedRoute path="/admin" component={AdminPanel} />
             </Layout>
           </Switch>
         </StripeProvider>
       </Router>
-    );
+    )
   }
 }
 
