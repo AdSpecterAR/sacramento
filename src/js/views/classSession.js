@@ -163,9 +163,11 @@ export default class ClassSession extends Component {
     let premiumParticipants = _.clone(this.state.premiumParticipants);
 
     let newParticipants = premiumParticipants.map((participant) => {
+      
       let { full_name, profile_picture_url, coefficient, initial_points, points , colour} = participant;
       let addedPoints = (coefficient * Math.random() * 3);
       let newPoints = Math.round(points + addedPoints);
+
 
       return {
         full_name,
@@ -222,7 +224,9 @@ export default class ClassSession extends Component {
   render() {
     let courseSession = this.props.class_session.course_session;
     let videoUrl = courseSession.video_url;
-    // videoUrl = 'SadVid.mp4';
+
+    let isLive = courseSession.live;
+
     let startTime = this.getCourseStartTime();
     let liveStreamTime = this.getLiveStreamTime();
     let thumbnailUrl = courseSession.thumbnail_image_url;
@@ -232,7 +236,7 @@ export default class ClassSession extends Component {
       <div>
         {this.hasLiveStreamStarted(liveStreamTime) ? (
           <div>
-            {this.renderVideo(videoUrl, secondsAfterStartTime)}
+            {this.renderVideo(videoUrl, secondsAfterStartTime, isLive)}
           </div>
         ) : (
           <div>
@@ -656,24 +660,85 @@ export default class ClassSession extends Component {
     });
   }
 
-  renderVideo(videoUrl, secondsAfterStartTime) {
 
+  renderVideo(videoUrl, secondsAfterStartTime, isLive) {
+
+    // this disables right click so that people can't right click to show controls or save video
+    document.oncontextmenu = function () { // Use document as opposed to window for IE8 compatibility
+      return false;
+    };
+
+    window.addEventListener('contextmenu', function (e) { // Not compatible with IE < 9
+      e.preventDefault();
+    }, false);
+
+    // if video is not currently streaming, this starts the video at the beginning instead of the middle
+    if(!this.isCurrentlyStreaming()) {
+      secondsAfterStartTime = 0;
+    }
+
+    if(this.isYoutubeLink(videoUrl)) {
+      return (
+        <div
+          style={{maxWidth: `${this.state.width}px`,
+            position: 'relative'}}
+          className="video-player-small"
+        >
+          {this.renderYoutubeVideo(videoUrl)}
+        </div>
+      )
+    } else if(isLive) {
+      return (
+        <div
+          style={{maxWidth: `${this.state.width}px`,
+            position: 'relative'}}
+          className="video-player-small">
+          {this.renderLiveVideo(videoUrl, secondsAfterStartTime)}
+        </div>
+      )
+
+    } else {
+      // is an on-demand video
+      return (
+          <div
+            style={{maxWidth: `${this.state.width}px`,
+              position: 'relative'}}
+            className="video-player-small">
+            <Player ref="player" >
+              <source src={videoUrl +"#t=" + secondsAfterStartTime } />
+              <BigPlayButton position="center" />
+              <ControlBar />
+            </Player>
+          </div>
+      )
+    }
+  }
+
+  // renders video without controls
+  renderLiveVideo(videoUrl, secondsAfterStartTime) {
     return (
-      <div
-        style={{maxWidth: `${this.state.width}px`,
-        position: 'relative'}}
-        className="video-player-small"
-        ref="video"
-      >
-        { this.isYoutubeLink(videoUrl) ? (
-          this.renderYoutubeVideo(videoUrl)
-        ) : (
-          <Player ref="player" autoPlay={true} loop={true} >
-            {/*<source src={videoUrl +"#t=" + secondsAfterStartTime } />*/}
-            <source src={videoUrl} />
-            <BigPlayButton position="center" />
+        <Player ref="player" autoPlay={true} muted={true} playsInline={true}>
+          <source src={videoUrl +"#t=" + secondsAfterStartTime } />
+          <BigPlayButton position="center" />
 
+          <div
+            style={{
+              position: 'absolute',
+              right: '0px',
+              top: '-40px',
+              width: '250px',
+              zIndex: '1'
+            }}
+          >
+            {this.renderLeaderboard()}
+          </div>
+
+          <ControlBar autoHide={false} disableDefaultControls>
+            <PlayToggle />
+            <VolumeMenuButton />
+            <FullscreenToggle />
             <div
+              className="pull-right"
               style={{
                 position: 'absolute',
                 left: '0px',
@@ -737,10 +802,9 @@ export default class ClassSession extends Component {
                   Live
                 </div>
               </div>
-            </ControlBar>
-          </Player>
-        )}
-      </div>
+            </div>
+          </ControlBar>
+        </Player>
     )
   }
 

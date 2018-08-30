@@ -13,6 +13,7 @@ export default (() => {
         let baseURL = 'https://sunrise-dev.herokuapp.com'; // TODO: CHANGE TO BE DYNAMIC BY ENV
         //let baseURL = 'https://sunrise-production.herokuapp.com'; // TODO: CHANGE TO BE DYNAMIC BY ENV
 
+
         let url = baseURL + options.url;
 
         request.open(options.type, url);
