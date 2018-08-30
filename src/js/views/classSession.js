@@ -455,6 +455,7 @@ export default class ClassSession extends Component {
       )
 
     } else {
+      // is an on-demand video
       return (
           <div
             style={{maxWidth: `${this.state.width}px`,
