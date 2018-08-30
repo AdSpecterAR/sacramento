@@ -780,12 +780,6 @@ export default class ClassSession extends Component {
               {/*<LineGraph data={this.state.data1} colour={'orange'} ref="line1" />*/}
               {/*<LineGraph data={this.state.data2} colour={'rgba(82, 192, 83, 0.8)'} ref="line2" />*/}
             </div>
-
-
-            <ControlBar autoHide={false} disableDefaultControls>
-              <PlayToggle />
-              <VolumeMenuButton />
-              <FullscreenToggle />
               <div
                 className="pull-right"
                 style={{
@@ -802,7 +796,6 @@ export default class ClassSession extends Component {
                   Live
                 </div>
               </div>
-            </div>
           </ControlBar>
         </Player>
     )
