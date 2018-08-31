@@ -28,17 +28,17 @@ export default (() => {
     {
       name: 'registerNewInstructor',
       type: 'POST',
-      url: '/admin/register_new_instructor'
+      url: '/admin/users'
     },
     {
       name: 'createCourse',
       type: 'POST',
-      url: '/admin/create_course'
+      url: '/admin/courses'
     },
     {
       name: 'createCourseSession',
       type: 'POST',
-      url: '/admin/create_course_session'
+      url: '/admin/course_sessions'
     },
     {
       name: 'facebookAuth',

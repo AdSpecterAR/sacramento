@@ -22,7 +22,7 @@ class AddCourseSessionForm extends Component {
   }
 
   render() {
-    console.log(this.state);
+
     let styles = {
       button: {
         width: '100%'
