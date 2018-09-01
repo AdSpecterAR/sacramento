@@ -22,6 +22,7 @@ class CoursesListContainer extends Component {
   }
 
   render() {
+    console.log(this.state.upcoming_courses);
     return !this.state.loading && (
       <CoursesList upcoming_courses={this.state.upcoming_courses} />
     );

@@ -10,7 +10,7 @@ class AddCourseSessionForm extends Component {
 
     this.state = {
       start_time: '',
-      session_duration: 0,
+      session_duration: '',
       video_url: '',
       thumbnail_image_url: '',
       course_id: '',
@@ -37,7 +37,7 @@ class AddCourseSessionForm extends Component {
         * required
 
         <div className="m-t-15">
-          *Start Time:
+          *Start Time(UTC time):
           <input
             type="datetime-local"
             className="form-control"
@@ -89,12 +89,13 @@ class AddCourseSessionForm extends Component {
             {
               this.props.courses.map(function(course) {
               return <option
-                             value={course.id}>{course.name}</option>
+                             value={course.id}>{course.id} | {course.name} | {course.instructor_full_name} </option>
             })
             }
           </select>
         </div>
 
+        Select on-demand or live for this video in the rails console
         {/*this is to choose a live or on demand video, the migration for adding a live bool is on a separate branch, so add this field back in when you've merged everything*/}
         {/*<div className="m-t-15">*/}
           {/*Live:*/}
@@ -116,16 +117,12 @@ class AddCourseSessionForm extends Component {
 
   renderSuccess() {
 
-    if(this.state.courseCreated) {
-      return (
+    return (
+      this.state.courseCreated &&
         <div>
           Course session successfully added!
         </div>
-      )
-
-    } else {
-      return;
-    }
+    )
   }
 
   renderSubmitButton(styles) {
@@ -150,7 +147,7 @@ class AddCourseSessionForm extends Component {
 
   constructCourseSessionFields(){
     return {
-      course: {
+      course_session: {
         start_time: this.state.start_time,
         duration: this.state.session_duration,
         video_url: this.state.video_url,

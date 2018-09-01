@@ -130,17 +130,12 @@ class AddCourseForm extends Component {
   }
 
   renderSuccess() {
-    if(this.state.courseCreated) {
-
-      return (
+    return (
+      this.state.courseCreated &&
         <div>
           Course successfully added!
         </div>
-      )
-
-    } else {
-      return;
-    }
+    )
   }
 
   renderSubmitButton(styles) {

@@ -81,17 +81,12 @@ export default (() => {
     {
       name: 'getInstructors',
       type: 'GET',
-      url: '/get_instructors'
-    },
-    {
-      name: 'getUsers',
-      type: 'GET',
-      url: '/get_users'
+      url: '/instructors'
     },
     {
       name: 'getCourses',
       type: 'GET',
-      url: '/get_courses'
+      url: '/courses'
     }
   ];
 
