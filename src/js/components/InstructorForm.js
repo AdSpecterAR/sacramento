@@ -177,7 +177,6 @@ class InstructorForm extends Component {
         last_name: this.state.lastName,
         email: this.state.email,
         password: this.state.password,
-        instructor: true
       }
     }
   }
